@@ -14,6 +14,7 @@ type token =
   | DRAWING
   | AFFECT
   | DRAW
+  | NEW
   | POINT
   | LINE
   | VAR of (string)
@@ -23,7 +24,7 @@ open Parsing;;
 # 1 "grapheur_parser.mly"
 
   open Functions;;
-# 27 "grapheur_parser.ml"
+# 28 "grapheur_parser.ml"
 let yytransl_const = [|
     0 (* EOF *);
   257 (* BEGIN_EMBRACE *);
@@ -40,52 +41,56 @@ let yytransl_const = [|
   268 (* DRAWING *);
   269 (* AFFECT *);
   270 (* DRAW *);
-  271 (* POINT *);
-  272 (* LINE *);
+  271 (* NEW *);
+  272 (* POINT *);
+  273 (* LINE *);
     0|]
 
 let yytransl_block = [|
-  273 (* VAR *);
-  274 (* NUMBER *);
+  274 (* VAR *);
+  275 (* NUMBER *);
     0|]
 
 let yylhs = "\255\255\
 \001\000\002\000\003\000\000\000"
 
 let yylen = "\002\000\
-\002\000\010\000\008\000\002\000"
+\002\000\010\000\011\000\002\000"
 
 let yydefred = "\000\000\
 \000\000\000\000\000\000\004\000\000\000\000\000\001\000\000\000\
 \000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
-\002\000\000\000\000\000\000\000\000\000\000\000\003\000"
+\002\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
+\000\000\003\000"
 
 let yydgoto = "\002\000\
 \004\000\005\000\015\000"
 
 let yysindex = "\255\255\
-\245\254\000\000\241\254\000\000\003\000\251\254\000\000\243\254\
-\246\254\244\254\254\254\008\255\252\254\249\254\010\255\011\255\
-\000\000\253\254\007\255\255\254\012\255\013\255\000\000"
+\245\254\000\000\240\254\000\000\003\000\251\254\000\000\242\254\
+\244\254\246\254\253\254\007\255\250\254\249\254\010\255\000\255\
+\000\000\255\254\001\255\012\255\002\255\013\255\003\255\014\255\
+\011\255\000\000"
 
 let yyrindex = "\000\000\
 \000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
 \000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
-\000\000\000\000\000\000\000\000\000\000\000\000\000\000"
+\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\
+\000\000\000\000"
 
 let yygindex = "\000\000\
 \000\000\000\000\000\000"
 
-let yytablesize = 18
+let yytablesize = 22
 let yytable = "\001\000\
-\003\000\006\000\007\000\008\000\009\000\011\000\010\000\012\000\
-\013\000\016\000\014\000\017\000\020\000\018\000\019\000\022\000\
-\021\000\023\000"
+\003\000\006\000\007\000\008\000\009\000\010\000\012\000\013\000\
+\011\000\014\000\016\000\017\000\018\000\019\000\021\000\026\000\
+\020\000\025\000\023\000\000\000\022\000\024\000"
 
 let yycheck = "\001\000\
-\012\001\017\001\000\000\009\001\018\001\018\001\017\001\010\001\
-\001\001\017\001\015\001\002\001\006\001\003\001\018\001\004\001\
-\018\001\005\001"
+\012\001\018\001\000\000\009\001\019\001\018\001\010\001\001\001\
+\019\001\016\001\018\001\002\001\013\001\015\001\003\001\005\001\
+\016\001\004\001\006\001\255\255\019\001\019\001"
 
 let yynames_const = "\
   EOF\000\
@@ -103,6 +108,7 @@ let yynames_const = "\
   DRAWING\000\
   AFFECT\000\
   DRAW\000\
+  NEW\000\
   POINT\000\
   LINE\000\
   "
@@ -117,9 +123,9 @@ let yyact = [|
 ; (fun __caml_parser_env ->
     let _1 = (Parsing.peek_val __caml_parser_env 1 : 'dessin) in
     Obj.repr(
-# 35 "grapheur_parser.mly"
+# 36 "grapheur_parser.mly"
              (_1)
-# 123 "grapheur_parser.ml"
+# 129 "grapheur_parser.ml"
                : string))
 ; (fun __caml_parser_env ->
     let _2 = (Parsing.peek_val __caml_parser_env 8 : string) in
@@ -128,18 +134,18 @@ let yyact = [|
     let _6 = (Parsing.peek_val __caml_parser_env 4 : int) in
     let _9 = (Parsing.peek_val __caml_parser_env 1 : 'corps) in
     Obj.repr(
-# 40 "grapheur_parser.mly"
+# 41 "grapheur_parser.mly"
                                   (_9)
-# 134 "grapheur_parser.ml"
+# 140 "grapheur_parser.ml"
                : 'dessin))
 ; (fun __caml_parser_env ->
-    let _2 = (Parsing.peek_val __caml_parser_env 6 : string) in
-    let _4 = (Parsing.peek_val __caml_parser_env 4 : int) in
-    let _6 = (Parsing.peek_val __caml_parser_env 2 : int) in
+    let _2 = (Parsing.peek_val __caml_parser_env 9 : string) in
+    let _7 = (Parsing.peek_val __caml_parser_env 4 : int) in
+    let _9 = (Parsing.peek_val __caml_parser_env 2 : int) in
     Obj.repr(
-# 44 "grapheur_parser.mly"
-                                                            (_2)
-# 143 "grapheur_parser.ml"
+# 45 "grapheur_parser.mly"
+                                                                             (_2)
+# 149 "grapheur_parser.ml"
                : 'corps))
 (* Entry main *)
 ; (fun __caml_parser_env -> raise (Parsing.YYexit (Parsing.peek_val __caml_parser_env 0)))

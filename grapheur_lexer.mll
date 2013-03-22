@@ -12,10 +12,11 @@ rule token = parse
   
   | "function" {print_endline "FUNCTION" ; FUNCTION}
   | "draw" {print_endline "DRAW" ; DRAW}
-  | ":=" {print_endline "AFFECT" ; AFFECT}
   | "drawing" {print_endline "DRAWING" ; DRAWING}
+  | "new" {print_endline "new" ; NEW}
   
   
+  | ":=" {print_endline "AFFECT" ; AFFECT}
   | '{' {print_endline "{";BEGIN_EMBRACE}
   | '}' {print_endline "}";END_EMBRACE}
   | '(' {print_endline "(";BEGIN_PAR}

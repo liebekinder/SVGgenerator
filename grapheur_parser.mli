@@ -14,6 +14,7 @@ type token =
   | DRAWING
   | AFFECT
   | DRAW
+  | NEW
   | POINT
   | LINE
   | VAR of (string)
