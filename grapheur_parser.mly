@@ -19,7 +19,6 @@
 %token DRAWING
 %token AFFECT
 %token DRAW
-%token NEW
 
 %token POINT
 %token LINE
@@ -28,7 +27,8 @@
 %token <int> NUMBER
 
 %start main
-%type <string> main
+%type <Fonctions.t_arbreB arbre> main
+
 
 %%
 
@@ -38,9 +38,9 @@ main:
 
 dessin:
   DRAWING VAR BEGIN_BRACE NUMBER VAR NUMBER END_BRACE
-  BEGIN_EMBRACE corps END_EMBRACE {$9}
+  BEGIN_EMBRACE corps END_EMBRACE {Node {value=Drawing; left=Node {value=$2; left=Empty; right=Empty}; right=Node{value=DrawingSize; left=Node{value=$5; left=Node{value=$4; left=Empty; right=Empty}; right=Node{value=$6; left=Empty; right=Empty}}; right=Node{value=BlocEmbrace; left=$9; right=Empty}}}}
 ;
 
 corps:
-  POINT VAR AFFECT NEW POINT BEGIN_PAR NUMBER COMMA NUMBER END_PAR SEMICOLON {$2}
+  POINT VAR BEGIN_PAR NUMBER COMMA NUMBER END_PAR SEMICOLON {Node {value=Declaration; left=Node{value=Point; left=Node{value=BlocBrace; left=Node{value=$4; left=Empty; right=Empty}, right=Node{value=Parameter; left=Node{value=$6; left=Empty; right=Empty}; right=Empty}; right=Empty}; rigth=Node{value=$2; left=Empty; right=Empty}}}}
 ;

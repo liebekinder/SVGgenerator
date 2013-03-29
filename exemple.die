@@ -22,8 +22,7 @@ drawing monDessin [256 x 256]
         draw basse;
     }*/
 
-    Point origineSablier := new Point(50,50); //origine sablier
-    //loul
+    Point origineSablier(50,50); //origine sablier
     //Point c := origineSablier;
     //origineSablier.x := 40;
     //dessineSablier(c,20,20);

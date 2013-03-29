@@ -8,8 +8,23 @@ type t_module = {
   nom     : string; 
   entrees : string list;
   sorties : string list};;
+  
 
 type t_modules = string list * string list * t_module list;;
+
+type operation =
+    Drawing
+  | DrawingSize
+  | BlocEmbrace
+  | Declaration
+  | BlocBrace
+  | Parameters
+  | Point
+  | Var of (string)
+  | Number of (int);;
+  
+type t_arbreB = Empty | Node of node
+        and node = { value: operation; left: t_arbreB; right: t_arbreB };;
 
 (*****************************)
 (* Opérations sur les listes *)

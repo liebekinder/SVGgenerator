@@ -14,11 +14,10 @@ type token =
   | DRAWING
   | AFFECT
   | DRAW
-  | NEW
   | POINT
   | LINE
   | VAR of (string)
   | NUMBER of (int)
 
 val main :
-  (Lexing.lexbuf  -> token) -> Lexing.lexbuf -> string
+  (Lexing.lexbuf  -> token) -> Lexing.lexbuf -> Fonctions.t_arbreB arbre
