@@ -38,7 +38,7 @@ main:
 
 dessin:
   DRAWING VAR BEGIN_BRACE NUMBER VAR NUMBER END_BRACE
-  BEGIN_EMBRACE corps END_EMBRACE {
+  BEGIN_EMBRACE instruction END_EMBRACE {
   Node {value=Drawing; 
 	left=Node {value=Var($2); 
 		    left=Empty; 
@@ -64,17 +64,94 @@ dessin:
 }
 ;
 
-corps:
-  POINT VAR BEGIN_PAR NUMBER COMMA NUMBER END_PAR SEMICOLON { 
-  Node{value=Declaration;
-      left=Node{value=Point;
-		left=Empty;
-		right=Empty
-	      };
-      right=Node{value=Var($2); 
-		left=Empty; 
-		right=Empty
-		}
+instruction:
+  declaration instruction {
+    Node{value=Instruction;
+	  left=$1;
+	  right=$2
+	  }
   }
+| declaration {
+    Node{value=Instruction;
+	  left=$1;
+	  right=Empty
+	  }
+  }
+
+| dessine instruction {
+    Node{value=Instruction;
+	  left=$1;
+	  right=$2
+	  }
+  }
+| dessine {
+    Node{value=Instruction;
+	  left=$1;
+	  right=Empty
+	  }
+  }
+;
+
+declaration:
+  POINT VAR BEGIN_PAR NUMBER COMMA NUMBER END_PAR SEMICOLON {
+    Node{value=Declaration;
+	left=Node{value=Var($2); 
+		  left=Empty; 
+		  right=Empty
+		  };
+	right=Node{value=Point;
+		  left=Node{value=BlocBrace;
+			    left=Node{value=Number($4);
+				      left=Empty;
+				      right=Empty
+				      };
+			    right=Node{value=Parameters;
+					left=Node{value=Number($6);
+						  left=Empty;
+						  right=Empty
+						  };
+					right=Empty
+					}
+			    };
+		  right=Empty
+		}
+    }
 }
+
+| LINE VAR BEGIN_PAR VAR COMMA VAR END_PAR SEMICOLON {
+    Node{value=Declaration;
+	left=Node{value=Var($2); 
+		  left=Empty; 
+		  right=Empty
+		  };
+	right=Node{value=Line;
+		  left=Node{value=BlocBrace;
+			    left=Node{value=Var($4);
+				      left=Empty;
+				      right=Empty
+				      };
+			    right=Node{value=Parameters;
+					left=Node{value=Var($6);
+						  left=Empty;
+						  right=Empty
+						  };
+					right=Empty
+					}
+			    };
+		  right=Empty
+		}
+    }
+}
+;
+
+dessine:
+  DRAW VAR SEMICOLON {
+    Node{value=Draw;
+	  left=Node{value=Var($2);
+		    left=Empty;
+		    right=Empty
+		    };
+	  right=Empty
+	  }
+    }
 ;

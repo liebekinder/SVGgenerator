@@ -20,6 +20,9 @@ type operation =
   | BlocBrace
   | Parameters
   | Point
+  | Line
+  | Instruction
+  | Draw
   | Var of (string)
   | Number of (int);;
   
@@ -42,6 +45,9 @@ let print_value v = match v with
   | BlocBrace -> print_endline "BlocBrace"
   | Parameters -> print_endline "Parameters"
   | Point -> print_endline "Point"
+  | Line -> print_endline "Line"
+  | Instruction -> print_endline "Instruction"
+  | Draw -> print_endline "Draw"
   | Var(s) -> print_endline s
   | Number(i) -> print_endline (string_of_int i);;
 
@@ -49,8 +55,7 @@ let rec print_tree t p = match t with
   | Empty -> ()
   | Node(n) -> for i=0 to p do print_string "    " done;print_value n.value;print_tree n.left (p+1);print_tree n.right (p+1);;
   
-let a_exp = Node({ value=Drawing; left=Node({ value=Parameters; left=Empty; right=Empty }); right=Empty });;
-print_tree a_exp 0;;
+  
  (******************************************)
 
 (* Ajoute un élément à la liste s'il n'y est pas déjà *)

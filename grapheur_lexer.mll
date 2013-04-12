@@ -28,6 +28,7 @@ rule token = parse
   | ']' {print_endline "]";END_BRACE}
   
   | "Point" {print_endline "Point"; POINT}
+  | "Line" {print_endline "Line"; LINE}
   
   | number as lxm {print_endline ("Number : "^lxm);NUMBER(int_of_string lxm)}
   | variable as lxm {print_endline ("Var : "^lxm);VAR(lxm)}

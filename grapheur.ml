@@ -9,5 +9,7 @@ let _ =
     then print_endline "This file does not exist" else
   let lexbuf = Lexing.from_channel (open_in input_file) in
   let f = Grapheur_parser.main Grapheur_lexer.token lexbuf in
+  print_endline "--------------------------------------------------------";
   print_tree f 0;
+  print_endline "--------------------------------------------------------";
   ;;
