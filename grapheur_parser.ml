@@ -131,34 +131,49 @@ let yyact = [|
 # 41 "grapheur_parser.mly"
                                   (
   Node {value=Drawing; 
-    left=Node {value=Var(_2); left=Empty; right=Empty};
-    right=Node{value=DrawingSize; 
-      left=Node{value=Var(_5); 
-	left=Node{value=Number(_4); left=Empty; right=Empty}; 
-	right=Node{value=Number(_6); left=Empty; right=Empty}
-	}; 
-      right=Node{value=BlocEmbrace; left=_9; right=Empty}
-    }
-  }
+	left=Node {value=Var(_2); 
+		    left=Empty; 
+		    right=Empty
+		    };
+	right=Node{value=DrawingSize; 
+		  left=Node{value=Var(_5); 
+			    left=Node{value=Number(_4); 
+				      left=Empty; 
+				      right=Empty
+				      }; 
+			    right=Node{value=Number(_6); 
+				      left=Empty;
+				      right=Empty
+				      }
+			    }; 
+		  right=Node{value=BlocEmbrace; 
+			      left=_9; 
+			      right=Empty
+			      }
+		}
+      }
 )
-# 145 "grapheur_parser.ml"
+# 157 "grapheur_parser.ml"
                : 'dessin))
 ; (fun __caml_parser_env ->
     let _2 = (Parsing.peek_val __caml_parser_env 6 : string) in
     let _4 = (Parsing.peek_val __caml_parser_env 4 : int) in
     let _6 = (Parsing.peek_val __caml_parser_env 2 : int) in
     Obj.repr(
-# 56 "grapheur_parser.mly"
+# 68 "grapheur_parser.mly"
                                                             ( 
-  Node {value=Declaration;
-    left=Empty; 
-    right= Node{
-      left= Empty;
-      right = Node{value=Var(_2); left=Empty; right=Empty}
-    }
-  } 
+  Node{value=Declaration;
+      left=Node{value=Point;
+		left=Empty;
+		right=Empty
+	      };
+      right=Node{value=Var(_2); 
+		left=Empty; 
+		right=Empty
+		}
+  }
 )
-# 162 "grapheur_parser.ml"
+# 177 "grapheur_parser.ml"
                : 'corps))
 (* Entry main *)
 ; (fun __caml_parser_env -> raise (Parsing.YYexit (Parsing.peek_val __caml_parser_env 0)))
