@@ -1,0 +1,15 @@
+Grammaire SVGgenerator
+
+Vt = { 'drawing'; '['; ']'; 'x'; '{'; '}'; 'Point'; '('; ','; ')'; ';'; 'Line'; 'draw'; 'var'; 'number'; 'eof'}
+Vn = {S; Taille; X; Bloc{; Instructions; Instr; Declaration; Draw;}
+
+S		-> Drawing.'eof'
+Drawing		-> 'drawing'.'var'.Taille
+Taille		-> '['.'number' 'x' 'number'.']'
+Bloc{		-> '{'.Instructions.'}'
+Instructions	-> Instr.Instructions
+Instructions	-> Instr
+Instr		-> Declaration + Draw
+Declaration	-> 'Point'.'var'.'('.'number'.','.'number'.')'.';'
+Declaration	-> 'Line'.'var'.'('.'var'.','.'var'.')'.';'
+Draw		-> 'draw'.'var'.';'
