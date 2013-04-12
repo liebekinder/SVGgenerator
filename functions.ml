@@ -30,6 +30,29 @@ type t_arbreB = Empty | Node of node
 (* Opérations sur les listes *)
 (*****************************)
 
+(******************************)
+(* Opération sur les t_arbreB *)
+(******************************)
+
+let print_value v = match v with
+  | Drawing -> print_endline "Drawing"
+  | DrawingSize -> print_endline "DrawingSize"
+  | BlocEmbrace -> print_endline "BlocEmbrace"
+  | Declaration -> print_endline "Declaration"
+  | BlocBrace -> print_endline "BlocBrace"
+  | Parameters -> print_endline "Parameters"
+  | Point -> print_endline "Point"
+  | Var(s) -> print_endline s
+  | Number(i) -> print_endline (string_of_int i);;
+
+let rec print_tree t p = match t with
+  | Empty -> ()
+  | Node(n) -> for i=0 to p do print_string "    " done;print_value n.value;print_tree n.left (p+1);print_tree n.right (p+1);;
+  
+let a_exp = Node({ value=Drawing; left=Node({ value=Parameters; left=Empty; right=Empty }); right=Empty });;
+print_tree a_exp 0;;
+ (******************************************)
+
 (* Ajoute un élément à la liste s'il n'y est pas déjà *)
 let rec list_add e l = match (e,l) with
     (a,[]) -> [a]

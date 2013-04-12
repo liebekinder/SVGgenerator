@@ -20,4 +20,4 @@ type token =
   | NUMBER of (int)
 
 val main :
-  (Lexing.lexbuf  -> token) -> Lexing.lexbuf -> Fonctions.t_arbreB arbre
+  (Lexing.lexbuf  -> token) -> Lexing.lexbuf -> Functions.t_arbreB

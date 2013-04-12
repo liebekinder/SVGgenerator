@@ -27,7 +27,7 @@
 %token <int> NUMBER
 
 %start main
-%type <Fonctions.t_arbreB arbre> main
+%type <Functions.t_arbreB> main
 
 
 %%
@@ -38,9 +38,28 @@ main:
 
 dessin:
   DRAWING VAR BEGIN_BRACE NUMBER VAR NUMBER END_BRACE
-  BEGIN_EMBRACE corps END_EMBRACE {Node {value=Drawing; left=Node {value=$2; left=Empty; right=Empty}; right=Node{value=DrawingSize; left=Node{value=$5; left=Node{value=$4; left=Empty; right=Empty}; right=Node{value=$6; left=Empty; right=Empty}}; right=Node{value=BlocEmbrace; left=$9; right=Empty}}}}
+  BEGIN_EMBRACE corps END_EMBRACE {
+  Node {value=Drawing; 
+    left=Node {value=Var($2); left=Empty; right=Empty};
+    right=Node{value=DrawingSize; 
+      left=Node{value=Var($5); 
+	left=Node{value=Number($4); left=Empty; right=Empty}; 
+	right=Node{value=Number($6); left=Empty; right=Empty}
+	}; 
+      right=Node{value=BlocEmbrace; left=$9; right=Empty}
+    }
+  }
+}
 ;
 
 corps:
-  POINT VAR BEGIN_PAR NUMBER COMMA NUMBER END_PAR SEMICOLON {Node {value=Declaration; left=Node{value=Point; left=Node{value=BlocBrace; left=Node{value=$4; left=Empty; right=Empty}, right=Node{value=Parameter; left=Node{value=$6; left=Empty; right=Empty}; right=Empty}; right=Empty}; rigth=Node{value=$2; left=Empty; right=Empty}}}}
+  POINT VAR BEGIN_PAR NUMBER COMMA NUMBER END_PAR SEMICOLON { 
+  Node {value=Declaration;
+    left=Empty; 
+    right= Node{
+      left= Empty;
+      right = Node{value=Var($2); left=Empty; right=Empty}
+    }
+  } 
+}
 ;
