@@ -4,7 +4,7 @@ Vt = { 'drawing'; '['; ']'; 'x'; '{'; '}'; 'Point'; '('; ','; ')'; ';'; 'Line'; 
 Vn = {S; Taille; X; Bloc{; Instructions; Instr; Declaration; Draw;}
 
 S		-> Drawing.'eof'
-Drawing		-> 'drawing'.'var'.Taille
+Drawing		-> 'drawing'.'var'.Taille.Bloc{
 Taille		-> '['.'number' 'x' 'number'.']'
 Bloc{		-> '{'.Instructions.'}'
 Instructions	-> Instr.Instructions

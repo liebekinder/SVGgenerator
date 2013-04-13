@@ -14,14 +14,23 @@ type t_modules = string list * string list * t_module list;;
 
 type operation =
     Drawing
+  | Root
+  | Function
+  | Functions
   | DrawingSize
   | BlocEmbrace
   | Declaration
   | BlocBrace
+  | BlocPar
   | Parameters
+  | Parameter
+  | ParametersUse
+  | ParameterUse
+  | FunctionUse
   | Point
   | Line
   | Instruction
+  | Comma
   | Draw
   | Var of (string)
   | Number of (int);;
@@ -40,13 +49,22 @@ type t_arbreB = Empty | Node of node
 let print_value v = match v with
   | Drawing -> print_endline "Drawing"
   | DrawingSize -> print_endline "DrawingSize"
+  | Root -> print_endline "Root"
+  | Function -> print_endline "Function"
+  | Functions -> print_endline "Functions"
   | BlocEmbrace -> print_endline "BlocEmbrace"
+  | BlocPar -> print_endline "BlocPar"
   | Declaration -> print_endline "Declaration"
   | BlocBrace -> print_endline "BlocBrace"
   | Parameters -> print_endline "Parameters"
+  | Parameter -> print_endline "Parameter"
+  | ParametersUse -> print_endline "ParametersUse"
+  | ParameterUse -> print_endline "ParameterUse"
+  | FunctionUse -> print_endline "FunctionUse"
   | Point -> print_endline "Point"
   | Line -> print_endline "Line"
   | Instruction -> print_endline "Instruction"
+  | Comma -> print_endline ","
   | Draw -> print_endline "Draw"
   | Var(s) -> print_endline s
   | Number(i) -> print_endline (string_of_int i);;
