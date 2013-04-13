@@ -175,6 +175,7 @@ Il nous a été demandé d'écrire un compilateur, en OCAML, d'un langage de not
 \chapter{Évolution du projet}
 \section{Définition d'une grammaire}
 La toute première étape d'une telle tâche est la définition d'une grammaire. Afin de pourvoir y arriver, nous avons décidé de commencer avec une grammaire ne permettant que quelques actions basiques. A savoir utiliser des variables, dessiner des points et tracer des lignes.
+%TODO grammaire
 
 \section{Lexer}
 Nous avons alors écrit l'analyseur syntaxique, comprenant les mots de notre grammaire. Cette étape est de loin la plus facile.
@@ -204,5 +205,6 @@ type t_arbreB = Empty | Node of node
 
 \section{Et le bonheur arrive.}
 Viens alors la partie de loin la plus fastidieuse. En effet, pour transformer cet arbre binaire en svg, nous avons besoin d'une implémentation d'un automate à pile. Pour ceci point de choix. Nous passerons par une table shift-reduce. A la vue de la taille du vocabulaire, cette table est tout sauf petite.
+%TODO table s-r
 
 \end{document}
