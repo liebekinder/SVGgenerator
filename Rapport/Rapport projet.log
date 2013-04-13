@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.3.31)  13 APR 2013 11:38
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.3.31)  13 APR 2013 11:53
 entering extended mode
 **F:/GitHub/SVGgenerator/Rapport/Rapport*projet.tex
 ("F:/GitHub/SVGgenerator/Rapport/Rapport projet.tex"
@@ -807,8 +807,16 @@ Package caption Info: End \AtBeginDocument code.
 \c@lstlisting=\count139
 
 
-Package Fancyhdr Warning: \fancyfoot's `E' option without twoside option is use
-less on input line 154.
+Package Fancyhdr Warning: \fancyhead's `E' option without twoside option is use
+less on input line 153.
+
+
+Package Fancyhdr Warning: \fancyhead's `E' option without twoside option is use
+less on input line 153.
+
+
+Package Fancyhdr Warning: \fancyhead's `E' option without twoside option is use
+less on input line 153.
 
 
 Package Fancyhdr Warning: \fancyfoot's `E' option without twoside option is use
@@ -820,11 +828,15 @@ less on input line 154.
 
 
 Package Fancyhdr Warning: \fancyfoot's `E' option without twoside option is use
-less on input line 159.
+less on input line 154.
 
 
-Package Fancyhdr Warning: \fancyfoot's `E' option without twoside option is use
-less on input line 160.
+Package Fancyhdr Warning: \fancyhead's `E' option without twoside option is use
+less on input line 157.
+
+
+Package Fancyhdr Warning: \fancyhead's `E' option without twoside option is use
+less on input line 158.
 
 LaTeX Font Info:    Try loading font information for OT1+lmr on input line 165.
 
@@ -914,17 +926,24 @@ Overfull \hbox (6.0pt too wide) in paragraph at lines 187--187
 
 [3
 
-] 
+]
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 13.59999pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[4] 
 AED: lastpage setting LastPage
-[4] ("F:\GitHub\SVGgenerator\Rapport\Rapport projet.aux") ) 
+[5] ("F:\GitHub\SVGgenerator\Rapport\Rapport projet.aux") ) 
 Here is how much of TeX's memory you used:
- 8531 strings out of 493921
- 117824 string characters out of 3147276
+ 8530 strings out of 493921
+ 117807 string characters out of 3147276
  224888 words of memory out of 3000000
- 11606 multiletter control sequences out of 15000+200000
- 77340 words of font info for 64 fonts, out of 3000000 for 9000
+ 11605 multiletter control sequences out of 15000+200000
+ 74545 words of font info for 63 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 44i,11n,65p,367b,1759s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 44i,12n,65p,367b,1759s stack positions out of 5000i,500n,10000p,200000b,50000s
 {F:/Program Files/Mi
 KTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}<F:/Program Files/MiKTeX 2.9/fonts/type1/
 public/lm/lmbx10.pfb><F:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmcsc10
@@ -933,9 +952,9 @@ iles/MiKTeX 2.9/fonts/type1/public/lm/lmr12.pfb><F:/Program Files/MiKTeX 2.9/fo
 nts/type1/public/lm/lmr17.pfb><F:/Program Files/MiKTeX 2.9/fonts/type1/public/l
 m/lmr9.pfb><F:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmss12.pfb><F:/Pr
 ogram Files/MiKTeX 2.9/fonts/type1/public/lm/lmss17.pfb>
-Output written on "Rapport projet.pdf" (5 pages, 200083 bytes).
+Output written on "Rapport projet.pdf" (6 pages, 201184 bytes).
 PDF statistics:
- 51 PDF objects out of 1000 (max. 8388607)
+ 54 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
