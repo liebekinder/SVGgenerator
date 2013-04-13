@@ -150,8 +150,7 @@ let print_file file s = output file s 0 (String.length s);;
 let rec createVarListParse m = match m with
     [] -> ([],[])
   | hd::tl ->  let temp = createVarListParse tl in (list_merge (fst(temp)) (hd.entrees),list_merge (snd(temp)) (hd.sorties));;
-let print_tree2 f = print_tree f 0 in
-  Hashtbl.iter print_tree2 map
+
 let rec print_list_format file liste = match liste with 
 	[] -> ()
   | a::b -> (print_file file ("	"^a^" [shape=circle];\n")) ; print_list_format file b;;
