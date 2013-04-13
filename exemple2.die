@@ -1,0 +1,13 @@
+/* blabla bla commentaire
+sur plusieurs lignes... */
+
+function dessine(Point centre)
+    {
+        draw centre;
+    }
+    
+drawing monDessin [256 , 256]
+{
+	Point origine(50,50); //commentaire
+    dessine(origine);
+}

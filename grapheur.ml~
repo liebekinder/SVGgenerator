@@ -12,4 +12,5 @@ let _ =
   print_endline "--------------------------------------------------------";
   print_tree f 0;
   print_endline "--------------------------------------------------------";
+  print_tree (remplace_elem f Number(50) Number(42)) 0;
   ;;

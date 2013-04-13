@@ -18,6 +18,8 @@ type operation =
   | Function
   | Functions
   | DrawingSize
+  | Root
+  | Function
   | BlocEmbrace
   | Declaration
   | BlocBrace
@@ -37,6 +39,24 @@ type operation =
   
 type t_arbreB = Empty | Node of node
         and node = { value: operation; left: t_arbreB; right: t_arbreB };;
+        
+
+(*remplace une élément présent dans un arbre par un autre*)
+let rec remplace_elem arbre elem_present eleme_a_remplacer = match arbre with
+  | Node(n) -> (let aright = remplace_elem n.right elem_present eleme_a_remplacer in
+		let aleft = remplace_elem n.left elem_present eleme_a_remplacer in
+		if n.value = elem_present then
+		(Node {value = eleme_a_remplacer; right = aright; left = aleft})
+		else
+		(Node {value = n.value; right = aright; left = aleft}))
+  | Empty -> Empty;;
+  
+let rec create_function_map arbre map = match arbre with
+  | Node(n) when n.value = Function -> let Node(function_name_node) = n.left in let Var(function_name) = function_name_node.value in Hashtbl.add map function_name n.right
+  | Node(n) -> create_function_map n.right map;create_function_map n.left map
+  | Empty -> ();;
+  
+  
 
 (*****************************)
 (* Opérations sur les listes *)
