@@ -1,0 +1,9 @@
+lex-yacc-ocaml
+
+executable
+*.cmi
+*.cmo
+*~
+*.mli
+grapheur_lexer.ml
+grapheur_parser.ml

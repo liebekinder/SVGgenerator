@@ -85,8 +85,7 @@ let print_value v = match v with
   | Comma -> print_endline ","
   | Draw -> print_endline "Draw"
   | Var(s) -> print_endline s
-  | Number(i) -> print_endline (string_of_int i)
-  | Empty -> ();;
+  | Number(i) -> print_endline (string_of_int i);;
 
 let rec print_tree t p = match t with
   | Empty -> ()
