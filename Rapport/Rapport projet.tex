@@ -1,0 +1,208 @@
+
+\documentclass[11pt]{report} % use larger type; default would be 10pt
+%\documentclass[twocolumn]{book}
+%\documentclass[twocolumn]{article}
+%\documentclass[12pt]{book}
+%\documentclass[11pt]{article}
+%\documentclass[twocolumn, 12pt]{book}
+
+%Pour écrire du français.
+\usepackage[francais]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+%Police conseillée pour les pdf
+\usepackage{lmodern}
+
+%Choisir le format de sortie.
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+%\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+% \geometry{margin=2in} % for example, change the margins to 2 inches all round
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+\usepackage{setspace}
+
+%Images incrustées
+\usepackage{wrapfig}
+
+%Tableaux
+\usepackage{multirow}
+\usepackage{slashbox}
+\usepackage{colortbl}
+\usepackage{color}
+
+
+%euros
+\usepackage{eurosym}
+
+%Maths
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+
+%index
+\usepackage{makeidx}
+
+%url
+\usepackage{url}
+
+%Connaitre la dernière page
+\usepackage{lastpage}
+
+
+
+\usepackage{graphicx} % support the \includegraphics command and options
+
+% \usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+%%% PACKAGES
+\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+
+%%%Personal packages
+\usepackage{moreverb}
+\usepackage{latexsym}
+\usepackage{framed}
+
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{caption}
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{%
+  \parbox{\textwidth}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}\vskip-4pt}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+\lstset{frame=lrb,xleftmargin=\fboxsep,xrightmargin=-\fboxsep}
+
+\lstset{ %
+language=Java, % choose the language of the code
+basicstyle=\footnotesize, % the size of the fonts that are used for the code
+backgroundcolor=\color{white}, % choose the background color. You must add \usepackage{color}
+showspaces=false, % show spaces adding particular underscores
+showstringspaces=false, % underline spaces within strings
+showtabs=false, % show tabs within strings adding particular underscores
+frame=single, % adds a frame around the code
+tabsize=4, % sets default tabsize to 2 spaces
+captionpos=t, % sets the caption-position to bottom
+breaklines=true, % sets automatic line breaking
+breakatwhitespace=false, % sets if automatic breaks should only happen at whitespace
+keywordstyle=\color{blue},
+stringstyle=\color{mymauve},
+rulecolor=\color{black},
+extendedchars=true, belowcaptionskip=3ex,
+escapeinside={\%*}{*)} % if you want to add a comment within your code
+}
+
+
+
+% These packages are all incorporated in the memoir class to one degree or another...
+
+%%% HEADERS & FOOTERS
+\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+
+\pagestyle{fancy} % options: empty , plain , fancy
+\renewcommand{\headrulewidth}{0pt} % customise the layout...
+\lhead{}\chead{}\rhead{}
+\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+\usepackage{sectsty}
+\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+
+%%% END Article customizations
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%% The "real" document content comes below...
+
+\title{Rapport de projet}
+\author{\textsc{Wollenburger} Antoine, \textsc{Chénais} Sébastien}
+\date{} %Hide the date
+
+\begin{document}
+%Pied de page et entête (Un peu trop non ?) www.siteduzero.com/informatique/tutoriels/redigez-des-documents-de-qualite-avec-latex/les-styles-4
+%Annule tous les trucs de base
+%\fancyhead[LE,CE,RE,LO,CO,RO]{}
+\fancyfoot[LE,CE,RE,LO,CO,RO]{}
+
+%Personnalisation
+%\fancyhead[LO, LE]{Doc type}
+%\fancyhead[RO,RE]{2012/2013}
+\fancyfoot[LO,LE]{Université de \scshape{Nantes}}
+\fancyfoot[RO,RE]{Page \thepage \ sur \pageref{LastPage}}
+%Lignes
+%\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+\maketitle
+
+%Table des matières
+\renewcommand{\contentsname}{Sommaire} % Dans le corps du document,avant la commande \tableofcontents.
+\tableofcontents
+
+\addcontentsline{toc}{chapter}{Introduction}
+\chapter*{Introduction}
+Il nous a été demandé d'écrire un compilateur, en OCAML, d'un langage de notre cru vers du svg (format pour décrire des images vectorielles). Pour mener à bien cette tâche, nous nous reposerons sur les notions que nous avons vu en cours.
+
+\chapter{Évolution du projet}
+\section{Définition d'une grammaire}
+La toute première étape d'une telle tâche est la définition d'une grammaire. Afin de pourvoir y arriver, nous avons décidé de commencer avec une grammaire ne permettant que quelques actions basiques. A savoir utiliser des variables, dessiner des points et tracer des lignes.
+
+\section{Lexer}
+Nous avons alors écrit l'analyseur syntaxique, comprenant les mots de notre grammaire. Cette étape est de loin la plus facile.
+
+\section{Parser}
+Ensuite, nous avons transformé le fichier d'entrée en un arbre binaire, modèle de représentation intermédiaire, qui nous permettra l'écriture du fichier svg. %TODO Dessin d'arbre en exemple.
+Nous avons décidé d'implémenter nos arbres comme suit : 
+
+\begin{lstlisting}[caption=Type arbre, language=caml]
+type operation =
+    Drawing
+  | DrawingSize
+  | BlocEmbrace
+  | Declaration
+  | BlocBrace
+  | Parameters
+  | Point
+  | Line
+  | Instruction
+  | Draw
+  | Var of (string)
+  | Number of (int);;
+  
+type t_arbreB = Empty | Node of node
+        and node = { value: operation; left: t_arbreB; right: t_arbreB };;
+\end{lstlisting}
+
+\section{Et le bonheur arrive.}
+Viens alors la partie de loin la plus fastidieuse. En effet, pour transformer cet arbre binaire en svg, nous avons besoin d'une implémentation d'un automate à pile. Pour ceci point de choix. Nous passerons par une table shift-reduce. A la vue de la taille du vocabulaire, cette table est tout sauf petite.
+
+\end{document}
