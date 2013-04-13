@@ -12,5 +12,10 @@ let _ =
   print_endline "--------------------------------------------------------";
   print_tree f 0;
   print_endline "--------------------------------------------------------";
-  print_tree (remplace_elem f (Number(50)) (Number(42))) 0;
+  (*print_tree (remplace_elem f (Number(50)) (Number(42))) 0;*)
+  let map = Hashtbl.create 42 in
+  create_function_map f map;
+  print_endline (string_of_int (Hashtbl.length map));
+  let print_tree_2 arg f = print_tree f 0 in
+  Hashtbl.iter print_tree_2 map
   ;;

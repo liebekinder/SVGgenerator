@@ -18,8 +18,6 @@ type operation =
   | Function
   | Functions
   | DrawingSize
-  | Root
-  | Function
   | BlocEmbrace
   | Declaration
   | BlocBrace
@@ -28,6 +26,7 @@ type operation =
   | Parameter
   | ParametersUse
   | ParameterUse
+  | FunctionUse
   | Point
   | Line
   | Instruction
@@ -51,7 +50,7 @@ let rec remplace_elem arbre elem_present eleme_a_remplacer = match arbre with
   | Empty -> Empty;;
   
 let rec create_function_map arbre map = match arbre with
-  | Node(n) when n.value = Function -> let Node(function_name_node) = n.left in let Var(function_name) = function_name_node.value in map.add(function_name,n.right)
+  | Node(n) when n.value = Function -> let Node(function_name_node) = n.left in let Var(function_name) = function_name_node.value in Hashtbl.add map function_name n.right
   | Node(n) -> create_function_map n.right map;create_function_map n.left map
   | Empty -> ();;
   
@@ -79,13 +78,15 @@ let print_value v = match v with
   | Parameter -> print_endline "Parameter"
   | ParametersUse -> print_endline "ParametersUse"
   | ParameterUse -> print_endline "ParameterUse"
+  | FunctionUse -> print_endline "FunctionUse"
   | Point -> print_endline "Point"
   | Line -> print_endline "Line"
   | Instruction -> print_endline "Instruction"
   | Comma -> print_endline ","
   | Draw -> print_endline "Draw"
   | Var(s) -> print_endline s
-  | Number(i) -> print_endline (string_of_int i);;
+  | Number(i) -> print_endline (string_of_int i)
+  | Empty -> ();;
 
 let rec print_tree t p = match t with
   | Empty -> ()
@@ -150,7 +151,8 @@ let print_file file s = output file s 0 (String.length s);;
 let rec createVarListParse m = match m with
     [] -> ([],[])
   | hd::tl ->  let temp = createVarListParse tl in (list_merge (fst(temp)) (hd.entrees),list_merge (snd(temp)) (hd.sorties));;
-
+let print_tree2 f = print_tree f 0 in
+  Hashtbl.iter print_tree2 map
 let rec print_list_format file liste = match liste with 
 	[] -> ()
   | a::b -> (print_file file ("	"^a^" [shape=circle];\n")) ; print_list_format file b;;
@@ -171,7 +173,7 @@ let rec print_arrete file liste = match liste with
 	[] -> ()
   | a::b -> print_arrete_for_one_module_entries file (a.entrees) (a.nom); print_arrete_for_one_module_sorties file (a.sorties) (a.nom); print_arrete file b;;
 
-  
+    
   
 let generate_doc_file fichier entry_list sortie_list module_list = 
 	print_file fichier "digraph G {\n";
