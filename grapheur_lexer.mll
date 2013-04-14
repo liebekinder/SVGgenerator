@@ -4,7 +4,7 @@
 
 let void = [' ' '\t' '\r']
 let variable = ['a'-'z' 'A'-'Z']['0'-'9' 'a'-'z' 'A'-'Z']*
-let number = ['0'-'9']+
+let number = ['0'-'9']+|['0'-'9']+'.'['0'-'9']*
 
 rule token = parse
   | "/*" {comment_star lexbuf}
@@ -30,7 +30,7 @@ rule token = parse
   | "Point" {print_endline "Point"; POINT}
   | "Line" {print_endline "Line"; LINE}
   
-  | number as lxm {print_endline ("Number : "^lxm);NUMBER(int_of_string lxm)}
+  | number as lxm {print_endline ("Number : "^lxm);NUMBER(float_of_string lxm)}
   | variable as lxm {print_endline ("Var : "^lxm);VAR(lxm)}
    
   | '\n' {token lexbuf} 

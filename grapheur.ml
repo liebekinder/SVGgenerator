@@ -17,5 +17,6 @@ let _ =
   create_function_map f map;
   print_endline (string_of_int (Hashtbl.length map));
   let print_tree_2 arg f = print_tree f 0 in
-  Hashtbl.iter print_tree_2 map
+  Hashtbl.iter print_tree_2 map;
+  eval_var_core f
   ;;

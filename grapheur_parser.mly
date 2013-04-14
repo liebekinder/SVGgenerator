@@ -24,7 +24,7 @@
 %token LINE
 
 %token <string> VAR 
-%token <int> NUMBER
+%token <float> NUMBER
 
 %start main
 %type <Functions.t_arbreB> main

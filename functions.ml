@@ -33,37 +33,11 @@ type operation =
   | Comma
   | Draw
   | Var of (string)
-  | Number of (int);;
+  | Number of (float);;
   
 type t_arbreB = Empty | Node of node
         and node = { value: operation; left: t_arbreB; right: t_arbreB };;
-        
-
-(*remplace une élément présent dans un arbre par un autre*)
-let rec remplace_elem arbre elem_present eleme_a_remplacer = match arbre with
-  | Node(n) -> (let aright = remplace_elem n.right elem_present eleme_a_remplacer in
-		let aleft = remplace_elem n.left elem_present eleme_a_remplacer in
-		if n.value = elem_present then
-		(Node {value = eleme_a_remplacer; right = aright; left = aleft})
-		else
-		(Node {value = n.value; right = aright; left = aleft}))
-  | Empty -> Empty;;
-  
-let rec create_function_map arbre map = match arbre with
-  | Node(n) when n.value = Function -> let Node(function_name_node) = n.left in let Var(function_name) = function_name_node.value in Hashtbl.add map function_name n.right
-  | Node(n) -> create_function_map n.right map;create_function_map n.left map
-  | Empty -> ();;
-  
-  
-
-(*****************************)
-(* Opérations sur les listes *)
-(*****************************)
-
-(******************************)
-(* Opération sur les t_arbreB *)
-(******************************)
-
+    
 let print_value v = match v with
   | Drawing -> print_endline "Drawing"
   | DrawingSize -> print_endline "DrawingSize"
@@ -85,13 +59,114 @@ let print_value v = match v with
   | Comma -> print_endline ","
   | Draw -> print_endline "Draw"
   | Var(s) -> print_endline s
-  | Number(i) -> print_endline (string_of_int i);;
+  | Number(i) -> print_endline (string_of_float i);;
 
 let rec print_tree t p = match t with
   | Empty -> ()
   | Node(n) -> for i=0 to p do print_string "    " done;print_value n.value;print_tree n.left (p+1);print_tree n.right (p+1);;
   
+      
+
+(*remplace une élément présent dans un arbre par un autre*)
+let rec remplace_elem arbre elem_present eleme_a_remplacer = match arbre with
+  | Node(n) -> (let aright = remplace_elem n.right elem_present eleme_a_remplacer in
+		let aleft = remplace_elem n.left elem_present eleme_a_remplacer in
+		if n.value = elem_present then
+		(Node {value = eleme_a_remplacer; right = aright; left = aleft})
+		else
+		(Node {value = n.value; right = aright; left = aleft}))
+  | Empty -> Empty;;
   
+let rec create_function_map arbre map = match arbre with
+  | Node(n) when n.value = Function -> let Node(function_name_node) = n.left in let Var(function_name) = function_name_node.value in Hashtbl.add map function_name n.right
+  | Node(n) -> create_function_map n.right map;create_function_map n.left map
+  | Empty -> ();;
+
+class point =
+    object
+      val mutable x = 0.
+      val mutable y = 0.
+      method get_y = y
+      method set_y yp = y <- yp
+      method get_x = x
+      method set_x xp = x <- xp
+    end;;
+    
+class line =
+    object
+      val mutable p1 = new point
+      val mutable p2 = new point
+      method get_p1 = p1
+      method set_p1 p1p = p1 <- p1p
+      method get_p2 = p2
+      method set_p2 p2p = p2 <- p2p
+    end;;
+
+(*global type to put all of this into a hashtbl*)  
+type all_types = Point_wrap of point | Line_wrap of line;; 
+  
+    
+let get_type a = match a with
+	| Point_wrap(p) -> "point"
+	| Line_wrap(l) -> "line"
+	| _ -> "unknow"
+;;
+
+let declare_new_point args = 
+	let Node(args_x_param) = args.left in
+	let Node(args_x) = args_x_param.left in
+	let Number(x) = args_x.value in
+	(*print_endline (string_of_float x);
+	print_tree (Node(args_x)) 0;*)
+	let Node(args_y_param) = args_x_param.right in
+	let Node(args_y) = args_y_param.left in
+	let Number(y) = args_y.value in
+	let p = new point in
+	p#set_x x;
+	p#set_y y;
+	p
+;;
+
+let create_new_qc n = 
+	let Node(n_name_wrap) = n.left in
+	let Var(n_name) = n_name_wrap.value in
+	let Node(n_type) = n.right in
+	match n_type.value with
+		| Point -> let p = declare_new_point n_type in print_endline ("Creation du point : "^n_name^":("^(string_of_float (p#get_x))^","^(string_of_float (p#get_y))^")") ; (n_name,Point_wrap(p))
+		| Line -> print_endline "dsdssd2" ; (n_name,Line_wrap(new line))
+;;
+
+let rec eval_val arbre val_table = match arbre with
+	| Node(n) when n.value = Declaration -> let (key,value) = create_new_qc n in Hashtbl.add val_table key value ; eval_val n.right val_table; eval_val n.left val_table
+	| Node(n) -> eval_val n.right val_table; eval_val n.left val_table
+	| Empty -> ()
+;;
+
+let eval_var_core arbre = 
+	let val_tbl : (string, all_types) Hashtbl.t= Hashtbl.create 42 in
+	eval_val arbre val_tbl
+;;
+
+    
+
+let maptest : (string, all_types) Hashtbl.t= Hashtbl.create 42 in
+Hashtbl.add maptest "var1" (Point_wrap(new point));
+let Point_wrap(point1) = (Hashtbl.find maptest "var1") in
+point1#set_x 10.;
+print_endline (get_type (Hashtbl.find maptest "var1"));
+Hashtbl.add maptest "var2" (Line_wrap(new line));
+let print_node name point = print_endline name in
+  Hashtbl.iter print_node maptest;;
+
+(*****************************)
+(* Opérations sur les listes *)
+(*****************************)
+
+(******************************)
+(* Opération sur les t_arbreB *)
+(******************************)
+
+
  (******************************************)
 
 (* Ajoute un élément à la liste s'il n'y est pas déjà *)

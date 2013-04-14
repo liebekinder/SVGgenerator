@@ -6,8 +6,8 @@ function dessine(Point centre)
         draw centre;
     }
     
-drawing monDessin [256 , 256]
+drawing monDessin [256 , 257]
 {
-	Point origine(50,50); //commentaire
+	Point origine(50,51); //commentaire
     dessine(origine);
 }
