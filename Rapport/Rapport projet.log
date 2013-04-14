@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.3.31)  13 APR 2013 11:53
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.4.14)  14 APR 2013 12:49
 entering extended mode
-**F:/GitHub/SVGgenerator/Rapport/Rapport*projet.tex
-("F:/GitHub/SVGgenerator/Rapport/Rapport projet.tex"
+**D:/Code*GitHub/SVGgenerator/Rapport/Rapport*projet.tex
+("D:/Code GitHub/SVGgenerator/Rapport/Rapport projet.tex"
 LaTeX2e <2011/06/27>
 Babel <v3.8m> and hyphenation patterns for english, afrikaans, ancientgreek, ar
 abic, armenian, assamese, basque, bengali, bokmal, bulgarian, catalan, coptic, 
@@ -13,9 +13,9 @@ german-x-2012-05-30, nynorsk, oriya, panjabi, pinyin, polish, portuguese, roman
 ian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, swissgerm
 an, tamil, telugu, turkish, turkmen, ukenglish, ukrainian, uppersorbian, usengl
 ishmax, welsh, loaded.
-("F:\Program Files\MiKTeX 2.9\tex\latex\base\report.cls"
+("D:\Program Files\MiKTeX 2.9\tex\latex\base\report.cls"
 Document Class: report 2007/10/19 v1.4h Standard LaTeX document class
-("F:\Program Files\MiKTeX 2.9\tex\latex\base\size11.clo"
+("D:\Program Files\MiKTeX 2.9\tex\latex\base\size11.clo"
 File: size11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 )
 \c@part=\count79
@@ -31,19 +31,19 @@ File: size11.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 )
-("F:\Program Files\MiKTeX 2.9\tex\generic\babel\babel.sty"
+("D:\Program Files\MiKTeX 2.9\tex\generic\babel\babel.sty"
 Package: babel 2008/07/08 v3.8m The Babel package
 
 *************************************
 * Local config file bblopts.cfg used
 *
-("F:\Program Files\MiKTeX 2.9\tex\latex\00miktex\bblopts.cfg"
+("D:\Program Files\MiKTeX 2.9\tex\latex\00miktex\bblopts.cfg"
 File: bblopts.cfg 2006/07/31 v1.0 MiKTeX 'babel' configuration
 )
-("F:\Program Files\MiKTeX 2.9\tex\generic\babel\frenchb.ldf"
+("D:\Program Files\MiKTeX 2.9\tex\generic\babel\frenchb.ldf"
 Language: frenchb 2009/03/16 v2.3d French support from the babel system
 
-("F:\Program Files\MiKTeX 2.9\tex\generic\babel\babel.def"
+("D:\Program Files\MiKTeX 2.9\tex\generic\babel\babel.def"
 File: babel.def 2008/07/08 v3.8m Babel common definitions
 \babel@savecnt=\count88
 \U@D=\dimen103
@@ -60,25 +60,25 @@ Package babel Info: Making ? an active character on input line 123.
 *************************************
 * Local config file frenchb.cfg used
 *
-("F:\Program Files\MiKTeX 2.9\tex\generic\babel\frenchb.cfg")))
-("F:\Program Files\MiKTeX 2.9\tex\latex\carlisle\scalefnt.sty")
-("F:\Program Files\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
+("D:\Program Files\MiKTeX 2.9\tex\generic\babel\frenchb.cfg")))
+("D:\Program Files\MiKTeX 2.9\tex\latex\carlisle\scalefnt.sty")
+("D:\Program Files\MiKTeX 2.9\tex\latex\graphics\keyval.sty"
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks14
 )
-("F:\Program Files\MiKTeX 2.9\tex\latex\base\inputenc.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\base\inputenc.sty"
 Package: inputenc 2008/03/30 v1.1d Input encoding file
 \inpenc@prehook=\toks15
 \inpenc@posthook=\toks16
 
-("F:\Program Files\MiKTeX 2.9\tex\latex\base\utf8.def"
+("D:\Program Files\MiKTeX 2.9\tex\latex\base\utf8.def"
 File: utf8.def 2008/04/05 v1.1m UTF-8 support for inputenc
 Now handling font encoding OML ...
 ... no UTF-8 mapping file for font encoding OML
 Now handling font encoding T1 ...
 ... processing UTF-8 mapping file for font encoding T1
 
-("F:\Program Files\MiKTeX 2.9\tex\latex\base\t1enc.dfu"
+("D:\Program Files\MiKTeX 2.9\tex\latex\base\t1enc.dfu"
 File: t1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
    defining Unicode char U+00A1 (decimal 161)
    defining Unicode char U+00A3 (decimal 163)
@@ -228,7 +228,7 @@ File: t1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
 Now handling font encoding OT1 ...
 ... processing UTF-8 mapping file for font encoding OT1
 
-("F:\Program Files\MiKTeX 2.9\tex\latex\base\ot1enc.dfu"
+("D:\Program Files\MiKTeX 2.9\tex\latex\base\ot1enc.dfu"
 File: ot1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
    defining Unicode char U+00A1 (decimal 161)
    defining Unicode char U+00A3 (decimal 163)
@@ -259,7 +259,7 @@ File: ot1enc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
 Now handling font encoding OMS ...
 ... processing UTF-8 mapping file for font encoding OMS
 
-("F:\Program Files\MiKTeX 2.9\tex\latex\base\omsenc.dfu"
+("D:\Program Files\MiKTeX 2.9\tex\latex\base\omsenc.dfu"
 File: omsenc.dfu 2008/04/05 v1.1m UTF-8 support for inputenc
    defining Unicode char U+00A7 (decimal 167)
    defining Unicode char U+00B6 (decimal 182)
@@ -283,14 +283,14 @@ Now handling font encoding U ...
    defining Unicode char U+2122 (decimal 8482)
    defining Unicode char U+2423 (decimal 9251)
 ))
-("F:\Program Files\MiKTeX 2.9\tex\latex\base\fontenc.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\base\fontenc.sty"
 Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
 
-("F:\Program Files\MiKTeX 2.9\tex\latex\base\t1enc.def"
+("D:\Program Files\MiKTeX 2.9\tex\latex\base\t1enc.def"
 File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
 ))
-("F:\Program Files\MiKTeX 2.9\tex\latex\lm\lmodern.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\lm\lmodern.sty"
 Package: lmodern 2009/10/30 v1.6 Latin Modern Fonts
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
 (Font)                  OT1/cmr/m/n --> OT1/lmr/m/n on input line 22.
@@ -325,18 +325,18 @@ LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 38.
 )
-("F:\Program Files\MiKTeX 2.9\tex\latex\geometry\geometry.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\geometry\geometry.sty"
 Package: geometry 2010/09/12 v5.6 Page Geometry
 
-("F:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifpdf.sty"
+("D:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifpdf.sty"
 Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
 Package ifpdf Info: pdfTeX in PDF mode is detected.
 )
-("F:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifvtex.sty"
+("D:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ifvtex.sty"
 Package: ifvtex 2010/03/01 v1.5 Detect VTeX and its facilities (HO)
 Package ifvtex Info: VTeX not detected.
 )
-("F:\Program Files\MiKTeX 2.9\tex\generic\ifxetex\ifxetex.sty"
+("D:\Program Files\MiKTeX 2.9\tex\generic\ifxetex\ifxetex.sty"
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
 \Gm@cnth=\count91
@@ -352,11 +352,11 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 \Gm@layoutvoffset=\dimen113
 \Gm@dimlist=\toks17
 
-("F:\Program Files\MiKTeX 2.9\tex\latex\geometry\geometry.cfg"))
-("F:\Program Files\MiKTeX 2.9\tex\latex\setspace\setspace.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\geometry\geometry.cfg"))
+("D:\Program Files\MiKTeX 2.9\tex\latex\setspace\setspace.sty"
 Package: setspace 2011/12/19 v6.7a set line spacing
 )
-("F:\Program Files\MiKTeX 2.9\tex\latex\wrapfig\wrapfig.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\wrapfig\wrapfig.sty"
 \wrapoverhang=\dimen114
 \WF@size=\dimen115
 \c@WF@wrappedlines=\count94
@@ -364,10 +364,10 @@ Package: setspace 2011/12/19 v6.7a set line spacing
 \WF@everypar=\toks18
 Package: wrapfig 2003/01/31  v 3.6
 )
-("F:\Program Files\MiKTeX 2.9\tex\latex\multirow\multirow.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\multirow\multirow.sty"
 \bigstrutjot=\dimen116
 )
-("F:\Program Files\MiKTeX 2.9\tex\latex\slashbox\slashbox.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\slashbox\slashbox.sty"
 slashbox style by K.Yasuoka, May 1993.
 \@slashboxa=\box27
 \@slashboxb=\box28
@@ -376,10 +376,10 @@ slashbox style by K.Yasuoka, May 1993.
 \@slashboxht=\count96
 \@slashsepl=\dimen117
 \@slashsepr=\dimen118
-) ("F:\Program Files\MiKTeX 2.9\tex\latex\colortbl\colortbl.sty"
+) ("D:\Program Files\MiKTeX 2.9\tex\latex\colortbl\colortbl.sty"
 Package: colortbl 2012/02/13 v1.0a Color table columns (DPC)
 
-("F:\Program Files\MiKTeX 2.9\tex\latex\tools\array.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\tools\array.sty"
 Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
 \col@sep=\dimen119
 \extrarowheight=\dimen120
@@ -387,21 +387,21 @@ Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
 \extratabsurround=\skip43
 \backup@length=\skip44
 )
-("F:\Program Files\MiKTeX 2.9\tex\latex\graphics\color.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\graphics\color.sty"
 Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
 
-("F:\Program Files\MiKTeX 2.9\tex\latex\00miktex\color.cfg"
+("D:\Program Files\MiKTeX 2.9\tex\latex\00miktex\color.cfg"
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
 Package color Info: Driver file: pdftex.def on input line 130.
 
-("F:\Program Files\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def"
+("D:\Program Files\MiKTeX 2.9\tex\latex\pdftex-def\pdftex.def"
 File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
 
-("F:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty"
+("D:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\infwarerr.sty"
 Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
 )
-("F:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
+("D:\Program Files\MiKTeX 2.9\tex\generic\oberdiek\ltxcmds.sty"
 Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 )
 \Gread@gobject=\count97
@@ -409,45 +409,45 @@ Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 \everycr=\toks20
 \minrowclearance=\skip45
 )
-("F:\Program Files\MiKTeX 2.9\tex\latex\eurosym\eurosym.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\eurosym\eurosym.sty"
 Package: eurosym 1998/08/06 v1.1 European currency symbol ``Euro''
 \@eurobox=\box30
 )
-("F:\Program Files\MiKTeX 2.9\tex\latex\ams\math\amsmath.sty"
-Package: amsmath 2000/07/18 v2.13 AMS math features
+("D:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsmath.sty"
+Package: amsmath 2013/01/14 v2.14 AMS math features
 \@mathmargin=\skip46
 
 For additional information on amsmath, use the `?' option.
-("F:\Program Files\MiKTeX 2.9\tex\latex\ams\math\amstext.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amstext.sty"
 Package: amstext 2000/06/29 v2.01
 
-("F:\Program Files\MiKTeX 2.9\tex\latex\ams\math\amsgen.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsgen.sty"
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks21
 \ex@=\dimen121
 ))
-("F:\Program Files\MiKTeX 2.9\tex\latex\ams\math\amsbsy.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsbsy.sty"
 Package: amsbsy 1999/11/29 v1.2d
 \pmbraise@=\dimen122
 )
-("F:\Program Files\MiKTeX 2.9\tex\latex\ams\math\amsopn.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\amsmath\amsopn.sty"
 Package: amsopn 1999/12/14 v2.01 operator names
 )
 \inf@bad=\count98
-LaTeX Info: Redefining \frac on input line 211.
+LaTeX Info: Redefining \frac on input line 210.
 \uproot@=\count99
 \leftroot@=\count100
-LaTeX Info: Redefining \overline on input line 307.
+LaTeX Info: Redefining \overline on input line 306.
 \classnum@=\count101
 \DOTSCASE@=\count102
-LaTeX Info: Redefining \ldots on input line 379.
-LaTeX Info: Redefining \dots on input line 382.
-LaTeX Info: Redefining \cdots on input line 467.
+LaTeX Info: Redefining \ldots on input line 378.
+LaTeX Info: Redefining \dots on input line 381.
+LaTeX Info: Redefining \cdots on input line 466.
 \Mathstrutbox@=\box31
 \strutbox@=\box32
 \big@size=\dimen123
-LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
-LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
+LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
 \macc@depth=\count103
 \c@MaxMatrixCols=\count104
 \dotsspace@=\muskip10
@@ -468,24 +468,24 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
 \multlinegap=\skip47
 \multlinetaggap=\skip48
 \mathdisplay@stack=\toks25
-LaTeX Info: Redefining \[ on input line 2666.
-LaTeX Info: Redefining \] on input line 2667.
+LaTeX Info: Redefining \[ on input line 2665.
+LaTeX Info: Redefining \] on input line 2666.
 )
-("F:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\amssymb.sty"
-Package: amssymb 2009/06/22 v3.00
+("D:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\amssymb.sty"
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
 
-("F:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\amsfonts.sty"
-Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
+("D:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\amsfonts.sty"
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
-(Font)                  U/euf/m/n --> U/euf/b/n on input line 96.
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
-("F:\Program Files\MiKTeX 2.9\tex\latex\jknappen\mathrsfs.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\jknappen\mathrsfs.sty"
 Package: mathrsfs 1996/01/01 Math RSFS package v1.0 (jk)
 \symrsfs=\mathgroup6
 )
-("F:\Program Files\MiKTeX 2.9\tex\latex\ams\classes\amsthm.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\amscls\amsthm.sty"
 Package: amsthm 2004/08/06 v2.20
 \thm@style=\toks26
 \thm@bodyfont=\toks27
@@ -497,26 +497,26 @@ Package: amsthm 2004/08/06 v2.20
 \thm@headsep=\skip51
 \dth@everypar=\toks31
 )
-("F:\Program Files\MiKTeX 2.9\tex\latex\base\makeidx.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\base\makeidx.sty"
 Package: makeidx 2000/03/29 v1.0m Standard LaTeX package
 )
-("F:\Program Files\MiKTeX 2.9\tex\latex\ltxmisc\url.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\ltxmisc\url.sty"
 \Urlmuskip=\muskip11
 Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
 )
-("F:\Program Files\MiKTeX 2.9\tex\latex\lastpage\lastpage.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\lastpage\lastpage.sty"
 Package: lastpage 2013/01/28 v1.2l Refers to last page's name (HMM; JPG)
 )
-("F:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphicx.sty"
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
-("F:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\graphics\graphics.sty"
 Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
-("F:\Program Files\MiKTeX 2.9\tex\latex\graphics\trig.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\graphics\trig.sty"
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-("F:\Program Files\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg"
+("D:\Program Files\MiKTeX 2.9\tex\latex\00miktex\graphics.cfg"
 File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
 )
 Package graphics Info: Driver file: pdftex.def on input line 91.
@@ -524,7 +524,7 @@ Package graphics Info: Driver file: pdftex.def on input line 91.
 \Gin@req@height=\dimen130
 \Gin@req@width=\dimen131
 )
-("F:\Program Files\MiKTeX 2.9\tex\latex\booktabs\booktabs.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\booktabs\booktabs.sty"
 Package: booktabs 2005/04/14 v1.61803 publication quality tables
 \heavyrulewidth=\dimen132
 \lightrulewidth=\dimen133
@@ -544,7 +544,7 @@ Package: booktabs 2005/04/14 v1.61803 publication quality tables
 \@lastruleclass=\count113
 \@thisrulewidth=\dimen144
 )
-("F:\Program Files\MiKTeX 2.9\tex\latex\paralist\paralist.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\paralist\paralist.sty"
 Package: paralist 2002/03/18 v2.3b Extended list environments (BS)
 \pltopsep=\skip52
 \plpartopsep=\skip53
@@ -552,19 +552,19 @@ Package: paralist 2002/03/18 v2.3b Extended list environments (BS)
 \plparsep=\skip55
 \pl@lab=\toks32
 )
-("F:\Program Files\MiKTeX 2.9\tex\latex\tools\verbatim.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\tools\verbatim.sty"
 Package: verbatim 2003/08/22 v1.5q LaTeX2e package for verbatim enhancements
 \every@verbatim=\toks33
 \verbatim@line=\toks34
 \verbatim@in@stream=\read1
 )
-("F:\Program Files\MiKTeX 2.9\tex\latex\subfig\subfig.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\subfig\subfig.sty"
 Package: subfig 2005/06/28 ver: 1.3 subfig package
 
-("F:\Program Files\MiKTeX 2.9\tex\latex\caption\caption.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\caption\caption.sty"
 Package: caption 2013/02/03 v3.3-65 Customizing captions (AR)
 
-("F:\Program Files\MiKTeX 2.9\tex\latex\caption\caption3.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\caption\caption3.sty"
 Package: caption3 2013/02/03 v1.5-62 caption3 kernel (AR)
 \captionmargin=\dimen145
 \captionmargin@=\dimen146
@@ -591,19 +591,19 @@ Package caption Info: wrapfig package is loaded.
 \sf@top=\skip59
 \sf@bottom=\skip60
 )
-("F:\Program Files\MiKTeX 2.9\tex\latex\moreverb\moreverb.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\moreverb\moreverb.sty"
 Package: moreverb 2008/06/03 v2.3a `more' verbatim facilities
 \tab@position=\count122
 \tab@size=\count123
 \listing@line=\count124
 )
-("F:\Program Files\MiKTeX 2.9\tex\latex\base\latexsym.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\base\latexsym.sty"
 Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
 \symlasy=\mathgroup7
 LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
 (Font)                  U/lasy/m/n --> U/lasy/b/n on input line 47.
 )
-("F:\Program Files\MiKTeX 2.9\tex\latex\framed\framed.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\framed\framed.sty"
 Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
 \OuterFrameSep=\skip61
 \fb@frw=\dimen153
@@ -611,10 +611,10 @@ Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
 \FrameRule=\dimen155
 \FrameSep=\dimen156
 )
-("F:\Program Files\MiKTeX 2.9\tex\latex\xcolor\xcolor.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\xcolor\xcolor.sty"
 Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
 
-("F:\Program Files\MiKTeX 2.9\tex\latex\00miktex\color.cfg"
+("D:\Program Files\MiKTeX 2.9\tex\latex\00miktex\color.cfg"
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
 Package xcolor Info: Driver file: pdftex.def on input line 225.
@@ -629,7 +629,7 @@ Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
 )
-("F:\Program Files\MiKTeX 2.9\tex\latex\listings\listings.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\listings\listings.sty"
 \lst@mode=\count125
 \lst@gtempboxa=\box33
 \lst@token=\toks35
@@ -643,21 +643,21 @@ Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
 \lst@lineno=\count130
 \lst@maxwidth=\dimen160
 
-("F:\Program Files\MiKTeX 2.9\tex\latex\listings\lstmisc.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\listings\lstmisc.sty"
 File: lstmisc.sty 2007/02/22 1.4 (Carsten Heinz)
 \c@lstnumber=\count131
 \lst@skipnumbers=\count132
 \lst@framebox=\box34
 )
-("F:\Program Files\MiKTeX 2.9\tex\latex\listings\listings.cfg"
+("D:\Program Files\MiKTeX 2.9\tex\latex\listings\listings.cfg"
 File: listings.cfg 2007/02/22 1.4 listings configuration
 ))
 Package: listings 2007/02/22 1.4 (Carsten Heinz)
 
-("F:\Program Files\MiKTeX 2.9\tex\latex\listings\lstlang1.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\listings\lstlang1.sty"
 File: lstlang1.sty 2004/09/05 1.3 listings language file
 )
-("F:\Program Files\MiKTeX 2.9\tex\latex\fancyhdr\fancyhdr.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\fancyhdr\fancyhdr.sty"
 \fancy@headwidth=\skip62
 \f@ncyO@elh=\skip63
 \f@ncyO@erh=\skip64
@@ -668,18 +668,18 @@ File: lstlang1.sty 2004/09/05 1.3 listings language file
 \f@ncyO@olf=\skip69
 \f@ncyO@orf=\skip70
 )
-("F:\Program Files\MiKTeX 2.9\tex\latex\sectsty\sectsty.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\sectsty\sectsty.sty"
 Package: sectsty 2002/02/25 v2.0.2 Commands to change all sectional heading sty
 les
 )
-("F:\Program Files\MiKTeX 2.9\tex\latex\tocbibind\tocbibind.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\tocbibind\tocbibind.sty"
 Package: tocbibind 2010/10/13 v1.5k extra ToC listings
 Package tocbibind Info: The document has chapter divisions on input line 50.
 
 
 Package tocbibind Note: Using chapter style headings, unless overridden.
 
-) ("F:\Program Files\MiKTeX 2.9\tex\latex\tocloft\tocloft.sty"
+) ("D:\Program Files\MiKTeX 2.9\tex\latex\tocloft\tocloft.sty"
 Package: tocloft 2010/10/13 v2.3e parameterised ToC, etc., typesetting
 Package tocloft Info: The document has chapter divisions on input line 43.
 \cftparskip=\skip71
@@ -723,7 +723,7 @@ Package tocloft Info: The document has chapter divisions on input line 43.
 \cftsubtabindent=\skip109
 \cftsubtabnumwidth=\skip110
 )
-("F:\GitHub\SVGgenerator\Rapport\Rapport projet.aux")
+("D:\Code GitHub\SVGgenerator\Rapport\Rapport projet.aux")
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 150.
 LaTeX Font Info:    ... okay on input line 150.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 150.
@@ -738,7 +738,7 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 150.
 LaTeX Font Info:    ... okay on input line 150.
 LaTeX Font Info:    Try loading font information for T1+lmr on input line 150.
 
-("F:\Program Files\MiKTeX 2.9\tex\latex\lm\t1lmr.fd"
+("D:\Program Files\MiKTeX 2.9\tex\latex\lm\t1lmr.fd"
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Info: Redefining \degres on input line 150.
@@ -779,7 +779,7 @@ LaTeX Info: Redefining \up on input line 150.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-("F:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
+("D:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count133
 \scratchdimen=\dimen161
@@ -840,25 +840,25 @@ less on input line 158.
 
 LaTeX Font Info:    Try loading font information for OT1+lmr on input line 165.
 
-("F:\Program Files\MiKTeX 2.9\tex\latex\lm\ot1lmr.fd"
+("D:\Program Files\MiKTeX 2.9\tex\latex\lm\ot1lmr.fd"
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Try loading font information for OML+lmm on input line 165.
 
 
-("F:\Program Files\MiKTeX 2.9\tex\latex\lm\omllmm.fd"
+("D:\Program Files\MiKTeX 2.9\tex\latex\lm\omllmm.fd"
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 165
 .
 
-("F:\Program Files\MiKTeX 2.9\tex\latex\lm\omslmsy.fd"
+("D:\Program Files\MiKTeX 2.9\tex\latex\lm\omslmsy.fd"
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Try loading font information for OMX+lmex on input line 165
 .
 
-("F:\Program Files\MiKTeX 2.9\tex\latex\lm\omxlmex.fd"
+("D:\Program Files\MiKTeX 2.9\tex\latex\lm\omxlmex.fd"
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
@@ -869,22 +869,22 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <6> on input line 165.
 LaTeX Font Info:    Try loading font information for U+msa on input line 165.
 
-("F:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
-File: umsa.fd 2009/06/22 v3.00 AMS symbols A
+("D:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 165.
 
-("F:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
-File: umsb.fd 2009/06/22 v3.00 AMS symbols B
+("D:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Try loading font information for U+rsfs on input line 165.
 
-("F:\Program Files\MiKTeX 2.9\tex\latex\jknappen\ursfs.fd"
+("D:\Program Files\MiKTeX 2.9\tex\latex\jknappen\ursfs.fd"
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
 LaTeX Font Info:    Try loading font information for U+lasy on input line 165.
 
-("F:\Program Files\MiKTeX 2.9\tex\latex\base\ulasy.fd"
+("D:\Program Files\MiKTeX 2.9\tex\latex\base\ulasy.fd"
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 ) [1
 
@@ -892,10 +892,10 @@ File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 LaTeX Font Info:    Try loading font information for T1+lmss on input line 169.
 
 
-("F:\Program Files\MiKTeX 2.9\tex\latex\lm\t1lmss.fd"
+("D:\Program Files\MiKTeX 2.9\tex\latex\lm\t1lmss.fd"
 File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-("F:\GitHub\SVGgenerator\Rapport\Rapport projet.toc"
+("D:\Code GitHub\SVGgenerator\Rapport\Rapport projet.toc"
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10.95> on input line 2.
 )
@@ -906,55 +906,83 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 
 ]
 Chapitre 1.
-("F:\Program Files\MiKTeX 2.9\tex\latex\listings\lstlang1.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\listings\lstlang1.sty"
 File: lstlang1.sty 2004/09/05 1.3 listings language file
 )
-("F:\Program Files\MiKTeX 2.9\tex\latex\listings\lstlang2.sty"
-File: lstlang2.sty 2004/09/05 1.3 listings language file
-)
-("F:\Program Files\MiKTeX 2.9\tex\latex\listings\lstmisc.sty"
+("D:\Program Files\MiKTeX 2.9\tex\latex\listings\lstmisc.sty"
 File: lstmisc.sty 2007/02/22 1.4 (Carsten Heinz)
 )
-Overfull \hbox (6.0pt too wide) in paragraph at lines 187--187
+Overfull \hbox (6.0pt too wide) in paragraph at lines 190--190
 [][][][][][][] 
  []
 
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 187--187
+Overfull \hbox (6.0pt too wide) in paragraph at lines 190--190
 [][][][][][][] 
  []
 
-[3
+LaTeX Font Info:    Try loading font information for OMS+lmr on input line 191.
+
+("D:\Program Files\MiKTeX 2.9\tex\latex\lm\omslmr.fd"
+File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Font shape `OMS/lmr/m/it' in size <9> not available
+(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 191.
+ [3
 
 ]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <9> on input line 199.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 199.
+
+("D:\Program Files\MiKTeX 2.9\tex\latex\listings\lstlang1.sty"
+File: lstlang1.sty 2004/09/05 1.3 listings language file
+)
+("D:\Program Files\MiKTeX 2.9\tex\latex\listings\lstlang2.sty"
+File: lstlang2.sty 2004/09/05 1.3 listings language file
+)
 
 Package Fancyhdr Warning: \headheight is too small (12.0pt): 
  Make it at least 13.59999pt.
  We now make it that large for the rest of the document.
  This may cause the page layout to be inconsistent, however.
 
-[4] 
+[4]
+Overfull \hbox (6.0pt too wide) in paragraph at lines 244--244
+[][][][][][][] 
+ []
+
+
+Overfull \hbox (6.0pt too wide) in paragraph at lines 244--244
+[][][][][][][] 
+ []
+
+
 AED: lastpage setting LastPage
-[5] ("F:\GitHub\SVGgenerator\Rapport\Rapport projet.aux") ) 
+[5] ("D:\Code GitHub\SVGgenerator\Rapport\Rapport projet.aux") ) 
 Here is how much of TeX's memory you used:
- 8530 strings out of 493921
- 117807 string characters out of 3147276
- 224888 words of memory out of 3000000
- 11605 multiletter control sequences out of 15000+200000
- 74545 words of font info for 63 fonts, out of 3000000 for 9000
+ 8639 strings out of 493921
+ 119212 string characters out of 3147330
+ 294928 words of memory out of 3000000
+ 11698 multiletter control sequences out of 15000+200000
+ 87362 words of font info for 78 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
- 44i,12n,65p,367b,1759s stack positions out of 5000i,500n,10000p,200000b,50000s
-{F:/Program Files/Mi
-KTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}<F:/Program Files/MiKTeX 2.9/fonts/type1/
-public/lm/lmbx10.pfb><F:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmcsc10
-.pfb><F:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr10.pfb><F:/Program F
-iles/MiKTeX 2.9/fonts/type1/public/lm/lmr12.pfb><F:/Program Files/MiKTeX 2.9/fo
-nts/type1/public/lm/lmr17.pfb><F:/Program Files/MiKTeX 2.9/fonts/type1/public/l
-m/lmr9.pfb><F:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmss12.pfb><F:/Pr
-ogram Files/MiKTeX 2.9/fonts/type1/public/lm/lmss17.pfb>
-Output written on "Rapport projet.pdf" (6 pages, 201184 bytes).
+ 44i,12n,65p,372b,1767s stack positions out of 5000i,500n,10000p,200000b,50000s
+{D:/Program Fil
+es/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}{D:/Program Files/MiKTeX 2.9/fonts/e
+nc/dvips/lm/lm-mathsy.enc}<D:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lm
+bx10.pfb><D:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmcsc10.pfb><D:/Pro
+gram Files/MiKTeX 2.9/fonts/type1/public/lm/lmr10.pfb><D:/Program Files/MiKTeX 
+2.9/fonts/type1/public/lm/lmr12.pfb><D:/Program Files/MiKTeX 2.9/fonts/type1/pu
+blic/lm/lmr17.pfb><D:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmr9.pfb><
+D:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmri9.pfb><D:/Program Files/M
+iKTeX 2.9/fonts/type1/public/lm/lmss12.pfb><D:/Program Files/MiKTeX 2.9/fonts/t
+ype1/public/lm/lmss17.pfb><D:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lm
+sy9.pfb>
+Output written on "Rapport projet.pdf" (6 pages, 235708 bytes).
 PDF statistics:
- 54 PDF objects out of 1000 (max. 8388607)
+ 63 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
