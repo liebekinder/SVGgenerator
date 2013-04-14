@@ -6,8 +6,20 @@ function dessine(Point centre)
         draw centre;
     }
     
+function dessine(Point centre)
+    {
+        draw centre;
+    }
+  
+function dessine2(Point centre)
+    {
+        draw centre;
+    }
+ 
 drawing monDessin [256 , 257]
 {
 	Point origine(50,51); //commentaire
-    dessine(origine);
+	dessine(origine);
+	Point origine2(52,53.278);
+	//Point origine(54,51); //Redef
 }
