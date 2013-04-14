@@ -241,7 +241,7 @@ forr:
 				      };right=Node{value=Arithm_expr;
 				      left=$7;
 				      right=Empty
-				      }};right=$10}}
+				      }};right=Node{value=BlocEmbrace;left=$10;right=Empty}}}
 ;
 funcUse:
 	VAR BEGIN_PAR funcUsePars END_PAR SEMICOLON {
