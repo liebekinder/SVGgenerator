@@ -257,6 +257,13 @@ let affect operande val_tbl = (let Node(var_name_node) = operande.left in
 				)
 ;;
 
+(*Supprime les variables locales*)
+let rec clear_this_code arbre val_tbl = match arbre with
+	| Node(n) when n.value = Declaration -> let Node(var_name_node) = n.left in let Var(var_name) = var_name_node.value in Hashtbl.remove val_tbl var_name
+	| Node(n) -> clear_this_code n.left val_tbl;clear_this_code n.right val_tbl
+	| Empty -> ()
+;;
+
 (*Crée les associations variable / valeur via leur déclarations*)
 let rec eval_val arbre val_table = match arbre with
 	| Node(n) when n.value = Declaration -> (let (key,value) = create_new_qc n val_table in 
@@ -269,6 +276,7 @@ let rec eval_val arbre val_table = match arbre with
 						eval_val n.left val_table; 
 						eval_val n.right val_table)
 	| Node(n) when n.value = Affectation -> affect n val_table
+	| Node(n) when n.value = For -> eval_val n.left val_table; eval_val n.right val_table;(*gestion du ctx*) clear_this_code n.right val_table
 	| Node(n) -> eval_val n.left val_table; eval_val n.right val_table
 	| Empty -> ()
 ;;
@@ -387,12 +395,7 @@ let rec print_call arbre param_list val_tbl = match arbre with
 	| Empty -> Empty
 ;;
 
-(*Supprime les variables locales*)
-let rec clear_this_code arbre val_tbl = match arbre with
-	| Node(n) when n.value = Declaration -> let Node(var_name_node) = n.left in let Var(var_name) = var_name_node.value in Hashtbl.remove val_tbl var_name
-	| Node(n) -> clear_this_code n.left val_tbl;clear_this_code n.right val_tbl
-	| Empty -> ()
-;;
+
 
 let rec execute_the_code arbre val_tbl= 
 

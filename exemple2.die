@@ -37,6 +37,8 @@ drawing monDessin [256 , 257]
 		Line line3(pt, origine);
 		draw line3;
 	};
+	//Gestion du ctx
+	Line line3(origine2, origine);
 	i=5.;
 	Point o(500,500);
 	origine=o;
