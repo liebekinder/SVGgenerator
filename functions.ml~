@@ -177,16 +177,24 @@ let rec eval_val arbre val_table = match arbre with
 (*//TODO instructions pour modifier une variable déjà créée*)
 let rec rempl_var_with_val arbre val_table = ();;
 
-(*TODO Récupère le type d'une variable. Si pas déclarée , renvoie une erreur*)
-let get_var_type name param_list = true;;
+(*Récupère le type d'une variable. Si pas déclarée , renvoie une erreur*)
+(*TODO  Agrandir*)
+let get_var_type name val_tbl = if ((find val_tbl name)="not_found") then 
+					(
+					print_endline ("___________ERROR : Variable non définie : "^name);
+					exit 1
+					);
+				match (Hashtbl.find val_tbl name) with
+					| Point_wrap(_) -> Point
+					| Line_wrap(_) -> Line
+;;
 
 (*Egalité des listes d'appel pour les fonctions*)
-let rec egal_param declaration appel param_list = match (declaration,appel) with
+let rec egal_param declaration appel val_tbl = match (declaration,appel) with
 	| ([],[]) -> true
 	| ([],_) -> false
 	| (_,[]) -> false
-	| ((typz,name)::s,name2::s2) -> typz = (get_var_type name2 param_list);
-					egal_param s s2 param_list;
+	| ((typz,name)::s,name2::s2) -> (typz = (get_var_type name2 val_tbl)) & (egal_param s s2 val_tbl);
 ;;
 
 
@@ -215,7 +223,7 @@ let get_constructor fonction =
 	get_constr_params bloc_par.left
 ;;
 	
-(*TODO Construit la liste des types utilisés lors de l'appel à une fonction*)
+(*TODO Construit la liste des variables utilisés lors de l'appel à une fonction*)
 let rec get_call_constr_params bloc_par = match bloc_par with
 	| Node(n) -> let Node(param) = n.left in
 			if (param.value = ParameterUse) then 
@@ -238,16 +246,29 @@ let get_call_constructor fonction =
 	get_call_constr_params fonction
 ;;
 
+(*récupère le constructeur de la fonction*)
+let get_fonct_decl f_name param_list = if ((find param_list f_name)="not_found") then
+					(
+					print_endline ("Fonction non déclarée "^f_name);
+					exit 1;
+					);
+					(Hashtbl.find param_list f_name)
+;;
+
 (*Affiche les appels aux fonctions*)
-let rec print_call arbre param_list = match arbre with
-	| Node(n) when n.value = FunctionUse -> let param_list = get_call_constructor n.right in
+(* param_list : constructeurs des fonctions. val_tbl : la liste des variables*)
+let rec print_call arbre param_list val_tbl = match arbre with
+	| Node(n) when n.value = FunctionUse -> let param_list_funct = get_call_constructor n.right in
+						(*param_list_funct : liste des paramètres lors de l'appel de la fonction*)
 						let Node(f_name_node) = n.left in
 						let Var(f_name) = f_name_node.value in
 						print_endline ("Fonction : "^f_name);
 						(*print_tree n.right 0;*)
 						let print_list a = print_endline a in
-  						List.iter (print_list) param_list;
-	| Node(n) -> print_call n.left param_list;print_call n.right param_list;
+  						List.iter (print_list) param_list_funct;
+  						let equal = egal_param (get_fonct_decl f_name param_list) param_list_funct val_tbl in
+  						print_endline ("Correct ? "^(string_of_bool (equal)))
+	| Node(n) -> print_call n.left param_list val_tbl;print_call n.right param_list val_tbl;
 	| Empty -> ();
 
 (*TODO Teste si l'utilisation d'une fonction est conforme à sa déclaration*)

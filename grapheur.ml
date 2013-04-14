@@ -28,5 +28,5 @@ let _ =
   let print_value_2 (a,b) = print_value a;print_endline ("    "^b) in
   List.iter (print_value_2) param_list;
   print_endline "Appels aux fonctions";
-  print_call f param_list;
+  print_call f map val_tbl;
   ;;
