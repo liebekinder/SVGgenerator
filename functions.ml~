@@ -5,6 +5,8 @@ Une var ne peut être modifiée que dans son contexte local.
 Pas de fonction dans une fonction
 Pas de draw Point origine2(52,53.278);
 
+épaisseur ligne, pas encore géré : 2 et couleur rouge.
+
 
 *)
 
@@ -64,7 +66,7 @@ type t_arbreB = Empty | Node of node
         and node = { value: operation; left: t_arbreB; right: t_arbreB };;
         
 
-(*global type to put all of this into a hashtbl*)  
+(*TODO ajout. global type to put all of this into a hashtbl*)  
 type all_types = Point_wrap of point | Line_wrap of line;; 
   
     
@@ -154,24 +156,50 @@ let declare_new_point args =
 	p
 ;;
 
+let declare_new_line args val_table= 
+	let Node(args_x_param) = args.left in
+	let Node(args_x) = args_x_param.left in
+	let Var(p_un) = args_x.value in
+	(*print_endline (string_of_float x);
+	print_tree (Node(args_x)) 0;*)
+	let Node(args_y_param) = args_x_param.right in
+	let Node(args_y) = args_y_param.left in
+	let Var(p_deux) = args_y.value in
+	if ((find val_table p_un)="not_found") then (print_endline ("___________ERROR : La variable "^p_un^" n'a pas encore été déclarée."); exit 1);
+	if ((find val_table p_deux)="not_found") then (print_endline ("___________ERROR : La variable "^p_deux^" n'a pas encore été déclarée."); exit 1);
+	let l = (new line) in
+	let Point_wrap(real_p1) = Hashtbl.find val_table p_un in
+	l#set_p1 real_p1;
+	let Point_wrap(real_p2) = Hashtbl.find val_table p_deux in
+	l#set_p2 real_p2;
+	l
+;;
+
+let test args val_table = let l = (new line) in l#set_p1 (new point);l;;
+
 (*TODO faire les lignes*)
 (*Creé un nouvel objet en utilisant l'arbre donné*)
-let create_new_qc n = 
+let create_new_qc n val_table= 
 	let Node(n_name_wrap) = n.left in
 	let Var(n_name) = n_name_wrap.value in
 	let Node(n_type) = n.right in
 	match n_type.value with
 		| Point -> let p = declare_new_point n_type in print_endline ("Creation du point : "^n_name^":("^(string_of_float (p#get_x))^","^(string_of_float (p#get_y))^")") ; (n_name,Point_wrap(p))
-		| Line -> print_endline "dsdssd2" ; (n_name,Line_wrap(new line))
+		| Line -> let l = declare_new_line n_type val_table in print_endline ("Creation de la ligne : "^n_name^":("^(string_of_float ((l#get_p1)#get_x))^","^(string_of_float ((l#get_p1)#get_y))^") à ("^(string_of_float ((l#get_p2)#get_x))^","^(string_of_float ((l#get_p2)#get_y))^")") ; (n_name,Line_wrap(l))
 ;;
 
 
 (*Crée les associations variable / valeur via leur déclarations*)
 let rec eval_val arbre val_table = match arbre with
-	| Node(n) when n.value = Declaration -> let (key,value) = create_new_qc n in 
+	| Node(n) when n.value = Declaration -> (let (key,value) = create_new_qc n val_table in 
 						(* Si variable déjà existante, on plante tout : laquelle prendre ? *)
-						if ((find val_table key)="exists") then (print_endline ("___________ERROR : Variable déjà déclarée : "^key^". Arrêt du programme.");exit 1);
-						Hashtbl.add val_table key value ; eval_val n.left val_table; eval_val n.right val_table
+						if ((find val_table key)="exists") then 
+						(
+						print_endline ("___________ERROR : Variable déjà déclarée : "^key^". Arrêt du programme.");exit 1
+						);
+						Hashtbl.add val_table key value ; 
+						eval_val n.left val_table; 
+						eval_val n.right val_table)
 	| Node(n) -> eval_val n.left val_table; eval_val n.right val_table
 	| Empty -> ()
 ;;
@@ -301,14 +329,14 @@ let execute_action_before operande val_tbl = match (operande.value) with
 			let Number(x_size) = x_size_node.value in
 			let Node(y_size_node) = comma_node.right in
 			let Number(y_size) = y_size_node.value in
-			print_endline ("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width="^(string_of_int (int_of_float x_size))^" height="^(string_of_int (int_of_float y_size))^">"))
+			print_endline ("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\""^(string_of_int (int_of_float x_size))^"\" height=\""^(string_of_int (int_of_float y_size))^">"))
 	| Draw ->(let Node(var_name_node) = operande.left in
 		let Var(var_name) = var_name_node.value in
 		if ((find val_tbl var_name)="not_found") then (print_endline ("Variable inconnue : "^var_name);exit 1);
 		let real_var = (Hashtbl.find val_tbl var_name) in
 		match real_var with
-			| Point_wrap(p) -> print_endline ("ici sera dessiné un point de coordonées "^(string_of_float (p#get_x))^" et "^(string_of_float (p#get_y)))
-			| Line_wrap(l) -> print_endline "ici sera dessiné une ligne"
+			| Point_wrap(p) -> (*print_endline ("ici sera dessiné un point de coordonées "^(string_of_float (p#get_x))^" et "^(string_of_float (p#get_y)))*) ()
+			| Line_wrap(l) -> (*print_endline ("ici sera dessiné une ligne ("^(string_of_float ((l#get_p1)#get_x))^","^(string_of_float ((l#get_p1)#get_y))^") à ("^(string_of_float ((l#get_p2)#get_x))^","^(string_of_float ((l#get_p2)#get_y))^")")*) print_endline ("<line x1=\""^(string_of_float ((l#get_p1)#get_x))^"\" y1=\""^(string_of_float ((l#get_p1)#get_y))^"\" x2=\""^(string_of_float ((l#get_p2)#get_x))^"\" y2=\""^(string_of_float ((l#get_p2)#get_y))^"\" style=\"stroke:rgb(255,0,0);stroke-width:2\"/>")
 			| _ -> print_endline "Type inconnu !"; exit 1)
 	| _ -> ()
 ;;

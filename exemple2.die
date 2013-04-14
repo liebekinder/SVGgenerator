@@ -21,7 +21,7 @@ drawing monDessin [256 , 257]
 {
 	Point origine(50,51); //commentaire
 	dessine(origine);
-	Point origine2(52,53.278);
+	Point origine2(202,153.278);
 	//Point origine(54,51); //Redef
 	Line line2(origine, origine2);
 	dessine2(origine,line2);
