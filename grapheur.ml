@@ -21,5 +21,12 @@ let _ =
   let val_tbl : (string, all_types) Hashtbl.t= Hashtbl.create 42 in
 	eval_val f val_tbl;
   print_endline ("Nombre de variables : "^(string_of_int (Hashtbl.length val_tbl)));
-
+  let f_name = "dessine2" in 
+  (*print_tree (Hashtbl.find map f_name) 0;*)
+  let param_list = get_constructor (Hashtbl.find map f_name) in
+  print_endline ("Nb params : "^(string_of_int (List.length param_list))^" de la fonction "^f_name);
+  let print_value_2 (a,b) = print_value a;print_endline ("    "^b) in
+  List.iter (print_value_2) param_list;
+  print_endline "Appels aux fonctions";
+  print_call f param_list;
   ;;

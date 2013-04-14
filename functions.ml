@@ -1,7 +1,7 @@
 (*Politique :
 Déclarer une fonction plus d'une fois => la dernière est prise en compte + warning
 Pour une var :  Error (laquelle prendre ?)
-
+Une var ne peut être modifiée que dans son contexte local.
 
 *)
 
@@ -151,6 +151,8 @@ let declare_new_point args =
 	p
 ;;
 
+(*TODO faire les lignes*)
+(*Creé un nouvel objet en utilisant l'arbre donné*)
 let create_new_qc n = 
 	let Node(n_name_wrap) = n.left in
 	let Var(n_name) = n_name_wrap.value in
@@ -164,14 +166,93 @@ let create_new_qc n =
 (*Crée les associations variable / valeur via leur déclarations*)
 let rec eval_val arbre val_table = match arbre with
 	| Node(n) when n.value = Declaration -> let (key,value) = create_new_qc n in 
-						(* Si varaible déjà existant, on plante tout : laquelle prendre ? *)
+						(* Si variable déjà existante, on plante tout : laquelle prendre ? *)
 						if ((find val_table key)="exists") then (print_endline ("___________ERROR : Variable déjà déclarée : "^key^". Arrêt du programme.");exit 1);
 						Hashtbl.add val_table key value ; eval_val n.left val_table; eval_val n.right val_table
 	| Node(n) -> eval_val n.left val_table; eval_val n.right val_table
 	| Empty -> ()
 ;;
 
+(*remplace une variable par sa valeur*)
+(*//TODO instructions pour modifier une variable déjà créée*)
+let rec rempl_var_with_val arbre val_table = ();;
 
+(*TODO Récupère le type d'une variable. Si pas déclarée , renvoie une erreur*)
+let get_var_type name param_list = true;;
+
+(*Egalité des listes d'appel pour les fonctions*)
+let rec egal_param declaration appel param_list = match (declaration,appel) with
+	| ([],[]) -> true
+	| ([],_) -> false
+	| (_,[]) -> false
+	| ((typz,name)::s,name2::s2) -> typz = (get_var_type name2 param_list);
+					egal_param s s2 param_list;
+;;
+
+
+(*Construit la liste des types pour la déclaration d'une fonction*)
+let rec get_constr_params bloc_par = match bloc_par with
+	| Node(n) -> let Node(param) = n.left in
+			if (param.value = Parameter) then 
+			(
+				let Node(type_param) = param.left in
+				let Node(name_param) = param.right in
+				let Var(real_name_param) = name_param.value in
+				(type_param.value,real_name_param)::(get_constr_params n.right)
+			)
+			else
+			(
+				(*N'est pas censé arriver.*)
+				print_endline "Arbre syntaxique incorrect";
+				exit 1;
+			)
+	| Empty -> []
+;;
+
+(*Construit la liste des types pour la déclaration d'une fonction par appel à une fonction récursive*)
+let get_constructor fonction =
+	let Node(bloc_par) = fonction in
+	get_constr_params bloc_par.left
+;;
+	
+(*TODO Construit la liste des types utilisés lors de l'appel à une fonction*)
+let rec get_call_constr_params bloc_par = match bloc_par with
+	| Node(n) -> let Node(param) = n.left in
+			if (param.value = ParameterUse) then 
+			(
+				let Node(name_param) = param.left in
+				let Var(real_name_param) = name_param.value in
+				(real_name_param)::(get_call_constr_params n.right)
+			)
+			else
+			(
+				(*N'est pas censé arriver.*)
+				print_endline "Arbre syntaxique incorrect";
+				exit 1;
+			)
+	| Empty -> []
+;;
+
+let get_call_constructor fonction =
+	(* noeud de type : FunctionUse*)
+	get_call_constr_params fonction
+;;
+
+(*Affiche les appels aux fonctions*)
+let rec print_call arbre param_list = match arbre with
+	| Node(n) when n.value = FunctionUse -> let param_list = get_call_constructor n.right in
+						let Node(f_name_node) = n.left in
+						let Var(f_name) = f_name_node.value in
+						print_endline ("Fonction : "^f_name);
+						(*print_tree n.right 0;*)
+						let print_list a = print_endline a in
+  						List.iter (print_list) param_list;
+	| Node(n) -> print_call n.left param_list;print_call n.right param_list;
+	| Empty -> ();
+
+(*TODO Teste si l'utilisation d'une fonction est conforme à sa déclaration*)
+
+(*TODO remplace tous les appels aux fonctions par le morceau de code correspondant avec les bonnes variables*)
     
 (*Tests en dur*)
 (*let maptest : (string, all_types) Hashtbl.t= Hashtbl.create 42 in

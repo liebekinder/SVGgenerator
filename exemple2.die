@@ -11,7 +11,7 @@ function dessine(Point centre)
         draw centre;
     }
   
-function dessine2(Point centre)
+function dessine2(Point centre, Line test)
     {
         draw centre;
     }
@@ -22,4 +22,6 @@ drawing monDessin [256 , 257]
 	dessine(origine);
 	Point origine2(52,53.278);
 	//Point origine(54,51); //Redef
+	dessine2(origine,origine2);
 }
+

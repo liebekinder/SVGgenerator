@@ -74,10 +74,10 @@ functio:
 ;
 
 params:
-param params {
+param COMMA params {
     Node{value=Parameters;
 		left=$1;
-		right=$2
+		right=$3
 	  }
 	 }
 | param{
@@ -195,10 +195,10 @@ funcUse:
 ;
 
 funcUsePars:
-funcUsePar funcUsePars {
+funcUsePar COMMA funcUsePars {
     Node{value=ParametersUse;
 		left=$1;
-		right=$2
+		right=$3
 	  }
 	 }
 | funcUsePar{
