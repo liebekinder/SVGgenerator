@@ -26,6 +26,7 @@
 %token MULT
 
 %token FOR
+%token EQ
 
 %token FLOAT
 
@@ -177,6 +178,18 @@ instruction:
 	  right=Empty
 	  }
   }
+| forr instruction {
+    Node{value=Instruction;
+	  left=$1;
+	  right=$2
+	  }
+  }
+| forr {
+    Node{value=Instruction;
+	  left=$1;
+	  right=Empty
+	  }
+  }
 | funcUse instruction {
     Node{value=Instruction;
 	  left=$1;
@@ -191,8 +204,15 @@ instruction:
   }
 ;
 
-
-
+forr:
+	FOR BEGIN_PAR VAR EQ arithm_expr COMMA arithm_expr END_PAR BEGIN_EMBRACE instruction END_EMBRACE SEMICOLON {Node{value = For;left=Node{value=Var($3);left=Node{value=Arithm_expr;
+				      left=$5;
+				      right=Empty
+				      };right=Node{value=Arithm_expr;
+				      left=$7;
+				      right=Empty
+				      }};right=$10}}
+;
 funcUse:
 	VAR BEGIN_PAR funcUsePars END_PAR SEMICOLON {
 		Node{value=FunctionUse;

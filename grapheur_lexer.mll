@@ -35,6 +35,7 @@ rule token = parse
   | '-' {print_endline "-";MOINS}
   | '/' {print_endline "/";DIV}
   | '*' {print_endline "*";MULT}
+  | '=' {print_endline "=";EQ}
   
   | "Point" {print_endline "Point"; POINT}
   | "Line" {print_endline "Line"; LINE}
