@@ -2,6 +2,9 @@
 Déclarer une fonction plus d'une fois => la dernière est prise en compte + warning
 Pour une var :  Error (laquelle prendre ?)
 Une var ne peut être modifiée que dans son contexte local.
+Pas de fonction dans une fonction
+Pas de draw Point origine2(52,53.278);
+
 
 *)
 
@@ -223,7 +226,7 @@ let get_constructor fonction =
 	get_constr_params bloc_par.left
 ;;
 	
-(*TODO Construit la liste des variables utilisés lors de l'appel à une fonction*)
+(*Construit la liste des variables utilisés lors de l'appel à une fonction*)
 let rec get_call_constr_params bloc_par = match bloc_par with
 	| Node(n) -> let Node(param) = n.left in
 			if (param.value = ParameterUse) then 
@@ -252,10 +255,22 @@ let get_fonct_decl f_name param_list = if ((find param_list f_name)="not_found")
 					print_endline ("Fonction non déclarée "^f_name);
 					exit 1;
 					);
-					(Hashtbl.find param_list f_name)
+					get_constructor (Hashtbl.find param_list f_name)
 ;;
 
+(*retourne le code d'une fonction ! Doit exister *)
+let get_func_code f_name fun_tbl = let Node(a) = Hashtbl.find fun_tbl f_name in
+				let bloc_brace = a.right in
+				bloc_brace	
+;;
+
+(*normalize le code d'une fonction selon le contexte*)
+let rec replace_by_right_name funct_code funct_decl param_list_funct = match (funct_decl,param_list_funct) with
+	| ([],[]) -> funct_code
+	| ((typz,name)::s,name2::s2) -> let funct_code2 = replace_by_right_name funct_code s s2 in (remplace_elem funct_code2 (Var(name)) (Var(name2)))
+
 (*Affiche les appels aux fonctions*)
+(*remplace tous les appels aux fonctions par le morceau de code correspondant avec les bonnes variables*)
 (* param_list : constructeurs des fonctions. val_tbl : la liste des variables*)
 let rec print_call arbre param_list val_tbl = match arbre with
 	| Node(n) when n.value = FunctionUse -> let param_list_funct = get_call_constructor n.right in
@@ -264,16 +279,53 @@ let rec print_call arbre param_list val_tbl = match arbre with
 						let Var(f_name) = f_name_node.value in
 						print_endline ("Fonction : "^f_name);
 						(*print_tree n.right 0;*)
-						let print_list a = print_endline a in
-  						List.iter (print_list) param_list_funct;
-  						let equal = egal_param (get_fonct_decl f_name param_list) param_list_funct val_tbl in
-  						print_endline ("Correct ? "^(string_of_bool (equal)))
-	| Node(n) -> print_call n.left param_list val_tbl;print_call n.right param_list val_tbl;
-	| Empty -> ();
+						(*let print_list a = print_endline a in
+  						List.iter (print_list) param_list_funct;*)
+  						let func_decl = (get_fonct_decl f_name param_list) in
+  						let equal = egal_param func_decl param_list_funct val_tbl in
+  						print_endline ("Correct ? "^(string_of_bool (equal)));
+  						if (not equal) then (print_endline ("___________ERROR : L'appel à la fonction "^f_name^" n'a pas les bons types de paramètres."));
+  						Node({value = n.value ; left = replace_by_right_name (get_func_code f_name param_list) func_decl param_list_funct;right = Empty})
+	| Node(n) -> Node({value = n.value ; left = print_call n.left param_list val_tbl;right = print_call n.right param_list val_tbl})
+	| Empty -> Empty
+;;
 
-(*TODO Teste si l'utilisation d'une fonction est conforme à sa déclaration*)
+(*TODO rajouter toutes les op de type modification d'une variable, for, etc...=> modif de val_tbl à la volée*)
+let execute_action_before operande val_tbl = match (operande.value) with
+	| Drawing ->(print_endline "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
+			let Node(name_node) = operande.left in
+			let Var(name) = name_node.value in
+			let Node(drawing_size_node) = operande.right in 
+			let Node(comma_node) = drawing_size_node.left in
+			let Node(x_size_node) = comma_node.left in
+			let Number(x_size) = x_size_node.value in
+			let Node(y_size_node) = comma_node.right in
+			let Number(y_size) = y_size_node.value in
+			print_endline ("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width="^(string_of_int (int_of_float x_size))^" height="^(string_of_int (int_of_float y_size))^">"))
+	| Draw ->(let Node(var_name_node) = operande.left in
+		let Var(var_name) = var_name_node.value in
+		if ((find val_tbl var_name)="not_found") then (print_endline ("Variable inconnue : "^var_name);exit 1);
+		let real_var = (Hashtbl.find val_tbl var_name) in
+		match real_var with
+			| Point_wrap(p) -> print_endline ("ici sera dessiné un point de coordonées "^(string_of_float (p#get_x))^" et "^(string_of_float (p#get_y)))
+			| Line_wrap(l) -> print_endline "ici sera dessiné une ligne"
+			| _ -> print_endline "Type inconnu !"; exit 1)
+	| _ -> ()
+;;
 
-(*TODO remplace tous les appels aux fonctions par le morceau de code correspondant avec les bonnes variables*)
+let execute_action_after operande val_tbl = match operande.value with
+	| Drawing ->print_endline "</svg>"
+	| _ -> ()
+;;
+
+
+
+let rec execute_the_code arbre val_tbl= match arbre with
+	| Node(n) -> execute_action_before n val_tbl; execute_the_code (n.left) val_tbl; execute_the_code (n.right) val_tbl; execute_action_after n val_tbl;
+	| Empty -> ()
+;;
+	
+
     
 (*Tests en dur*)
 (*let maptest : (string, all_types) Hashtbl.t= Hashtbl.create 42 in
