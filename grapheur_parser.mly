@@ -49,7 +49,10 @@ main:
 		right=$2
 		}
 }
-| dessin EOF {$1}
+| dessin EOF {Node{value=Root;
+		left=Empty;
+		right=$1
+		}}
 ;
 
 functions:
@@ -59,7 +62,7 @@ functio functions {
 	  right=$2
 	  }
 	}
-| functio{Node{value=Functions;
+| functio {Node{value=Functions;
 				left=$1;
 				right=Empty
 				}
