@@ -25,6 +25,8 @@
 %token DIV
 %token MULT
 
+%token FOR
+
 %token FLOAT
 
 %token POINT

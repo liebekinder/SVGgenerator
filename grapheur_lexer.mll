@@ -27,7 +27,9 @@ rule token = parse
   | '[' {print_endline "[";BEGIN_BRACE}
   | ']' {print_endline "]";END_BRACE}
   
-  | "Float" {print_endline "float";FLOAT}
+  | "Float" {print_endline "Float";FLOAT}
+  
+  | "For" {print_endline "For";FOR}
   
   | '+' {print_endline "+";PLUS}
   | '-' {print_endline "-";MOINS}

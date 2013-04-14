@@ -71,6 +71,7 @@ type operation =
   | Plus
   | Mult
   | Div
+  | For
   | Arithm_expr
   | Var of (string)
   | Number of (float);;
@@ -121,6 +122,7 @@ let print_value v = match v with
   | Mult -> print_endline "Mult"
   | Div -> print_endline "Div"
   | Float -> print_endline "Float"
+  | For->print_endline "For"
   | Arithm_expr ->print_endline "Arithm_expr"
   | Var(s) -> print_endline s
   | Number(i) -> print_endline (string_of_float i);;

@@ -71,6 +71,7 @@ type operation =
   | Plus
   | Mult
   | Div
+  | For
   | Arithm_expr
   | Var of (string)
   | Number of (float);;
@@ -209,7 +210,7 @@ let declare_new_line args val_table=
 ;;
 
 let declare_new_float n_type val_table = 
-	let float_val = evalue_arithm_expr (n_type.left) val_tabl in
+	let float_val = evalue_arithm_expr (n_type.left) val_table in
 	let f=new valFloat in
 	f#set_value float_val;
 	f
