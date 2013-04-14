@@ -37,5 +37,11 @@ drawing monDessin [256 , 257]
 		Line line3(pt, origine);
 		draw line3;
 	};
+	i=5.;
+	Point o(500,500);
+	origine=o;
+	Line line4(origine,origine2);
+	draw line4;
+
 }
 

@@ -178,6 +178,18 @@ instruction:
 	  right=Empty
 	  }
   }
+| affectation instruction {
+    Node{value=Instruction;
+	  left=$1;
+	  right=$2
+	  }
+  }
+| affectation {
+    Node{value=Instruction;
+	  left=$1;
+	  right=Empty
+	  }
+  }
 | forr instruction {
     Node{value=Instruction;
 	  left=$1;
@@ -202,6 +214,24 @@ instruction:
 	  right=Empty
 	  }
   }
+;
+
+affectation:
+	VAR EQ arithm_expr SEMICOLON {Node{value=Affectation;left=Node{value=Var($1);
+									left=Empty;
+									right=Empty
+									}
+							;right=Node{value=Arithm_expr;
+				      left=$3;
+				      right=Empty
+				      }}}
+	| VAR EQ VAR SEMICOLON {Node{value=Affectation;left=Node{value=Var($1);
+					left=Empty;
+					right=Empty
+					};right=Node{value=Var($3);
+					left=Empty;
+					right=Empty
+					}}}
 ;
 
 forr:
