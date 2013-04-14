@@ -39,6 +39,7 @@ main:
 		right=$2
 		}
 }
+| dessin EOF {$1}
 ;
 
 functions:
