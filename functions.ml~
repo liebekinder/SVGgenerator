@@ -226,6 +226,7 @@ let declare_new_float n_type val_table =
 let create_new_qc n val_table= 
 	let Node(n_name_wrap) = n.left in
 	let Var(n_name) = n_name_wrap.value in
+	(*print_endline ("Création de "^n_name);*)
 	let Node(n_type) = n.right in
 	match n_type.value with
 		| Point -> let p = declare_new_point n_type val_table in (*print_endline ("Creation du point : "^n_name^":("^(string_of_float (p#get_x))^","^(string_of_float (p#get_y))^")") ;*) (n_name,Point_wrap(p))
@@ -259,27 +260,12 @@ let affect operande val_tbl = (let Node(var_name_node) = operande.left in
 
 (*Supprime les variables locales*)
 let rec clear_this_code arbre val_tbl = match arbre with
-	| Node(n) when n.value = Declaration -> let Node(var_name_node) = n.left in let Var(var_name) = var_name_node.value in Hashtbl.remove val_tbl var_name
+	| Node(n) when n.value = Declaration -> let Node(var_name_node) = n.left in let Var(var_name) = var_name_node.value in Hashtbl.remove val_tbl var_name;(*print_endline ("Suppression de "^var_name)*)
 	| Node(n) -> clear_this_code n.left val_tbl;clear_this_code n.right val_tbl
 	| Empty -> ()
 ;;
 
-(*Crée les associations variable / valeur via leur déclarations*)
-let rec eval_val arbre val_table = match arbre with
-	| Node(n) when n.value = Declaration -> (let (key,value) = create_new_qc n val_table in 
-						(* Si variable déjà existante, on plante tout : laquelle prendre ? *)
-						if ((find val_table key)="exists") then 
-						(
-						print_endline ("___________ERROR : Variable déjà déclarée : "^key^". Arrêt du programme.");exit 1
-						);
-						Hashtbl.add val_table key value ; 
-						eval_val n.left val_table; 
-						eval_val n.right val_table)
-	| Node(n) when n.value = Affectation -> affect n val_table
-	| Node(n) when n.value = For -> eval_val n.left val_table; eval_val n.right val_table;(*gestion du ctx*) clear_this_code n.right val_table
-	| Node(n) -> eval_val n.left val_table; eval_val n.right val_table
-	| Empty -> ()
-;;
+
 
 (*remplace une variable par sa valeur*)
 (*//TODO instructions pour modifier une variable déjà créée*)
@@ -395,6 +381,22 @@ let rec print_call arbre param_list val_tbl = match arbre with
 	| Empty -> Empty
 ;;
 
+(*Crée les associations variable / valeur via leur déclarations*)
+let rec eval_val arbre val_table param_list= match arbre with
+	| Node(n) when n.value = Declaration -> (let (key,value) = create_new_qc n val_table in 
+						(* Si variable déjà existante, on plante tout : laquelle prendre ? *)
+						if ((find val_table key)="exists") then 
+						(
+						print_endline ("___________ERROR : Variable déjà déclarée : "^key^". Arrêt du programme.");exit 1
+						);
+						Hashtbl.add val_table key value ; 
+						let l_val = eval_val n.left val_table param_list in let r_val = eval_val n.right val_table param_list in Node({value = n.value ; left = l_val;right = r_val}))
+	| Node(n) when n.value = Affectation -> (affect n val_table;let l_val = eval_val n.left val_table param_list in let r_val = eval_val n.right val_table param_list in Node({value = n.value ; left = l_val;right = r_val}))
+	(*| Node(n) when n.value = For -> eval_val n.left val_table; eval_val n.right val_table;(*gestion du ctx*) clear_this_code n.right val_table*)
+	| Node(n) when n.value = BlocEmbrace -> (let l_val = eval_val n.left val_table param_list in let r_val = eval_val n.right val_table param_list in let node = Node({value = n.value ; left = l_val;right = r_val}) in (*gestion du ctx*) clear_this_code n.right val_table;clear_this_code n.left val_table;node)
+	| Node(n) -> let l_val = eval_val n.left val_table param_list in let r_val = eval_val n.right val_table param_list in Node({value = n.value ; left = l_val;right = r_val})
+	| Empty -> Empty
+;;
 
 
 let rec execute_the_code arbre val_tbl= 
@@ -421,6 +423,14 @@ let rec execute_the_code arbre val_tbl=
 				| Line_wrap(l) -> (*print_endline ("ici sera dessiné une ligne ("^(string_of_float ((l#get_p1)#get_x))^","^(string_of_float ((l#get_p1)#get_y))^") à ("^(string_of_float ((l#get_p2)#get_x))^","^(string_of_float ((l#get_p2)#get_y))^")")*) print_endline ("<line x1=\""^(string_of_float ((l#get_p1)#get_x))^"\" y1=\""^(string_of_float ((l#get_p1)#get_y))^"\" x2=\""^(string_of_float ((l#get_p2)#get_x))^"\" y2=\""^(string_of_float ((l#get_p2)#get_y))^"\" style=\"stroke:rgb(255,0,0);stroke-width:2\"/>")
 				| _ -> print_endline "Type inconnu !"; exit 1)
 		| Affectation -> affect operande val_tbl
+		| Declaration -> (let (key,value) = create_new_qc operande val_tbl in 
+						(* Si variable déjà existante, on plante tout : laquelle prendre ? *)
+						if ((find val_tbl key)="exists") then 
+						(
+						print_endline ("___________ERROR : Variable déjà déclarée : "^key^". Arrêt du programme.");exit 1
+						);
+						Hashtbl.add val_tbl key value ; 
+						)
 		| _ -> ()
 		
 		
@@ -430,6 +440,7 @@ let rec execute_the_code arbre val_tbl=
 	
 let execute_action_after operande val_tbl = match operande.value with
 	| Drawing ->print_endline "</svg>"
+	| BlocEmbrace -> (*gestion du ctx*) clear_this_code operande.right val_tbl ; clear_this_code operande.left val_tbl
 	| For -> (let Node(var_node) = operande.left in
 				let Var(var_name) = var_node.value in
 				let start_val = evalue_arithm_expr (var_node.left) val_tbl in
@@ -445,14 +456,14 @@ let execute_action_after operande val_tbl = match operande.value with
 					Hashtbl.add val_tbl var_name (Float_wrap(f));
 					
 					(*Suppression des variables qui vont êtres redéclarées*)
-					clear_this_code operande.right val_tbl;
+					(*clear_this_code operande.right val_tbl;*)
 					(*déclaration à leurs nouvelles valeurs.*)
 					eval_val operande.right val_tbl;
 					
 					
 					execute_the_code operande.right val_tbl
 					)
-				done;(*Suppression des variables locales*)clear_this_code arbre val_tbl;)
+				done;(*Suppression des variables locales*)(*clear_this_code arbre val_tbl;*))
 	| _ -> ()
 		
 	(*fin fct fille*)

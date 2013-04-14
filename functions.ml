@@ -363,7 +363,7 @@ let rec replace_by_right_name funct_code funct_decl param_list_funct = match (fu
 (*Affiche les appels aux fonctions*)
 (*remplace tous les appels aux fonctions par le morceau de code correspondant avec les bonnes variables*)
 (* param_list : constructeurs des fonctions. val_tbl : la liste des variables*)
-let rec print_call arbre param_list val_tbl = match arbre with
+(*let rec print_call arbre param_list val_tbl = match arbre with
 	| Node(n) when n.value = FunctionUse -> let param_list_funct = get_call_constructor n.right in
 						(*param_list_funct : liste des paramètres lors de l'appel de la fonction*)
 						let Node(f_name_node) = n.left in
@@ -379,7 +379,7 @@ let rec print_call arbre param_list val_tbl = match arbre with
   						Node({value = n.value ; left = replace_by_right_name (get_func_code f_name param_list) func_decl param_list_funct;right = Empty})
 	| Node(n) -> Node({value = n.value ; left = print_call n.left param_list val_tbl;right = print_call n.right param_list val_tbl})
 	| Empty -> Empty
-;;
+;;*)
 
 (*Crée les associations variable / valeur via leur déclarations*)
 let rec eval_val arbre val_table param_list= match arbre with
