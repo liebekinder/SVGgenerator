@@ -19,7 +19,7 @@ let _ =
   (*let print_tree_2 arg f = print_tree f 0 in
   Hashtbl.iter print_tree_2 map;*)
   let val_tbl : (string, all_types) Hashtbl.t= Hashtbl.create 42 in
-	eval_val f val_tbl;
+  let modified_f = eval_val f val_tbl map in
   print_endline ("___________Nombre de variables : "^(string_of_int (Hashtbl.length val_tbl)));
   (*let f_name = "dessine2" in 
   (*print_tree (Hashtbl.find map f_name) 0;*)
@@ -28,7 +28,7 @@ let _ =
   let print_value_2 (a,b) = print_value a;print_endline ("    "^b) in
   List.iter (print_value_2) param_list;*)
   print_endline "___________Appels aux fonctions";
-  let modified_f = (print_call f map val_tbl) in 
+  (*let modified_f = (print_call f map val_tbl) in *)
   print_tree modified_f 0;
   let Node(all_code) = modified_f in 
   execute_the_code all_code.right val_tbl; (*left contient les déclarations de fonctions*)
