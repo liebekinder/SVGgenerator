@@ -234,6 +234,29 @@ let create_new_qc n val_table=
 ;;
 
 
+let affect operande val_tbl = (let Node(var_name_node) = operande.left in 
+				let Var(var_name) = var_name_node.value in
+				let Node(a_affecter) = operande.right in 
+				match a_affecter.value with
+					| Arithm_expr -> (if ((find val_tbl var_name)="not_found") then (print_endline ("Variable non déclarée : "^var_name);exit 1);Hashtbl.remove val_tbl var_name;let f = new valFloat in f#set_value (evalue_arithm_expr (operande.right) val_tbl);Hashtbl.add val_tbl var_name (Float_wrap(f))(*;print_endline ("affect "^var_name^" "^(string_of_float (f#get_value)))*))
+					| Var(y) -> (if ((find val_tbl var_name)="not_found") then (print_endline ("Variable non déclarée : "^var_name);exit 1);
+					if ((find val_tbl y)="not_found") then (print_endline ("Variable non déclarée : "^y);exit 1);
+					let var_type = get_type (Hashtbl.find val_tbl var_name) in
+					let y_var = (Hashtbl.find val_tbl y) in
+					let y_type = get_type y_var in
+					Hashtbl.remove val_tbl var_name;
+					if (y_type<>var_type) then (print_endline ("Typage incorrect entre "^var_name^" et "^y));
+					Hashtbl.add val_tbl var_name y_var;
+					(*let Point_wrap(z) = y_var in
+					print_endline (string_of_float (z#get_x));
+					let var_var = (Hashtbl.find val_tbl var_name) in
+					let Point_wrap(z2) = y_var in
+					print_endline (string_of_float (z2#get_x));
+					print_endline (var_name^"<-"^y)*))
+					| _ -> print_endline ("Erreur d'affectation sur "^var_name);exit 1
+				)
+;;
+
 (*Crée les associations variable / valeur via leur déclarations*)
 let rec eval_val arbre val_table = match arbre with
 	| Node(n) when n.value = Declaration -> (let (key,value) = create_new_qc n val_table in 
@@ -245,27 +268,7 @@ let rec eval_val arbre val_table = match arbre with
 						Hashtbl.add val_table key value ; 
 						eval_val n.left val_table; 
 						eval_val n.right val_table)
-	| Node(n) when n.value = Affectation -> (let Node(var_name_node) = n.left in 
-						let Var(var_name) = var_name_node.value in
-						let Node(a_affecter) = n.right in 
-						match a_affecter.value with
-							| Arithm_expr -> (if ((find val_table var_name)="not_found") then (print_endline ("Variable non déclarée : "^var_name);exit 1);Hashtbl.remove val_table var_name;let f = new valFloat in f#set_value (evalue_arithm_expr (operande.right) val_table);Hashtbl.add val_table var_name (Float_wrap(f))(*;print_endline ("affect "^var_name^" "^(string_of_float (f#get_value)))*))
-							| Var(y) -> (if ((find val_table var_name)="not_found") then (print_endline ("Variable non déclarée : "^var_name);exit 1);
-							if ((find val_table y)="not_found") then (print_endline ("Variable non déclarée : "^y);exit 1);
-							let var_type = get_type (Hashtbl.find val_table var_name) in
-							let y_var = (Hashtbl.find val_table y) in
-							let y_type = get_type y_var in
-							Hashtbl.remove val_table var_name;
-							if (y_type<>var_type) then (print_endline ("Typage incorrect entre "^var_name^" et "^y));
-							Hashtbl.add val_table var_name y_var;
-							(*let Point_wrap(z) = y_var in
-							print_endline (string_of_float (z#get_x));
-							let var_var = (Hashtbl.find val_tbl var_name) in
-							let Point_wrap(z2) = y_var in
-							print_endline (string_of_float (z2#get_x));
-							print_endline (var_name^"<-"^y)*))
-							| _ -> print_endline ("Erreur d'affectation sur "^var_name);exit 1
-						)
+	| Node(n) when n.value = Affectation -> affect n val_table
 	| Node(n) -> eval_val n.left val_table; eval_val n.right val_table
 	| Empty -> ()
 ;;
