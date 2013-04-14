@@ -276,7 +276,7 @@ let rec eval_val arbre val_table = match arbre with
 						eval_val n.left val_table; 
 						eval_val n.right val_table)
 	| Node(n) when n.value = Affectation -> affect n val_table
-	| Node(n) when n.value = For -> eval_val n.left val_table; eval_val n.right val_table
+	| Node(n) when n.value = For -> eval_val n.left val_table; eval_val n.right val_table;(*gestion du ctx*) clear_this_code n.right val_table
 	| Node(n) -> eval_val n.left val_table; eval_val n.right val_table
 	| Empty -> ()
 ;;
