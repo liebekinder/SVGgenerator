@@ -27,6 +27,13 @@ rule token = parse
   | '[' {print_endline "[";BEGIN_BRACE}
   | ']' {print_endline "]";END_BRACE}
   
+  | "Float" {print_endline "float";FLOAT}
+  
+  | '+' {print_endline "+";PLUS}
+  | '-' {print_endline "-";MOINS}
+  | '/' {print_endline "/";DIV}
+  | '*' {print_endline "*";MULT}
+  
   | "Point" {print_endline "Point"; POINT}
   | "Line" {print_endline "Line"; LINE}
   

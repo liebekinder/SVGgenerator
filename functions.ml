@@ -4,6 +4,7 @@ Pour une var :  Error (laquelle prendre ?)
 Une var ne peut être modifiée que dans son contexte local.
 Pas de fonction dans une fonction
 Pas de draw Point origine2(52,53.278);
+div par 0 pas encore gérées
 
 épaisseur ligne, pas encore géré : 2 et couleur rouge.
 
@@ -34,6 +35,12 @@ class line =
       method set_p2 p2p = p2 <- p2p
     end;;
 
+class valFloat =
+    object
+      val mutable value = 0.
+      method get_value = value
+      method set_value valp = value <- valp
+    end;;
 
 (*-----*)
 (*TYPES*)
@@ -55,10 +62,16 @@ type operation =
   | ParameterUse
   | FunctionUse
   | Point
+  | Float
   | Line
   | Instruction
   | Comma
   | Draw
+  | Moins
+  | Plus
+  | Mult
+  | Div
+  | Arithm_expr
   | Var of (string)
   | Number of (float);;
   
@@ -67,7 +80,7 @@ type t_arbreB = Empty | Node of node
         
 
 (*TODO ajout. global type to put all of this into a hashtbl*)  
-type all_types = Point_wrap of point | Line_wrap of line;; 
+type all_types = Point_wrap of point | Line_wrap of line | Float_wrap of valFloat;; 
   
     
 
@@ -103,6 +116,12 @@ let print_value v = match v with
   | Instruction -> print_endline "Instruction"
   | Comma -> print_endline ","
   | Draw -> print_endline "Draw"
+  | Moins -> print_endline "Moins"
+  | Plus -> print_endline "Plus"
+  | Mult -> print_endline "Mult"
+  | Div -> print_endline "Div"
+  | Float -> print_endline "Float"
+  | Arithm_expr ->print_endline "Arithm_expr"
   | Var(s) -> print_endline s
   | Number(i) -> print_endline (string_of_float i);;
 
@@ -112,6 +131,20 @@ let rec print_tree t p = match t with
   | Node(n) -> for i=0 to p do print_string "    " done;print_value n.value;print_tree n.left (p+1);print_tree n.right (p+1);;
   
       
+(*Evaluation d'une expression arithmétique TODO avec les var de type float (à implémenter)*)
+let rec evalue_arithm_expr arbre val_table = match arbre with
+	| Node(n) when n.value=Plus -> (evalue_arithm_expr n.left val_table)+.(evalue_arithm_expr n.right val_table)
+	| Node(n) when n.value=Moins -> (evalue_arithm_expr n.left val_table)-.(evalue_arithm_expr n.right val_table)
+	| Node(n) when n.value=Mult -> (evalue_arithm_expr n.left val_table)*.(evalue_arithm_expr n.right val_table)
+	| Node(n) when n.value=Div -> (evalue_arithm_expr n.left val_table)/.(evalue_arithm_expr n.right val_table)
+	| Node(n) when n.value=BlocPar -> evalue_arithm_expr (n.left) val_table
+	| Node(n) when n.value=Arithm_expr -> evalue_arithm_expr (n.left) val_table
+	| Node(n) -> (match (n.value) with
+			| Number(x) -> x
+			| Var(x) -> ((if ((find val_table x)="not_found") then (print_endline ("Variable non déclarée : "^x);exit 1));let x_val = (Hashtbl.find val_table x) in (match x_val with Float_wrap(x_real_val) -> (x_real_val#get_value) | _ -> (print_endline (x^" n'est pas de type float"));exit 1))
+			)
+	| Empty -> print_endline "error";exit 1
+;;
 
 (*remplace une élément présent dans un arbre par un autre*)
 let rec remplace_elem arbre elem_present eleme_a_remplacer = match arbre with
@@ -141,15 +174,15 @@ let get_type a = match a with
 	| _ -> "unknow"
 ;;
 
-let declare_new_point args = 
+let declare_new_point args val_table= 
 	let Node(args_x_param) = args.left in
-	let Node(args_x) = args_x_param.left in
-	let Number(x) = args_x.value in
+	(*let Node(args_x) = args_x_param.left in*)
+	let x = evalue_arithm_expr (args_x_param.left) val_table in
 	(*print_endline (string_of_float x);
 	print_tree (Node(args_x)) 0;*)
 	let Node(args_y_param) = args_x_param.right in
-	let Node(args_y) = args_y_param.left in
-	let Number(y) = args_y.value in
+	(*let Node(args_y) = args_y_param.left in*)
+	let y = (evalue_arithm_expr (args_y_param.left)) val_table in
 	let p = new point in
 	p#set_x x;
 	p#set_y y;
@@ -175,17 +208,24 @@ let declare_new_line args val_table=
 	l
 ;;
 
-let test args val_table = let l = (new line) in l#set_p1 (new point);l;;
+let declare_new_float n_type val_table = 
+	let float_val = evalue_arithm_expr (n_type.left) val_table in
+	let f=new valFloat in
+	f#set_value float_val;
+	f
+;;
 
-(*TODO faire les lignes*)
+
+(*TODO faire les trucs*)
 (*Creé un nouvel objet en utilisant l'arbre donné*)
 let create_new_qc n val_table= 
 	let Node(n_name_wrap) = n.left in
 	let Var(n_name) = n_name_wrap.value in
 	let Node(n_type) = n.right in
 	match n_type.value with
-		| Point -> let p = declare_new_point n_type in print_endline ("Creation du point : "^n_name^":("^(string_of_float (p#get_x))^","^(string_of_float (p#get_y))^")") ; (n_name,Point_wrap(p))
+		| Point -> let p = declare_new_point n_type val_table in print_endline ("Creation du point : "^n_name^":("^(string_of_float (p#get_x))^","^(string_of_float (p#get_y))^")") ; (n_name,Point_wrap(p))
 		| Line -> let l = declare_new_line n_type val_table in print_endline ("Creation de la ligne : "^n_name^":("^(string_of_float ((l#get_p1)#get_x))^","^(string_of_float ((l#get_p1)#get_y))^") à ("^(string_of_float ((l#get_p2)#get_x))^","^(string_of_float ((l#get_p2)#get_y))^")") ; (n_name,Line_wrap(l))
+		| Float -> let f = declare_new_float n_type val_table in print_endline ("Creation du float : "^n_name^" = "^(string_of_float (f#get_value)));(n_name, Float_wrap(f))
 ;;
 
 

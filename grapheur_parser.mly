@@ -20,6 +20,13 @@
 %token AFFECT
 %token DRAW
 
+%token PLUS
+%token MOINS
+%token DIV
+%token MULT
+
+%token FLOAT
+
 %token POINT
 %token LINE
 
@@ -168,7 +175,6 @@ instruction:
 	  right=Empty
 	  }
   }
-
 | funcUse instruction {
     Node{value=Instruction;
 	  left=$1;
@@ -182,6 +188,8 @@ instruction:
 	  }
   }
 ;
+
+
 
 funcUse:
 	VAR BEGIN_PAR funcUsePars END_PAR SEMICOLON {
@@ -221,8 +229,22 @@ funcUsePar:
 		}
 ;
 
+arithm_expr:
+	var_or_number {$1}
+	| arithm_expr PLUS arithm_expr {Node{value = Plus;left= $1;right = $3}}
+	| arithm_expr MULT arithm_expr {Node{value = Mult;left= $1;right = $3}}
+	| arithm_expr DIV arithm_expr {Node{value = Div;left= $1;right = $3}}
+	| arithm_expr MOINS arithm_expr {Node{value = Moins;left= $1;right = $3}}
+	| BEGIN_PAR arithm_expr END_PAR {Node{value = BlocPar;left= $2;right = Empty}}
+;
+
+var_or_number:
+	NUMBER {Node{value=Number($1);left=Empty;right=Empty}}
+	| VAR {Node{value=Var($1);left=Empty;right=Empty}}
+;
+
 declaration:
-  POINT VAR BEGIN_PAR NUMBER COMMA NUMBER END_PAR SEMICOLON {
+  POINT VAR BEGIN_PAR arithm_expr COMMA arithm_expr END_PAR SEMICOLON {
     Node{value=Declaration;
 	left=Node{value=Var($2); 
 		  left=Empty; 
@@ -230,13 +252,13 @@ declaration:
 		  };
 	right=Node{value=Point;
 		  left=Node{value=BlocPar;
-			    left=Node{value=Number($4);
-				      left=Empty;
+			    left=Node{value=Arithm_expr;
+				      left=$4;
 				      right=Empty
 				      };
 			    right=Node{value=Parameters;
-					left=Node{value=Number($6);
-						  left=Empty;
+					left=Node{value=Arithm_expr;
+						  left=$6;
 						  right=Empty
 						  };
 					right=Empty
@@ -271,6 +293,22 @@ declaration:
 		}
     }
 }
+| FLOAT VAR BEGIN_PAR arithm_expr END_PAR SEMICOLON {
+					Node{value=Declaration;
+						left=Node{value=Var($2);
+									left=Empty;
+									right=Empty
+									};
+						right=Node{value=Float;
+							  left=Node{value=Arithm_expr;
+								left=$4;
+								right=Empty			
+								};
+						  	right=Empty
+						  }
+					
+					}
+				}
 ;
 
 dessine:
