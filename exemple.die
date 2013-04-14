@@ -1,7 +1,7 @@
 /* blabla bla commentaire
 sur plusieurs lignes... */
 
-drawing monDessin [256 x 256]
+drawing monDessin [256 , 256]
 {
     //com sur une ligne
     /*function dessineSablier(Point centre, Number hauteur, Number largeur):void
