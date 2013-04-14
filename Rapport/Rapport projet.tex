@@ -174,7 +174,64 @@ Il nous a été demandé d'écrire un compilateur, en OCAML, d'un langage de not
 
 \chapter{Évolution du projet}
 \section{Définition d'une grammaire}
-La toute première étape d'une telle tâche est la définition d'une grammaire. Afin de pourvoir y arriver, nous avons décidé de commencer avec une grammaire ne permettant que quelques actions basiques. A savoir utiliser des variables, dessiner des points et tracer des lignes.
+La première étape de ce projet a été la création d'un langage et sa grammaire associée. Même si le projet global se fera de manière incrémentale, il faut penser au fonctionnement global dès le début. 
+
+Le fichier SVG est déclaré par l'instruction "drawing" suivi du nom du dessin et la taille du canevas sous la forme "[largeur , hauteur]". Les instructions sont incluses entre crochets.
+
+Une instruction peut être de différents types:
+\begin{description}
+  \item[Une déclaration de variable]: on créé une variable en indiquant son type, son nom et enfin les valeurs qui servent à la construire.
+  \item[Le dessin d'une variable]: pour les variables dont le type est adéquat, il s'agit de l'instruction qui déclenche l'affichage de ladite variable. La forme est "draw nomDeLaVariable".
+  \item[Une conditionnelle]: il s'agit d'un test sur une ou plusieurs conditions qui influe sur la suite de l'exécution. Cette instruction est de la forme "if(-conditions-)\{\}else\{\}". Si la condition est vérifiée, alors le bloc suivant le if est exécuté, celui de else sinon.
+  \item[Une boucle]: il s'agit d'une boucle sur condition. L'instruction est de la forme "while(-conditions-)\{\}". Le bloc entre crochets est répété jusqu'à ce que la condition soit invalidée.
+  \item[Les fonctions et procédures]: il s'agit d'un appel a une fonction ou une procédure. L'instruction est de la forme "nomDeLaFonction (-paramètres-)". Pour les fonctions, il est possible de récupérer une valeur de retour.
+\end{description}
+
+\begin{lstlisting}[caption=Exemple de fichier source, language=C]
+/* blabla bla commentaire
+sur plusieurs lignes... */
+
+drawing monDessin [256 , 256]
+{
+    //com sur une ligne
+    /*function dessineSablier(Point centre, Number hauteur, Number largeur):void
+    {
+        Point HG(centre.x-hauteur/2,centre.y-largeur/2);
+        Point HD(centre.x-hauteur/2,centre.y+largeur/2);
+        Point BG(centre.x+hauteur/2,centre.y-largeur/2);
+        Point BD(centre.x+hauteur/2,centre.y+largeur/2);
+
+        Line diag2(BD,HG);
+        Line haute(HD,HG);
+        Line diag1(BG,HD);
+        Line basse(BG,BD);
+
+        draw diag2;
+        draw diag1;
+        draw haute;
+        draw basse;
+    }*/
+
+	//Number test := 2;
+    Point origine(50,50); //commentaire
+    Point destination(100,100);
+	
+    Line ligne(origine,destination); //ligne
+	/*if(test = 2){
+		draw origine;
+	}
+	else{
+		draw destination;
+	}
+	while(test > 0){
+		draw destination;
+		test := test -1;
+	}*/
+    //origineSablier.x := 40;
+    //dessineSablier(c,20,20);
+    draw ligne;
+}
+\end{lstlisting}
 %TODO grammaire
 
 \section{Lexer}
