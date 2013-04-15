@@ -28,6 +28,8 @@
 %token FOR
 %token EQ
 
+%token DOT
+
 %token FLOAT
 
 %token POINT
@@ -220,21 +222,12 @@ instruction:
 ;
 
 affectation:
-	VAR EQ arithm_expr SEMICOLON {Node{value=Affectation;left=Node{value=Var($1);
-									left=Empty;
-									right=Empty
-									}
+	subvar EQ arithm_expr SEMICOLON {Node{value=Affectation;left=$1
 							;right=Node{value=Arithm_expr;
 				      left=$3;
 				      right=Empty
 				      }}}
-	| VAR EQ VAR SEMICOLON {Node{value=Affectation;left=Node{value=Var($1);
-					left=Empty;
-					right=Empty
-					};right=Node{value=Var($3);
-					left=Empty;
-					right=Empty
-					}}}
+	| subvar EQ subvar SEMICOLON {Node{value=Affectation;left=$1;right=$3}}
 ;
 
 forr:
@@ -311,7 +304,7 @@ facteur:
 
 var_or_number:
 	NUMBER {Node{value=Number($1);left=Empty;right=Empty}}
-	| VAR {Node{value=Var($1);left=Empty;right=Empty}}
+	| subvar {$1}
 ;
 
 declaration:
@@ -392,4 +385,9 @@ dessine:
 	  right=Empty
 	  }
     }
+;
+
+subvar:
+  subvar DOT VAR {Node{value=Dot;left=$1;right=Node{value=Var($3);left=Empty;right=Empty}}}
+  | VAR {Node{value=Var($1);left=Empty;right=Empty}}
 ;
