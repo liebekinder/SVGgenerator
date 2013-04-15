@@ -38,6 +38,7 @@ rule token = parse
   
   | "Point" {print_endline "Point"; POINT}
   | "Line" {print_endline "Line"; LINE}
+  | "Rect" {print_endline "Line"; RECT}
   
   | variable as lxm {print_endline ("Var : "^lxm);VAR(lxm)}
   | number as lxm {print_endline ("Number : "^lxm);NUMBER(float_of_string lxm)}

@@ -9,6 +9,7 @@ div par 0 pas encore gérées
 épaisseur ligne, pas encore géré : 2 et couleur rouge.
 procédures et pas fonctions
 
+impossible de mettre autre chose que des variable dans un appel de fonction. Faites les fonctions avant.
 
 les fonctions héritent du contexte de drawing, donc pas possible de redéclarer une var avec le même nom (donner exemple)
 
@@ -36,6 +37,19 @@ class line =
       method set_p1 p1p = p1 <- p1p
       method get_p2 = p2
       method set_p2 p2p = p2 <- p2p
+    end;;
+
+class rect =
+    object
+      val mutable o = new point
+      val mutable w = 0.
+      val mutable h = 0.
+      method get_o = o
+      method set_o p1p = o <- p1p
+      method get_w = w
+      method set_w p2p = w <- p2p
+      method get_h = h
+      method set_h p2p = h <- p2p
     end;;
 
 class valFloat =
@@ -67,6 +81,7 @@ type operation =
   | Point
   | Float
   | Line
+  | Rect
   | Instruction
   | Comma
   | Draw
@@ -86,7 +101,7 @@ type t_arbreB = Empty | Node of node
         
 
 (*TODO ajout. global type to put all of this into a hashtbl*)  
-type all_types = Point_wrap of point | Line_wrap of line | Float_wrap of valFloat;; 
+type all_types = Point_wrap of point | Line_wrap of line | Float_wrap of valFloat | Rect_wrap of rect;;
 
 (*---------*)
 (*Fonctions*)
@@ -117,6 +132,7 @@ let print_value v = match v with
   | FunctionUse -> print_endline "FunctionUse"
   | Point -> print_endline "Point"
   | Line -> print_endline "Line"
+  | Rect -> print_endline "Rect"
   | Instruction -> print_endline "Instruction"
   | Comma -> print_endline ","
   | Draw -> print_endline "Draw"
@@ -154,11 +170,12 @@ let rec parse_dot_op var_name_node = (*print_tree (Node(var_name_node)) 0 ;*) ma
 
 let rec parse_dot_op_wrap var_name_node = let (var_name,var_op) = parse_dot_op var_name_node in (var_name,(*List.rev *)var_op);;
 
-(*Affiche le type d'un all_types*)
+(*Affiche le type d'un all_types TODO type modif!!*)
 let get_type a = match a with
 	| Point_wrap(p) -> "point"
 	| Line_wrap(l) -> "line"
 	| Float_wrap(f) -> "float"
+	| Rect_wrap(f) -> "rect"
 	| _ -> "unknow"
 ;;
 
@@ -172,6 +189,12 @@ let rec get_var_with_operandes val_tbl var_name operandes =
 					let fl = new valFloat in fl#set_value (f#get_x);
 					Float_wrap(fl))
 				| "y" -> let Point_wrap(f) = get_var_with_operandes val_tbl var_name b in let fl = new valFloat in fl#set_value (f#get_y);Float_wrap(fl)
+				| "o" -> let Rect_wrap(f) = get_var_with_operandes val_tbl var_name b in let fl = new point in fl#set_x ((f#get_o)#get_x);fl#set_y ((f#get_o)#get_y);Point_wrap(fl)
+				| "w" -> (let res =get_var_with_operandes val_tbl var_name b in (*print_endline ("@@@@@ "^(get_type res));*)
+					let Rect_wrap(f) = get_var_with_operandes val_tbl var_name b in
+					let fl = new valFloat in fl#set_value (f#get_w);
+					Float_wrap(fl))
+				| "h" -> let Rect_wrap(f) = get_var_with_operandes val_tbl var_name b in let fl = new valFloat in fl#set_value (f#get_h);Float_wrap(fl)
 				| "p1" -> let Line_wrap(f) = get_var_with_operandes val_tbl var_name b in let fl = new point in fl#set_x ((f#get_p1)#get_x);fl#set_y ((f#get_p1)#get_y);Point_wrap(fl)
 				| "p2" -> let Line_wrap(f) = get_var_with_operandes val_tbl var_name b in let fl = new point in fl#set_x ((f#get_p2)#get_x);fl#set_y ((f#get_p2)#get_y);Point_wrap(fl)
 				| _ -> print_endline ("Opération incorrecte sur "^var_name^" : "^a);exit 1)
@@ -252,6 +275,21 @@ let declare_new_line args val_table=
 	l
 ;;
 
+let declare_new_rect args val_table=
+	let Node(args_declar) = args.left in
+	let Var(rect_point_name) = args_declar.value in
+	let Node(args_comma) = args.right in
+	let float1 = (evalue_arithm_expr (args_comma.left)) val_table in
+	let float2 = (evalue_arithm_expr (args_comma.right)) val_table in
+	if ((find val_table rect_point_name)="not_found") then (print_endline ("___________ERROR : La variable "^rect_point_name^" n'a pas encore été déclarée."); exit 1);
+	let Point_wrap(real_o) = Hashtbl.find val_table rect_point_name in
+	let r=new rect in
+	r#set_o real_o;
+	r#set_w float1;
+	r#set_h float2;
+	r
+;;
+
 let declare_new_float n_type val_table = 
 	let float_val = evalue_arithm_expr (n_type.left) val_table in
 	let f=new valFloat in
@@ -270,6 +308,7 @@ let create_new_qc n val_table=
 	match n_type.value with
 		| Point -> let p = declare_new_point n_type val_table in (*print_endline ("Creation du point : "^n_name^":("^(string_of_float (p#get_x))^","^(string_of_float (p#get_y))^")") ;*) (n_name,Point_wrap(p))
 		| Line -> let l = declare_new_line n_type val_table in (*print_endline ("Creation de la ligne : "^n_name^":("^(string_of_float ((l#get_p1)#get_x))^","^(string_of_float ((l#get_p1)#get_y))^") à ("^(string_of_float ((l#get_p2)#get_x))^","^(string_of_float ((l#get_p2)#get_y))^")") ;*) (n_name,Line_wrap(l))
+		| Rect -> let l = declare_new_rect n_type val_table in (n_name,Rect_wrap(l))
 		| Float -> let f = declare_new_float n_type val_table in (*print_endline ("Creation du float : "^n_name^" = "^(string_of_float (f#get_value)));*)(n_name, Float_wrap(f))
 ;;
 
@@ -280,8 +319,8 @@ let rec set_var_with_operandes_core val_tbl origin_var operandes value var_name=
 	match operandes with
 		| [] -> value
 		| a::b -> (match a with
-				| "x" -> (*let var_type = get_type origin_var in *)let Float_wrap(aff_value) = value in (*if ("point"<>var_type) then (print_endline (var_name^" n'est pas un point !");exit 1);*)let Point_wrap(f) = origin_var in f#set_x (aff_value#get_value);Point_wrap(f)
-				| "y" -> (*let var_type = get_type origin_var in *)let Float_wrap(aff_value) = value in (*if ("point"<>var_type) then (print_endline (var_name^" n'est pas un point !");exit 1);*)let Point_wrap(f) = origin_var in f#set_y (aff_value#get_value);Point_wrap(f)
+				| "x" -> let var_type = get_type origin_var in let Float_wrap(aff_value) = value in if ("point"<>var_type) then (print_endline (var_name^" n'est pas un point !");exit 1);let Point_wrap(f) = origin_var in f#set_x (aff_value#get_value);Point_wrap(f)
+				| "y" -> let var_type = get_type origin_var in let Float_wrap(aff_value) = value in if ("point"<>var_type) then (print_endline (var_name^" n'est pas un point !");exit 1);let Point_wrap(f) = origin_var in f#set_y (aff_value#get_value);Point_wrap(f)
 				| "p1" -> (let var_type = get_type origin_var in
 						if ("line"<>var_type) then (print_endline (var_name^" n'est pas une ligne !");exit 1);
 						let Line_wrap(f) = origin_var in
@@ -292,6 +331,13 @@ let rec set_var_with_operandes_core val_tbl origin_var operandes value var_name=
 						let Line_wrap(f) = origin_var in
 						let Point_wrap(aff_value) = (set_var_with_operandes_core val_tbl (Point_wrap(f#get_p2)) b value var_name) in
 						f#set_p2 aff_value;Line_wrap(f))
+				| "o" -> (let var_type = get_type origin_var in
+						if ("rect"<>var_type) then (print_endline (var_name^" n'est pas un rect !");exit 1);
+						let Rect_wrap(f) = origin_var in
+						let Point_wrap(aff_value) = (set_var_with_operandes_core val_tbl (Point_wrap(f#get_o)) b value var_name) in
+						f#set_o aff_value;Rect_wrap(f))
+				| "w" -> let var_type = get_type origin_var in let Float_wrap(aff_value) = value in if ("rect"<>var_type) then (print_endline (var_name^" n'est pas un rect !");exit 1);let Rect_wrap(f) = origin_var in f#set_w (aff_value#get_value);Rect_wrap(f)
+				| "h" -> let var_type = get_type origin_var in let Float_wrap(aff_value) = value in if ("rect"<>var_type) then (print_endline (var_name^" n'est pas un rect !");exit 1);let Rect_wrap(f) = origin_var in f#set_h (aff_value#get_value);Rect_wrap(f)
 				(*Appel récursi dans le cas de p1 car on peut avoir un pt dérrière*)
 				| _ -> print_endline ("Opération incorrecte sur "^var_name^" : "^a);exit 1)
 ;;
@@ -518,6 +564,7 @@ let rec execute_the_code arbre val_tbl=
 			match real_var with
 				| Point_wrap(p) -> (*print_endline ("ici sera dessiné un point de coordonées "^(string_of_float (p#get_x))^" et "^(string_of_float (p#get_y)))*) ()
 				| Line_wrap(l) -> (*print_endline ("ici sera dessiné une ligne ("^(string_of_float ((l#get_p1)#get_x))^","^(string_of_float ((l#get_p1)#get_y))^") à ("^(string_of_float ((l#get_p2)#get_x))^","^(string_of_float ((l#get_p2)#get_y))^")")*) print_endline ("<line x1=\""^(float_to_string ((l#get_p1)#get_x))^"\" y1=\""^(float_to_string ((l#get_p1)#get_y))^"\" x2=\""^(float_to_string ((l#get_p2)#get_x))^"\" y2=\""^(float_to_string ((l#get_p2)#get_y))^"\" style=\"stroke:rgb(255,0,0);stroke-width:2\"/>")
+				| Rect_wrap(r) -> print_endline ("<rect x=\""^(float_to_string ((r#get_o)#get_x))^"\" y=\""^(float_to_string ((r#get_o)#get_y))^"\" width=\""^(float_to_string (r#get_w))^"\" height=\""^(float_to_string (r#get_h))^"\" style=\"fill:rgb(0,0,255);stroke-width:1;stroke:rgb(0,0,0)\"/>")
 				| _ -> print_endline ("Draw non possible pour "^var_name); exit 1)
 		| Affectation -> affect operande val_tbl
 		| Declaration -> (let (key,value) = create_new_qc operande val_tbl in 

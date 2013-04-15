@@ -34,6 +34,7 @@
 
 %token POINT
 %token LINE
+%token RECT
 
 %token <string> VAR 
 %token <float> NUMBER
@@ -129,6 +130,17 @@ param:
 			}
 |	FLOAT VAR {Node {value=Parameter;
 					left=Node {value=Float;
+								left=Empty;
+								right=Empty
+							};
+					right=Node {value=Var($2);
+								left=Empty;
+								right=Empty
+							}
+					}
+			}
+|	RECT VAR {Node {value=Parameter;
+					left=Node {value=Rect;
 								left=Empty;
 								right=Empty
 							};
@@ -285,9 +297,9 @@ funcUsePar COMMA funcUsePars {
 ;
 
 funcUsePar:
-	arithm_expr {Node {value=ParameterUse;
-				left=Node{value=Arithm_expr;
-					left=$1;
+	VAR {Node {value=ParameterUse;
+				left=Node{value=Var($1);
+					left=Empty;
 					right=Empty
 					};
 				right=Empty
@@ -382,6 +394,31 @@ declaration:
 						  	right=Empty
 						  }
 					
+					}
+				}
+| RECT VAR BEGIN_PAR VAR COMMA arithm_expr COMMA arithm_expr END_PAR SEMICOLON {
+					Node{value=Declaration;
+						left=Node{value=Var($2);
+									left=Empty;
+									right=Empty
+									};
+						right=Node{value=Rect;
+									left=Node{value=Var($4);
+												left=Empty;
+												right=Empty
+												};
+									right=Node{value=Comma;
+												left=Node{value=Arithm_expr;
+														left=$6;
+														right=Empty
+														};
+												right=Node{value=Arithm_expr;
+															left=$8;
+															right=Empty
+															}
+												}
+									}
+
 					}
 				}
 ;
