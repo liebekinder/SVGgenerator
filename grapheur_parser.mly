@@ -127,6 +127,17 @@ param:
 							}
 					}
 			}
+|	FLOAT VAR {Node {value=Parameter;
+					left=Node {value=Float;
+								left=Empty;
+								right=Empty
+							};
+					right=Node {value=Var($2);
+								left=Empty;
+								right=Empty
+							}
+					}
+			}
 ;
 
 dessin:
