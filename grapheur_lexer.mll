@@ -40,8 +40,10 @@ rule token = parse
   | "Point" {print_endline "Point"; POINT}
   | "Line" {print_endline "Line"; LINE}
   
-  | number as lxm {print_endline ("Number : "^lxm);NUMBER(float_of_string lxm)}
   | variable as lxm {print_endline ("Var : "^lxm);VAR(lxm)}
+  | number as lxm {print_endline ("Number : "^lxm);NUMBER(float_of_string lxm)}
+  
+  | '.' {print_endline "Dot";DOT}
    
   | '\n' {token lexbuf} 
   | void {token lexbuf} 

@@ -26,9 +26,14 @@ drawing monDessin [256 , 256]
         draw haute;
         draw basse;
     }*/
+    
+    
 
     Point origine(50,50); //commentaire
-    Point destination(100,100);
+    
+    //origine.x.y.z=1;
+    
+    Point destination(2+origine.x*2,100);
     Line ligne(origine,destination); //ligne
     //origineSablier.x := 40;
     //dessineSablier(c,20,20);
