@@ -84,8 +84,6 @@ type t_arbreB = Empty | Node of node
 
 (*TODO ajout. global type to put all of this into a hashtbl*)  
 type all_types = Point_wrap of point | Line_wrap of line | Float_wrap of valFloat;; 
-  
-    
 
 (*---------*)
 (*Fonctions*)
@@ -151,15 +149,28 @@ let rec parse_dot_op var_name_node = print_tree (Node(var_name_node)) 0 ; match 
 ;;
 
 
-let rec parse_dot_op_wrap var_name_node = let (var_name,var_op) = parse_dot_op var_name_node in (var_name,List.rev var_op);;
+let rec parse_dot_op_wrap var_name_node = let (var_name,var_op) = parse_dot_op var_name_node in (var_name,(*List.rev *)var_op);;
+
+(*Affiche le type d'un all_types*)
+let get_type a = match a with
+	| Point_wrap(p) -> "point"
+	| Line_wrap(l) -> "line"
+	| Float_wrap(f) -> "float"
+	| _ -> "unknow"
+;;
 
 (*recup la valeur en utilisant les opérandes*)
 let rec get_var_with_operandes val_tbl var_name operandes = 
 	match operandes with
 		| [] -> (Hashtbl.find val_tbl var_name)
 		| a::b -> (match a with
-				| "x" -> let Point_wrap(f) = get_var_with_operandes val_tbl var_name b in let fl = new valFloat in fl#set_value (f#get_x);Float_wrap(fl)
+				| "x" -> (let res =get_var_with_operandes val_tbl var_name b in print_endline ("@@@@@ "^(get_type res));
+					let Point_wrap(f) = get_var_with_operandes val_tbl var_name b in 
+					let fl = new valFloat in fl#set_value (f#get_x);
+					Float_wrap(fl))
 				| "y" -> let Point_wrap(f) = get_var_with_operandes val_tbl var_name b in let fl = new valFloat in fl#set_value (f#get_y);Float_wrap(fl)
+				| "p1" -> let Line_wrap(f) = get_var_with_operandes val_tbl var_name b in let fl = new point in fl#set_x ((f#get_p1)#get_x);fl#set_y ((f#get_p1)#get_y);Point_wrap(fl)
+				| "p2" -> let Line_wrap(f) = get_var_with_operandes val_tbl var_name b in let fl = new point in fl#set_x ((f#get_p2)#get_x);fl#set_y ((f#get_p2)#get_y);Point_wrap(fl)
 				| _ -> print_endline ("Opération incorrecte sur "^var_name^" : "^a);exit 1)
 ;;
 
@@ -202,13 +213,6 @@ let rec create_function_map arbre map = match arbre with
 
 
 
-(*Affiche le type d'un all_types*)
-let get_type a = match a with
-	| Point_wrap(p) -> "point"
-	| Line_wrap(l) -> "line"
-	| Float_wrap(f) -> "float"
-	| _ -> "unknow"
-;;
 
 let declare_new_point args val_table= 
 	let Node(args_x_param) = args.left in
@@ -273,13 +277,23 @@ let rec set_var_with_operandes val_tbl origin_var operandes value var_name=
 	match operandes with
 		| [] -> ()
 		| a::b -> (match a with
-				| "x" -> let var_type = get_type origin_var in if ("point"<>var_type) then (print_endline (var_name^" n'est pas un point !");exit 1);let Point_wrap(f) = origin_var in f#set_x value
-				| "y" -> let var_type = get_type origin_var in if ("point"<>var_type) then (print_endline (var_name^" n'est pas un point !");exit 1);let Point_wrap(f) = origin_var in f#set_y value
-				(*Appele récursi dans le cas de p1 car on peut avoir un pt dérrière*)
+				| "x" -> let var_type = get_type origin_var in let Float_wrap(aff_value) = value in if ("point"<>var_type) then (print_endline (var_name^" n'est pas un point !");exit 1);let Point_wrap(f) = origin_var in f#set_x (aff_value#get_value)
+				| "y" -> let var_type = get_type origin_var in let Float_wrap(aff_value) = value in if ("point"<>var_type) then (print_endline (var_name^" n'est pas un point !");exit 1);let Point_wrap(f) = origin_var in f#set_y (aff_value#get_value)
+				| "p1" -> (let var_type = get_type origin_var in
+						let Point_wrap(aff_value) = value in
+						if ("line"<>var_type) then (print_endline (var_name^" n'est pas une ligne !");exit 1);
+						let Line_wrap(f) = origin_var in f#set_p1 aff_value)
+				| "p2" -> (let var_type = get_type origin_var in 
+						let Point_wrap(aff_value) = value in
+						if ("line"<>var_type) then (print_endline (var_name^" n'est pas une ligne !");exit 1);
+						let Line_wrap(f) = origin_var in f#set_p2 aff_value)
+				(*Appel récursi dans le cas de p1 car on peut avoir un pt dérrière*)
 				| _ -> print_endline ("Opération incorrecte sur "^var_name^" : "^a);exit 1)
 ;;
 
 
+
+(*TODO affecter un point*)
 let affect operande val_tbl = (let Node(var_name_node) = operande.left in 
 				let (var_name,var_op) = parse_dot_op_wrap var_name_node in
 				let Node(a_affecter) = operande.right in 
@@ -288,25 +302,34 @@ let affect operande val_tbl = (let Node(var_name_node) = operande.left in
 					| Arithm_expr -> (if ((find val_tbl var_name)="not_found") then (print_endline ("Variable non déclarée : "^var_name);exit 1);
 							(*let f = get_var_with_operandes val_tbl var_name var_op in*)
 							(*Hashtbl.remove val_tbl var_name;*)
-							set_var_with_operandes val_tbl (Hashtbl.find val_tbl var_name) var_op (evalue_arithm_expr (operande.right) val_tbl) var_name
+							let f = new valFloat in
+							f#set_value (evalue_arithm_expr (operande.right) val_tbl);
+							set_var_with_operandes val_tbl (Hashtbl.find val_tbl var_name) var_op (Float_wrap(f)) var_name
 							(*let f = new valFloat in
 							f#set_value (evalue_arithm_expr (operande.right) val_tbl);
 							Hashtbl.add val_tbl var_name (Float_wrap(f))*)
 							(*;print_endline ("affect "^var_name^" "^(string_of_float (f#get_value)))*))
 					| Var(y) -> (if ((find val_tbl var_name)="not_found") then (print_endline ("Variable non déclarée : "^var_name);exit 1);
 					if ((find val_tbl y)="not_found") then (print_endline ("Variable non déclarée : "^y);exit 1);
-					let var_type = get_type (Hashtbl.find val_tbl var_name) in
+					(*let var_type = get_type (Hashtbl.find val_tbl var_name) in*)
 					let y_var = (Hashtbl.find val_tbl y) in
-					let y_type = get_type y_var in
+					set_var_with_operandes val_tbl (Hashtbl.find val_tbl var_name) var_op y_var var_name)
+					(*let y_type = get_type y_var in
 					Hashtbl.remove val_tbl var_name;
 					if (y_type<>var_type) then (print_endline ("Typage incorrect entre "^var_name^" et "^y);exit 1);
-					Hashtbl.add val_tbl var_name y_var;
+					Hashtbl.add val_tbl var_name y_var;*)
 					(*let Point_wrap(z) = y_var in
 					print_endline (string_of_float (z#get_x));
 					let var_var = (Hashtbl.find val_tbl var_name) in
 					let Point_wrap(z2) = y_var in
 					print_endline (string_of_float (z2#get_x));
-					print_endline (var_name^"<-"^y)*))
+					print_endline (var_name^"<-"^y)*)
+					| Dot -> (if ((find val_tbl var_name)="not_found") then (print_endline ("Variable non déclarée : "^var_name);exit 1);
+					let (y,y_op) = parse_dot_op_wrap a_affecter in
+					if ((find val_tbl y)="not_found") then (print_endline ("Variable non déclarée : "^y);exit 1);
+					(*let var_type = get_type (Hashtbl.find val_tbl var_name) in*)
+					let y_var = get_var_with_operandes val_tbl y y_op in
+					set_var_with_operandes val_tbl (Hashtbl.find val_tbl var_name) var_op y_var var_name)
 					| _ -> print_endline ("Erreur d'affectation sur "^var_name);exit 1
 				)
 ;;
