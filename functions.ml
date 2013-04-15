@@ -7,7 +7,7 @@ Pas de draw Point origine2(52,53.278);
 div par 0 pas encore gérées
 
 épaisseur ligne, pas encore géré : 2 et couleur rouge.
-
+procédures et pas fonctions
 
 *)
 
@@ -398,6 +398,8 @@ let rec eval_val arbre val_table param_list= match arbre with
 	| Empty -> Empty
 ;;
 
+let float_to_string fl = if ((fl-.(float_of_int (int_of_float fl)))=0.) then (string_of_int (int_of_float fl)) else (string_of_float fl);;
+
 
 let rec execute_the_code arbre val_tbl= 
 
@@ -420,7 +422,7 @@ let rec execute_the_code arbre val_tbl=
 			let real_var = (Hashtbl.find val_tbl var_name) in
 			match real_var with
 				| Point_wrap(p) -> (*print_endline ("ici sera dessiné un point de coordonées "^(string_of_float (p#get_x))^" et "^(string_of_float (p#get_y)))*) ()
-				| Line_wrap(l) -> (*print_endline ("ici sera dessiné une ligne ("^(string_of_float ((l#get_p1)#get_x))^","^(string_of_float ((l#get_p1)#get_y))^") à ("^(string_of_float ((l#get_p2)#get_x))^","^(string_of_float ((l#get_p2)#get_y))^")")*) print_endline ("<line x1=\""^(string_of_float ((l#get_p1)#get_x))^"\" y1=\""^(string_of_float ((l#get_p1)#get_y))^"\" x2=\""^(string_of_float ((l#get_p2)#get_x))^"\" y2=\""^(string_of_float ((l#get_p2)#get_y))^"\" style=\"stroke:rgb(255,0,0);stroke-width:2\"/>")
+				| Line_wrap(l) -> (*print_endline ("ici sera dessiné une ligne ("^(string_of_float ((l#get_p1)#get_x))^","^(string_of_float ((l#get_p1)#get_y))^") à ("^(string_of_float ((l#get_p2)#get_x))^","^(string_of_float ((l#get_p2)#get_y))^")")*) print_endline ("<line x1=\""^(float_to_string ((l#get_p1)#get_x))^"\" y1=\""^(float_to_string ((l#get_p1)#get_y))^"\" x2=\""^(float_to_string ((l#get_p2)#get_x))^"\" y2=\""^(float_to_string ((l#get_p2)#get_y))^"\" style=\"stroke:rgb(255,0,0);stroke-width:2\"/>")
 				| _ -> print_endline "Type inconnu !"; exit 1)
 		| Affectation -> affect operande val_tbl
 		| Declaration -> (let (key,value) = create_new_qc operande val_tbl in 
