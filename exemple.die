@@ -1,11 +1,17 @@
 /* blabla bla commentaire
 sur plusieurs lignes... */
 
-/*function dessine(Point centre)
+function dessine(Point centre2, Point destination)
     {
+	Line centre(centre2,destination);
         draw centre;
-    }*/
+    }
 
+function rien(Float centre)
+    {
+	 Point origine2(50,50); 
+    }
+    
 drawing monDessin [256 , 256]
 {
     //com sur une ligne
@@ -29,8 +35,8 @@ drawing monDessin [256 , 256]
     
     
 
-    Point origine(50,50); //commentaire
-    origine.x = 15;
+    /*Point origine(50,50); //commentaire
+    /*origine.x = 15;
     //origine.x.y.z=1;
     
     Point destination(2+origine.x*2,100);
@@ -46,6 +52,12 @@ drawing monDessin [256 , 256]
     
     draw l1;
     
-    draw ligne;
+    draw ligne;*/
+    Point origine(50,50); 
+    Point destination(100,100);
+    Line ligne(origine,destination);
+    dessine(origine,destination);
+    Float i(0);
+    rien(i);
 }
 
