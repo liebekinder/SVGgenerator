@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.4.14)  15 APR 2013 13:11
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.4.14)  15 APR 2013 17:58
 entering extended mode
 **D:/Code*GitHub/SVGgenerator/Rapport/Rapport*projet.tex
 ("D:/Code GitHub/SVGgenerator/Rapport/Rapport projet.tex"
@@ -833,7 +833,38 @@ Package tocloft Info: The document has chapter divisions on input line 43.
 \cftsubtabindent=\skip110
 \cftsubtabnumwidth=\skip111
 )
-("D:\Code GitHub\SVGgenerator\Rapport\Rapport projet.aux")
+("D:\Code GitHub\SVGgenerator\Rapport\Rapport projet.aux"
+
+LaTeX Warning: Label `CG' multiply defined.
+
+
+LaTeX Warning: Label `CG' multiply defined.
+
+
+LaTeX Warning: Label `CG' multiply defined.
+
+
+LaTeX Warning: Label `CG' multiply defined.
+
+
+LaTeX Warning: Label `CG' multiply defined.
+
+
+LaTeX Warning: Label `CG' multiply defined.
+
+
+LaTeX Warning: Label `CG' multiply defined.
+
+
+LaTeX Warning: Label `CG' multiply defined.
+
+
+LaTeX Warning: Label `CG' multiply defined.
+
+
+LaTeX Warning: Label `CG' multiply defined.
+
+)
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 156.
 LaTeX Font Info:    ... okay on input line 156.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 156.
@@ -849,8 +880,7 @@ LaTeX Font Info:    ... okay on input line 156.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 156.
 LaTeX Font Info:    ... okay on input line 156.
 LaTeX Font Info:    Try loading font information for T1+lmr on input line 156.
-
-("D:\Program Files\MiKTeX 2.9\tex\latex\lm\t1lmr.fd"
+ ("D:\Program Files\MiKTeX 2.9\tex\latex\lm\t1lmr.fd"
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Info: Redefining \degres on input line 156.
@@ -1191,23 +1221,129 @@ Overfull \hbox (6.0pt too wide) in paragraph at lines 321--321
 [][][][][][][] 
  []
 
-[6] 
+[6] <img/root.jpg, id=178, 214.55156pt x 91.84312pt>
+File: img/root.jpg Graphic file (type jpg)
+ <use img/root.jpg>
+Package pdftex.def Info: img/root.jpg used on input line 361.
+(pdftex.def)             Requested size: 214.55103pt x 91.84288pt.
+
+<img/functions.jpg, id=179, 202.50656pt x 299.61937pt>
+File: img/functions.jpg Graphic file (type jpg)
+ <use img/functions.jpg>
+Package pdftex.def Info: img/functions.jpg used on input line 366.
+(pdftex.def)             Requested size: 202.50604pt x 299.61864pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<img/drawing.jpg, id=180, 237.88875pt x 218.31563pt>
+File: img/drawing.jpg Graphic file (type jpg)
+ <use img/drawing.jpg>
+Package pdftex.def Info: img/drawing.jpg used on input line 371.
+(pdftex.def)             Requested size: 237.88815pt x 218.31508pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<img/parameters.jpg, id=181, 210.03468pt x 156.585pt>
+File: img/parameters.jpg Graphic file (type jpg)
+ <use img/parameters.jpg>
+Package pdftex.def Info: img/parameters.jpg used on input line 376.
+(pdftex.def)             Requested size: 210.03416pt x 156.58461pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<img/instruction.jpg, id=182, 174.6525pt x 134.00063pt>
+File: img/instruction.jpg Graphic file (type jpg)
+
+<use img/instruction.jpg>
+Package pdftex.def Info: img/instruction.jpg used on input line 381.
+(pdftex.def)             Requested size: 174.65207pt x 134.00027pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<img/affectation.jpg, id=183, 157.33781pt x 119.69719pt>
+File: img/affectation.jpg Graphic file (type jpg)
+
+<use img/affectation.jpg>
+Package pdftex.def Info: img/affectation.jpg used on input line 386.
+(pdftex.def)             Requested size: 157.33742pt x 119.69688pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<img/declaration.jpg, id=184, 160.34906pt x 100.87688pt>
+File: img/declaration.jpg Graphic file (type jpg)
+
+<use img/declaration.jpg>
+Package pdftex.def Info: img/declaration.jpg used on input line 391.
+(pdftex.def)             Requested size: 160.34866pt x 100.87662pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<img/draw.jpg, id=185, 70.76437pt x 94.10156pt>
+File: img/draw.jpg Graphic file (type jpg)
+ <use img/draw.jpg>
+Package pdftex.def Info: img/draw.jpg used on input line 396.
+(pdftex.def)             Requested size: 70.76419pt x 94.10132pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<img/fonctionuse.jpg, id=186, 194.97844pt x 214.55156pt>
+File: img/fonctionuse.jpg Graphic file (type jpg)
+
+<use img/fonctionuse.jpg>
+Package pdftex.def Info: img/fonctionuse.jpg used on input line 401.
+(pdftex.def)             Requested size: 194.97795pt x 214.55103pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<img/for.jpg, id=187, 243.15843pt x 150.5625pt>
+File: img/for.jpg Graphic file (type jpg)
+ <use img/for.jpg>
+Package pdftex.def Info: img/for.jpg used on input line 406.
+(pdftex.def)             Requested size: 243.15784pt x 150.56212pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[7 <D:/Code GitHub/SVGgenerator/Rapport/img/root.jpg>] [8 <D:/Code GitHub/SVGge
+nerator/Rapport/img/functions.jpg> <D:/Code GitHub/SVGgenerator/Rapport/img/dra
+wing.jpg>] [9 <D:/Code GitHub/SVGgenerator/Rapport/img/parameters.jpg> <D:/Code
+ GitHub/SVGgenerator/Rapport/img/instruction.jpg> <D:/Code GitHub/SVGgenerator/
+Rapport/img/affectation.jpg>] [10 <D:/Code GitHub/SVGgenerator/Rapport/img/decl
+aration.jpg> <D:/Code GitHub/SVGgenerator/Rapport/img/draw.jpg> <D:/Code GitHub
+/SVGgenerator/Rapport/img/fonctionuse.jpg>] [11 <D:/Code GitHub/SVGgenerator/Ra
+pport/img/for.jpg>]
+Chapitre 2.
+
 AED: lastpage setting LastPage
-[7]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 362.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 362.
+[12
+
+]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 416.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 416.
  ("D:\Code GitHub\SVGgenerator\Rapport\Rapport projet.aux")
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 362.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 362.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 416.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 416.
 Package rerunfilecheck Info: File `Rapport*projet.out' has not changed.
 (rerunfilecheck)             Checksum: <no file>.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 362.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 416.
  ) 
 Here is how much of TeX's memory you used:
- 12415 strings out of 493921
- 177734 string characters out of 3147330
+ 12480 strings out of 493921
+ 178882 string characters out of 3147330
  419960 words of memory out of 3000000
- 15313 multiletter control sequences out of 15000+200000
+ 15353 multiletter control sequences out of 15000+200000
  98707 words of font info for 82 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  44i,12n,65p,545b,1973s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1221,9 +1357,9 @@ lic/lm/lmr9.pfb><D:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmri9.pfb><D
 :/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmss12.pfb><D:/Program Files/M
 iKTeX 2.9/fonts/type1/public/lm/lmss17.pfb><D:/Program Files/MiKTeX 2.9/fonts/t
 ype1/public/lm/lmsy9.pfb>
-Output written on "Rapport projet.pdf" (8 pages, 427704 bytes).
+Output written on "Rapport projet.pdf" (13 pages, 562476 bytes).
 PDF statistics:
- 272 PDF objects out of 1000 (max. 8388607)
- 120 named destinations out of 1000 (max. 500000)
- 94 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 320 PDF objects out of 1000 (max. 8388607)
+ 135 named destinations out of 1000 (max. 500000)
+ 144 words of extra memory for PDF output out of 10000 (max. 10000000)
 
