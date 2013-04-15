@@ -230,13 +230,22 @@ funcUsePar:
 ;
 
 arithm_expr:
-	var_or_number {$1}
-	| arithm_expr PLUS arithm_expr {Node{value = Plus;left= $1;right = $3}}
-	| arithm_expr MULT arithm_expr {Node{value = Mult;left= $1;right = $3}}
-	| arithm_expr DIV arithm_expr {Node{value = Div;left= $1;right = $3}}
-	| arithm_expr MOINS arithm_expr {Node{value = Moins;left= $1;right = $3}}
-	| BEGIN_PAR arithm_expr END_PAR {Node{value = BlocPar;left= $2;right = Empty}}
+	terme PLUS arithm_expr {Node{value = Plus;left= $1;right = $3}}
+|	terme MOINS arithm_expr {Node{value = Moins;left= $1;right = $3}}
+|	terme {$1}
 ;
+
+terme:
+	facteur MULT terme {Node{value = Mult;left= $1;right = $3}}
+|	facteur DIV terme {Node{value = Div;left= $1;right = $3}}
+|	facteur {$1}
+;
+
+facteur:
+	var_or_number {$1}
+|	BEGIN_PAR arithm_expr END_PAR  {Node{value = BlocPar;left= $2;right = Empty}}
+;
+
 
 var_or_number:
 	NUMBER {Node{value=Number($1);left=Empty;right=Empty}}
