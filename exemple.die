@@ -30,7 +30,7 @@ drawing monDessin [256 , 256]
     
 
     Point origine(50,50); //commentaire
-    
+    origine.x = 10;
     //origine.x.y.z=1;
     
     Point destination(2+origine.x*2,100);
