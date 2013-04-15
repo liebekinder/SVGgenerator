@@ -1,16 +1,36 @@
-Grammaire SVGgenerator
+Grammaire SVGgenerator{S,Vt,Vn,R}
 
-Vt = { 'drawing'; '['; ']'; 'x'; '{'; '}'; 'Point'; '('; ','; ')'; ';'; 'Line'; 'draw'; 'var'; 'number'; 'eof'}
-Vn = {S; Taille; X; Bloc{; Instructions; Instr; Declaration; Draw;}
+Vt = { 'drawing'; '['; ']'; 'x'; '{'; '}'; 'Point'; '('; ','; ')'; ';'; 'Line'; 'draw'; 'var'; 'number'; 'eof'; '+'; '-'; '/'; '*'}
+Vn = {S; Bloc{; Instructions; Instr; Declaration; Draw; Function; Param; Exp_ar; Var; T; F}
 
-S		-> Drawing.'eof'
-Drawing		-> 'drawing'.'var'.Taille.Bloc{
-Taille		-> '['.'number' 'x' 'number'.']'
-Bloc{		-> '{'.Instructions.'}'
+R{
+S				-> Function.Drawing.'eof'
+S				-> Drawing.'eof'
+Function		-> 'function'.'var'.'('.Param.')'.Bloc{
+Function		-> 'function'.'var'.'('.Param.')'.Bloc{.Function
+Param			-> Param.','.Param
+Param			-> 'Point'.'var'
+Param			-> 'Line'.'var'
+Drawing			-> 'drawing'.'var'.'['.'number' ',' 'number'.']'.Bloc{
+Bloc{			-> '{'.Instructions.'}'
 Instructions	-> Instr.Instructions
 Instructions	-> Instr
-Instr		-> Declaration
-Instr		-> Draw
-Declaration	-> 'Point'.'var'.'('.'number'.','.'number'.')'.';'
-Declaration	-> 'Line'.'var'.'('.'var'.','.'var'.')'.';'
-Draw		-> 'draw'.'var'.';'
+Instr			-> Declaration
+Instr			-> Draw
+Instr			-> Fun
+Declaration		-> 'Point'.'var'.'('.Exp_ar.','.Exp_ar.')'.';'
+Declaration		-> 'Line'.'var'.'('.'var'.','.'var'.')'.';'
+Draw			-> 'draw'.'var'.';'
+Fun 			-> 'var'.'('.Var.')'.';'
+Fun 			-> 'var'.'('.Exp_ar.')'.';'
+Var				-> 'var'.','.Var
+Var				-> 'var'
+Exp_ar 			-> T.'+'.Exp_ar
+Exp_ar 			-> T.'-'.Exp_ar
+Exp_ar			-> T
+T				-> F.'*'.T
+T				-> F.'/'.T
+T				-> F
+F				-> 'number'
+F				-> '('.Exp_ar.')'
+}

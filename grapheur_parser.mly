@@ -20,6 +20,18 @@
 %token AFFECT
 %token DRAW
 
+%token PLUS
+%token MOINS
+%token DIV
+%token MULT
+
+%token FOR
+%token EQ
+
+%token DOT
+
+%token FLOAT
+
 %token POINT
 %token LINE
 
@@ -39,6 +51,10 @@ main:
 		right=$2
 		}
 }
+| dessin EOF {Node{value=Root;
+		left=Empty;
+		right=$1
+		}}
 ;
 
 functions:
@@ -48,7 +64,7 @@ functio functions {
 	  right=$2
 	  }
 	}
-| functio{Node{value=Functions;
+| functio {Node{value=Functions;
 				left=$1;
 				right=Empty
 				}
@@ -74,10 +90,10 @@ functio:
 ;
 
 params:
-param params {
+param COMMA params {
     Node{value=Parameters;
 		left=$1;
-		right=$2
+		right=$3
 	  }
 	 }
 | param{
@@ -102,6 +118,17 @@ param:
 			}
 |	LINE VAR {Node {value=Parameter;
 					left=Node {value=Line;
+								left=Empty;
+								right=Empty
+							};
+					right=Node {value=Var($2);
+								left=Empty;
+								right=Empty
+							}
+					}
+			}
+|	FLOAT VAR {Node {value=Parameter;
+					left=Node {value=Float;
 								left=Empty;
 								right=Empty
 							};
@@ -167,7 +194,30 @@ instruction:
 	  right=Empty
 	  }
   }
-
+| affectation instruction {
+    Node{value=Instruction;
+	  left=$1;
+	  right=$2
+	  }
+  }
+| affectation {
+    Node{value=Instruction;
+	  left=$1;
+	  right=Empty
+	  }
+  }
+| forr instruction {
+    Node{value=Instruction;
+	  left=$1;
+	  right=$2
+	  }
+  }
+| forr {
+    Node{value=Instruction;
+	  left=$1;
+	  right=Empty
+	  }
+  }
 | funcUse instruction {
     Node{value=Instruction;
 	  left=$1;
@@ -182,6 +232,31 @@ instruction:
   }
 ;
 
+affectation:
+	subvar EQ arithm_expr SEMICOLON {Node{value=Affectation;left=$1
+							;right=Node{value=Arithm_expr;
+				      left=$3;
+				      right=Empty
+				      }}}
+	| subvar EQ subvar SEMICOLON {Node{value=Affectation;left=$1;right=$3}}
+;
+
+forr:
+	FOR BEGIN_PAR VAR EQ arithm_expr COMMA arithm_expr END_PAR BEGIN_EMBRACE instruction END_EMBRACE SEMICOLON {Node{value = For;
+					left=Node{value=Var($3);
+							left=Node{value=Arithm_expr;
+									left=$5;
+									right=Empty
+									};
+							right=Node{value=Arithm_expr;
+										left=$7;
+										right=Empty
+										}
+							};
+				    right=Node{value=BlocEmbrace;left=$10;right=Empty}
+				    }
+			}
+;
 funcUse:
 	VAR BEGIN_PAR funcUsePars END_PAR SEMICOLON {
 		Node{value=FunctionUse;
@@ -195,10 +270,10 @@ funcUse:
 ;
 
 funcUsePars:
-funcUsePar funcUsePars {
+funcUsePar COMMA funcUsePars {
     Node{value=ParametersUse;
 		left=$1;
-		right=$2
+		right=$3
 	  }
 	 }
 | funcUsePar{
@@ -220,8 +295,31 @@ funcUsePar:
 		}
 ;
 
+arithm_expr:
+	terme PLUS arithm_expr {Node{value = Plus;left= $1;right = $3}}
+|	terme MOINS arithm_expr {Node{value = Moins;left= $1;right = $3}}
+|	terme {$1}
+;
+
+terme:
+	facteur MULT terme {Node{value = Mult;left= $1;right = $3}}
+|	facteur DIV terme {Node{value = Div;left= $1;right = $3}}
+|	facteur {$1}
+;
+
+facteur:
+	var_or_number {$1}
+|	BEGIN_PAR arithm_expr END_PAR  {Node{value = BlocPar;left= $2;right = Empty}}
+;
+
+
+var_or_number:
+	NUMBER {Node{value=Number($1);left=Empty;right=Empty}}
+	| subvar {$1}
+;
+
 declaration:
-  POINT VAR BEGIN_PAR NUMBER COMMA NUMBER END_PAR SEMICOLON {
+  POINT VAR BEGIN_PAR arithm_expr COMMA arithm_expr END_PAR SEMICOLON {
     Node{value=Declaration;
 	left=Node{value=Var($2); 
 		  left=Empty; 
@@ -229,13 +327,13 @@ declaration:
 		  };
 	right=Node{value=Point;
 		  left=Node{value=BlocPar;
-			    left=Node{value=Number($4);
-				      left=Empty;
+			    left=Node{value=Arithm_expr;
+				      left=$4;
 				      right=Empty
 				      };
 			    right=Node{value=Parameters;
-					left=Node{value=Number($6);
-						  left=Empty;
+					left=Node{value=Arithm_expr;
+						  left=$6;
 						  right=Empty
 						  };
 					right=Empty
@@ -270,6 +368,22 @@ declaration:
 		}
     }
 }
+| FLOAT VAR BEGIN_PAR arithm_expr END_PAR SEMICOLON {
+					Node{value=Declaration;
+						left=Node{value=Var($2);
+									left=Empty;
+									right=Empty
+									};
+						right=Node{value=Float;
+							  left=Node{value=Arithm_expr;
+								left=$4;
+								right=Empty			
+								};
+						  	right=Empty
+						  }
+					
+					}
+				}
 ;
 
 dessine:
@@ -282,4 +396,9 @@ dessine:
 	  right=Empty
 	  }
     }
+;
+
+subvar:
+  subvar DOT VAR {Node{value=Dot;left=$1;right=Node{value=Var($3);left=Empty;right=Empty}}}
+  | VAR {Node{value=Var($1);left=Empty;right=Empty}}
 ;

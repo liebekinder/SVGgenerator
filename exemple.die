@@ -1,7 +1,12 @@
 /* blabla bla commentaire
 sur plusieurs lignes... */
 
-drawing monDessin [256 x 256]
+/*function dessine(Point centre)
+    {
+        draw centre;
+    }*/
+
+drawing monDessin [256 , 256]
 {
     //com sur une ligne
     /*function dessineSablier(Point centre, Number hauteur, Number largeur):void
@@ -21,12 +26,26 @@ drawing monDessin [256 x 256]
         draw haute;
         draw basse;
     }*/
+    
+    
 
     Point origine(50,50); //commentaire
-    Point destination(100,100);
-    Line ligne(origine,destination); //ligne
+    origine.x = 15;
+    //origine.x.y.z=1;
+    
+    Point destination(2+origine.x*2,100);
+    Line ligne(destination,destination); //ligne
+    ligne.p2= origine;
+    ligne.p1=ligne.p2;
     //origineSablier.x := 40;
     //dessineSablier(c,20,20);
+    Point p(ligne.p1.x,ligne.p1.x);
+    Line l1(p,origine);
+    ligne.p1.x=42;
+    ligne.p1.y=ligne.p2.x;
+    
+    draw l1;
+    
     draw ligne;
 }
 

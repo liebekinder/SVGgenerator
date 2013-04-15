@@ -12,7 +12,6 @@ rule token = parse
   
   | "function" {print_endline "FUNCTION" ; FUNCTION}
   | "draw" {print_endline "DRAW" ; DRAW}
-  | ":=" {print_endline "AFFECT" ; AFFECT}
   | "drawing" {print_endline "DRAWING" ; DRAWING}
   
   
@@ -27,11 +26,23 @@ rule token = parse
   | '[' {print_endline "[";BEGIN_BRACE}
   | ']' {print_endline "]";END_BRACE}
   
+  | "Float" {print_endline "Float";FLOAT}
+  
+  | "For" {print_endline "For";FOR}
+  
+  | '+' {print_endline "+";PLUS}
+  | '-' {print_endline "-";MOINS}
+  | '/' {print_endline "/";DIV}
+  | '*' {print_endline "*";MULT}
+  | '=' {print_endline "=";EQ}
+  
   | "Point" {print_endline "Point"; POINT}
   | "Line" {print_endline "Line"; LINE}
   
-  | number as lxm {print_endline ("Number : "^lxm);NUMBER(float_of_string lxm)}
   | variable as lxm {print_endline ("Var : "^lxm);VAR(lxm)}
+  | number as lxm {print_endline ("Number : "^lxm);NUMBER(float_of_string lxm)}
+  
+  | '.' {print_endline "Dot";DOT}
    
   | '\n' {token lexbuf} 
   | void {token lexbuf} 
