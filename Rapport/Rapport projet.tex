@@ -354,6 +354,63 @@ type t_arbreB = Empty | Node of node
         and node = { value: operation; left: t_arbreB; right: t_arbreB };;
 \end{lstlisting}
 
+Voici une représentation visuel de l'arbre,  n{\oe}ud par  n{\oe}ud. Un n{\oe}ud de couleur verte signifie qu'il s'agit de la tête de son arbre. Un n{\oe}ud de couleur rouge représente un n{\oe}ud non final, à relier à un n{\oe}ud vert.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=1]{img/root.jpg}
+    \caption{\label{CG} Root - tête de l'arbre général.}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=1]{img/functions.jpg}
+    \caption{\label{CG} Functions - tête pour chaque.}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=1]{img/drawing.jpg}
+    \caption{\label{CG} Drawing - tête pour le dessin.}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=1]{img/parameters.jpg}
+    \caption{\label{CG} Parameters - tête pour une suite de paramètres.}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=1]{img/instruction.jpg}
+    \caption{\label{CG} Instruction - tête pour une suite d'instruction.}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=1]{img/affectation.jpg}
+    \caption{\label{CG} Affectation - tête pour une affectation de variable.}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=1]{img/declaration.jpg}
+    \caption{\label{CG} Déclaration - tête pour une déclaration de variable.}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=1]{img/draw.jpg}
+    \caption{\label{CG} Draw - tête pour le dessin d'une variable.}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=1]{img/fonctionuse.jpg}
+    \caption{\label{CG} FunctionUse - tête pour l'appel à une fonction.}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=1]{img/for.jpg}
+    \caption{\label{CG} For - tête pour une boucle for.}
+\end{figure}
+
+
+
+
+\chapter{Transformation de l'arbre binaire}
 
 
 \end{document}
