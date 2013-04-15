@@ -285,9 +285,9 @@ funcUsePar COMMA funcUsePars {
 ;
 
 funcUsePar:
-	VAR {Node {value=ParameterUse;
-				left=Node{value=Var($1);
-					left=Empty;
+	arithm_expr {Node {value=ParameterUse;
+				left=Node{value=Arithm_expr;
+					left=$1;
 					right=Empty
 					};
 				right=Empty

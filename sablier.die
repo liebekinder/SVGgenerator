@@ -20,7 +20,8 @@ drawing monDessin [256 , 256]
 {
 
 	Point origine(50,50); //commentaire
-	Float i(20);
-    dessineSablier(origine,h,h);
+	Float h(60);
+	Float l(80);
+    dessineSablier(origine,h,4+l);
 }
 
