@@ -9,6 +9,9 @@ div par 0 pas encore gérées
 épaisseur ligne, pas encore géré : 2 et couleur rouge.
 procédures et pas fonctions
 
+
+les fonctions héritent du contexte de drawing, donc pas possible de redéclarer une var avec le même nom (donner exemple)
+
 *)
 
 (*------*)
@@ -359,6 +362,7 @@ let get_var_type name val_tbl = if ((find val_tbl name)="not_found") then
 				match (Hashtbl.find val_tbl name) with
 					| Point_wrap(_) -> Point
 					| Line_wrap(_) -> Line
+					| Float_wrap(_) -> Float
 ;;
 
 (*Egalité des listes d'appel pour les fonctions*)
@@ -472,6 +476,19 @@ let rec eval_val arbre val_table param_list= match arbre with
 	| Node(n) when n.value = Affectation -> (affect n val_table;let l_val = eval_val n.left val_table param_list in let r_val = eval_val n.right val_table param_list in Node({value = n.value ; left = l_val;right = r_val}))
 	(*| Node(n) when n.value = For -> eval_val n.left val_table; eval_val n.right val_table;(*gestion du ctx*) clear_this_code n.right val_table*)
 	| Node(n) when n.value = BlocEmbrace -> (let l_val = eval_val n.left val_table param_list in let r_val = eval_val n.right val_table param_list in let node = Node({value = n.value ; left = l_val;right = r_val}) in (*gestion du ctx*) clear_this_code n.right val_table;clear_this_code n.left val_table;node)
+	| Node(n) when n.value = FunctionUse -> let param_list_funct = get_call_constructor n.right in
+						(*param_list_funct : liste des paramètres lors de l'appel de la fonction*)
+						let Node(f_name_node) = n.left in
+						let Var(f_name) = f_name_node.value in
+						print_endline ("Fonction : "^f_name);
+						(*print_tree n.right 0;*)
+						(*let print_list a = print_endline a in
+  						List.iter (print_list) param_list_funct;*)
+  						let func_decl = (get_fonct_decl f_name param_list) in
+  						let equal = egal_param func_decl param_list_funct val_table in
+  						print_endline ("Correct ? "^(string_of_bool (equal)));
+  						if (not equal) then (print_endline ("___________ERROR : L'appel à la fonction "^f_name^" n'a pas les bons types de paramètres."));
+  						Node({value = n.value ; left = replace_by_right_name (get_func_code f_name param_list) func_decl param_list_funct;right = Empty})
 	| Node(n) -> let l_val = eval_val n.left val_table param_list in let r_val = eval_val n.right val_table param_list in Node({value = n.value ; left = l_val;right = r_val})
 	| Empty -> Empty
 ;;
@@ -501,7 +518,7 @@ let rec execute_the_code arbre val_tbl=
 			match real_var with
 				| Point_wrap(p) -> (*print_endline ("ici sera dessiné un point de coordonées "^(string_of_float (p#get_x))^" et "^(string_of_float (p#get_y)))*) ()
 				| Line_wrap(l) -> (*print_endline ("ici sera dessiné une ligne ("^(string_of_float ((l#get_p1)#get_x))^","^(string_of_float ((l#get_p1)#get_y))^") à ("^(string_of_float ((l#get_p2)#get_x))^","^(string_of_float ((l#get_p2)#get_y))^")")*) print_endline ("<line x1=\""^(float_to_string ((l#get_p1)#get_x))^"\" y1=\""^(float_to_string ((l#get_p1)#get_y))^"\" x2=\""^(float_to_string ((l#get_p2)#get_x))^"\" y2=\""^(float_to_string ((l#get_p2)#get_y))^"\" style=\"stroke:rgb(255,0,0);stroke-width:2\"/>")
-				| _ -> print_endline "Type inconnu !"; exit 1)
+				| _ -> print_endline ("Draw non possible pour "^var_name); exit 1)
 		| Affectation -> affect operande val_tbl
 		| Declaration -> (let (key,value) = create_new_qc operande val_tbl in 
 						(* Si variable déjà existante, on plante tout : laquelle prendre ? *)
