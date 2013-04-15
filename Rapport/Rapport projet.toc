@@ -1,7 +1,12 @@
 \select@language {french}
-\contentsline {chapter}{Introduction}{1}
-\contentsline {chapter}{\numberline {1}\IeC {\'E}volution du projet}{3}
-\contentsline {section}{\numberline {1.1}D\IeC {\'e}finition d'une grammaire}{3}
-\contentsline {section}{\numberline {1.2}Lexer}{4}
-\contentsline {section}{\numberline {1.3}Parser}{4}
-\contentsline {section}{\numberline {1.4}Et le bonheur arrive.}{5}
+\contentsline {chapter}{Introduction}{1}{chapter*.1}
+\contentsline {chapter}{\numberline {1}Analyse lexicale et syntaxique de SVGgenerator}{3}{chapter.1}
+\contentsline {section}{\numberline {1.1}D\IeC {\'e}finition d'une grammaire}{3}{section.1.1}
+\contentsline {subsection}{\numberline {1.1.1}D\IeC {\'e}finition d'une image vectorielle}{3}{subsection.1.1.1}
+\contentsline {subsection}{\numberline {1.1.2}Les instructions}{3}{subsection.1.1.2}
+\contentsline {subsection}{\numberline {1.1.3}Les types}{4}{subsection.1.1.3}
+\contentsline {subsection}{\numberline {1.1.4}Les commentaires}{5}{subsection.1.1.4}
+\contentsline {subsection}{\numberline {1.1.5}La grammaire}{5}{subsection.1.1.5}
+\contentsline {section}{\numberline {1.2}L'analyse lexicale}{6}{section.1.2}
+\contentsline {section}{\numberline {1.3}L'analyse syntaxique}{6}{section.1.3}
+\contentsline {section}{\numberline {1.4}Et le bonheur arrive.}{7}{section.1.4}

@@ -52,7 +52,13 @@
 %Connaitre la dernière page
 \usepackage{lastpage}
 
-
+%lien hypertext
+\usepackage{hyperref}
+\hypersetup{
+colorlinks=true, % Allow links color
+urlcolor= blue, % Hyperlinks color
+linkcolor= black, % Internal links color
+}
 
 \usepackage{graphicx} % support the \includegraphics command and options
 
@@ -98,9 +104,9 @@ keywordstyle=\color{blue},
 stringstyle=\color{mymauve},
 rulecolor=\color{black},
 extendedchars=true, belowcaptionskip=3ex,
+numbers=left,
 escapeinside={\%*}{*)} % if you want to add a comment within your code
 }
-
 
 
 % These packages are all incorporated in the memoir class to one degree or another...
@@ -172,96 +178,182 @@ escapeinside={\%*}{*)} % if you want to add a comment within your code
 \chapter*{Introduction}
 Il nous a été demandé d'écrire un compilateur, en OCAML, d'un langage de notre cru vers du svg (format pour décrire des images vectorielles). Pour mener à bien cette tâche, nous nous reposerons sur les notions que nous avons vu en cours.
 
-\chapter{Évolution du projet}
+Pour rappel, une image vectorielle est une image dont les éléments sont définis individuellement sous forme d'objet géométrique. Elle se différencie d'une image matricielle qui utilise des pixels. Son principal avantage est qu'elle peut être agrandie à l'infini sans perte de qualité contrairement à une image matricielle. Son inconvénient est que pour atteindre une qualité photo-réaliste, il faut beaucoup de ressource, l'image étant calculée à chaque affichage.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.7]{img/SVG_vs_BMP.png}
+    \caption{\label{CG} SVG contre BMP. \href{http://fr.wikipedia.org}{fr.wikipedia.org}}
+\end{figure}
+
+\chapter{Analyse lexicale et syntaxique de SVGgenerator}
+
+Cette section a pour but la définition du langage SVGgenerator et de sa grammaire associée. 
 \section{Définition d'une grammaire}
 La première étape de ce projet a été la création d'un langage et sa grammaire associée. Même si le projet global se fera de manière incrémentale, il faut penser au fonctionnement global dès le début. 
 
-Le fichier SVG est déclaré par l'instruction "drawing" suivi du nom du dessin et la taille du canevas sous la forme "[largeur , hauteur]". Les instructions sont incluses entre crochets.
+\subsection{Définition d'une image vectorielle}
 
-Une instruction peut être de différents types:
-\begin{description}
-  \item[Une déclaration de variable]: on créé une variable en indiquant son type, son nom et enfin les valeurs qui servent à la construire.
-  \item[Le dessin d'une variable]: pour les variables dont le type est adéquat, il s'agit de l'instruction qui déclenche l'affichage de ladite variable. La forme est "draw nomDeLaVariable".
-  \item[Une conditionnelle]: il s'agit d'un test sur une ou plusieurs conditions qui influe sur la suite de l'exécution. Cette instruction est de la forme "if(-conditions-)\{\}else\{\}". Si la condition est vérifiée, alors le bloc suivant le if est exécuté, celui de else sinon.
-  \item[Une boucle]: il s'agit d'une boucle sur condition. L'instruction est de la forme "while(-conditions-)\{\}". Le bloc entre crochets est répété jusqu'à ce que la condition soit invalidée.
-  \item[Les fonctions et procédures]: il s'agit d'un appel a une fonction ou une procédure. L'instruction est de la forme "nomDeLaFonction (-paramètres-)". Pour les fonctions, il est possible de récupérer une valeur de retour.
-\end{description}
+Le fichier SVG est déclaré par l'instruction "drawing" suivi du nom du dessin et la taille du canevas sous la forme "[largeur , hauteur]". Les instructions sont incluses entre les crochets.
 
-\begin{lstlisting}[caption=Exemple de fichier source, language=C]
-/* blabla bla commentaire
-sur plusieurs lignes... */
-
+\begin{lstlisting}[caption=Définition d'une image vectorielle, language=C]
 drawing monDessin [256 , 256]
 {
-    //com sur une ligne
-    /*function dessineSablier(Point centre, Number hauteur, Number largeur):void
-    {
-        Point HG(centre.x-hauteur/2,centre.y-largeur/2);
-        Point HD(centre.x-hauteur/2,centre.y+largeur/2);
-        Point BG(centre.x+hauteur/2,centre.y-largeur/2);
-        Point BD(centre.x+hauteur/2,centre.y+largeur/2);
-
-        Line diag2(BD,HG);
-        Line haute(HD,HG);
-        Line diag1(BG,HD);
-        Line basse(BG,BD);
-
-        draw diag2;
-        draw diag1;
-        draw haute;
-        draw basse;
-    }*/
-
-	//Number test := 2;
-    Point origine(50,50); //commentaire
-    Point destination(100,100);
-	
-    Line ligne(origine,destination); //ligne
-	/*if(test = 2){
-		draw origine;
-	}
-	else{
-		draw destination;
-	}
-	while(test > 0){
-		draw destination;
-		test := test -1;
-	}*/
-    //origineSablier.x := 40;
-    //dessineSablier(c,20,20);
-    draw ligne;
+    -instructions-
 }
 \end{lstlisting}
-%TODO grammaire
 
-\section{Lexer}
-Nous avons alors écrit l'analyseur syntaxique, comprenant les mots de notre grammaire. Cette étape est de loin la plus facile.
+\subsection{Les instructions}
+Une instruction peut être de différents types:
+\begin{description}
 
-\section{Parser}
-Ensuite, nous avons transformé le fichier d'entrée en un arbre binaire, modèle de représentation intermédiaire, qui nous permettra l'écriture du fichier svg. %TODO Dessin d'arbre en exemple.
-Nous avons décidé d'implémenter nos arbres comme suit : 
+  \item[Une déclaration de variable]: on créé une variable en indiquant son type, son nom et enfin les valeurs qui servent à la construire.
+\begin{lstlisting}[caption=Déclaration de variable, language=C]
+Type ma_Variable( -param- );
+\end{lstlisting}
+
+  \item[Le dessin d'une variable]: pour les variables dont le type est adéquat, il s'agit de l'instruction qui déclenche l'affichage de ladite variable. La forme est "draw nomDeLaVariable".
+\begin{lstlisting}[caption=Dessin d'une variable, language=C]
+draw ma_Variable;
+\end{lstlisting}
+
+  \item[Une conditionnelle]: il s'agit d'un test sur une ou plusieurs conditions qui influe sur la suite de l'exécution. Cette instruction est de la forme "if(-conditions-)\{\}else\{\}". Si la condition est vérifiée, alors le bloc correspondant au if est exécuté, celui correspondant au else sinon.
+\begin{lstlisting}[caption=Conditionnelle, language=C]
+if( -condition- ){
+	- instructions-
+}
+else{
+	-instructions
+}
+\end{lstlisting}
+
+  \item[Une boucle]: il s'agit d'une boucle sur condition. L'instruction est de la forme "while(-conditions-)\{\}". Le bloc entre crochets est répété jusqu'à ce que la condition soit invalidée.
+\begin{lstlisting}[caption=Boucle, language=C]
+while( -condition- ){
+	-instructions-
+}
+\end{lstlisting}
+
+  \item[Les fonctions et procédures]: il s'agit d'un appel a une fonction ou une procédure. L'instruction est de la forme "nomDeLaFonction (-paramètres-)". Pour les fonctions, il est possible de récupérer une valeur de retour.
+\begin{lstlisting}[caption=Fonctions et procédures, language=C]
+ma_fonction (-param-);
+\end{lstlisting}
+
+
+\end{description}
+
+
+\subsection{Les types}
+Plusieurs types ont été définis à l'origine:
+\begin{description}
+\item[Number]: Il s'agit d'un nombre. Son interprétation interne sera le flottant.
+\item[Point]: Un Point est défini par deux Number correspondant à l'abscisse et l'ordonnée. Sa représentation en SVG est inexistante.
+\item[Line]: Une Line est définie par deux points correspondant au début et à la fin de la Line. Sa représentation en SVG est une ligne.
+\item[Rectangle]: Un Rectangle est défini par un Point et deux Number, correspondant respectivement à une des extrémité de la forme, à la longueur et la largeur. Sa représentation en SVG est le rectangle.
+\item[Circle]: Un Circle est défini par un point et un Number, correspondant respectivement au centre et au rayon de la forme. Sa représentation en SVG est le cercle.
+\end{description}
+
+\subsection{Les commentaires}
+Le langage autorise les commentaires sous deux formes. Premièrement, le commentaire sur une ligne qui commence par "//". Ce commentaire peut être placé en début ou en fin de ligne. Enfin, le commentaire sur plusieurs lignes encadré par "/*" et "*/". Toutes les instructions commentées ne sont pas interprétées.
+\begin{lstlisting}[firstnumber=1][caption=Commentaires, language=C]
+//ceci est un commentaire sur une ligne
+/* ceci est
+un commentaire en
+bloc */
+-instruction- //commentaire
+\end{lstlisting}
+
+\subsection{La grammaire}
+Voici la grammaire associée à SVGgenerator.
+\begin{lstlisting}[caption=Grammaire associée a SVGgenerator, language=C]
+Grammaire SVGgenerator{S,Vt,Vn,R}
+
+Vt = { 'drawing'; '['; ']'; 'x'; '{'; '}'; 'Point'; '('; ','; ')'; ';'; 'Line'; 'draw'; 'var'; 'number'; 'eof'; '+'; '-'; '/'; '*'}
+Vn = {S; Bloc{; Instructions; Instr; Declaration; Draw; Function; Param; Exp_ar; Var; T; F}
+
+R{
+S				-> Function.Drawing.'eof'
+S				-> Drawing.'eof'
+Function		-> 'function'.'var'.'('.Param.')'.Bloc{
+Function		-> 'function'.'var'.'('.Param.')'.Bloc{.Function
+Param			-> Param.','.Param
+Param			-> 'Point'.'var'
+Param			-> 'Line'.'var'
+Drawing			-> 'drawing'.'var'.'['.'number' ',' 'number'.']'.Bloc{
+Bloc{			-> '{'.Instructions.'}'
+Instructions	-> Instr.Instructions
+Instructions	-> Instr
+Instr			-> Declaration
+Instr			-> Draw
+Instr			-> Fun
+Declaration		-> 'Point'.'var'.'('.Exp_ar.','.Exp_ar.')'.';'
+Declaration		-> 'Line'.'var'.'('.'var'.','.'var'.')'.';'
+Draw			-> 'draw'.'var'.';'
+Fun 			-> 'var'.'('.Var.')'.';'
+Fun 			-> 'var'.'('.Exp_ar.')'.';'
+Var				-> 'var'.','.Var
+Var				-> 'var'
+Exp_ar 			-> T.'+'.Exp_ar
+Exp_ar 			-> T.'-'.Exp_ar
+Exp_ar			-> T
+T				-> F.'*'.T
+T				-> F.'/'.T
+T				-> F
+F				-> 'number'
+F				-> '('.Exp_ar.')'
+}
+\end{lstlisting}
+
+\section{L'analyse lexicale}
+	L'analyse lexicale est effectuée au niveau du fichier grapheur\_lexer.mll. Nous identifions le vocabulaire terminal Vt tel que déclaré dans la grammaire. C'est a cet endroit que nous gérons les commentaires en ignorant tout entrée entre '/*' et '*/' ainsi que toute entrée entre '/' et une fin de ligne.
+
+De même, nous ignorons tout caractère de type espace, tabulation ou retour charriot.
+
+Un nom de variable est composé d'une lettre puis éventuellement d'une liste de lettre et nombre, quelle que soit la casse.
+
+Un nombre correspond à un flottant de la forme X ou X.X ou X est un entier.
+
+Les tokens étant crées, il faut maintenant analyser leur syntaxe.
+
+\section{L'analyse syntaxique}
+L'analyse syntaxique à pour objectif la création d'une structure utilisable pour la génération du fichier SVG. Cette structure est un arbre binaire comme défini à la suite. Chaque n{\oe}ud correspond à une opération qui peut être un token, un nom de variable ou un nombre.
 
 \begin{lstlisting}[caption=Type arbre, language=caml]
 type operation =
     Drawing
+  | Root
+  | Function
+  | Functions
   | DrawingSize
   | BlocEmbrace
   | Declaration
   | BlocBrace
+  | BlocPar
   | Parameters
+  | Parameter
+  | ParametersUse
+  | ParameterUse
+  | FunctionUse
   | Point
+  | Float
   | Line
   | Instruction
+  | Comma
   | Draw
+  | Moins
+  | Plus
+  | Mult
+  | Div
+  | For
+  | Affectation
+  | Arithm_expr
   | Var of (string)
-  | Number of (int);;
+  | Number of (float);;
   
 type t_arbreB = Empty | Node of node
         and node = { value: operation; left: t_arbreB; right: t_arbreB };;
 \end{lstlisting}
 
-\section{Et le bonheur arrive.}
-Viens alors la partie de loin la plus fastidieuse. En effet, pour transformer cet arbre binaire en svg, nous avons besoin d'une implémentation d'un automate à pile. Pour ceci point de choix. Nous passerons par une table shift-reduce. A la vue de la taille du vocabulaire, cette table est tout sauf petite.
-%TODO table s-r
+
 
 \end{document}
