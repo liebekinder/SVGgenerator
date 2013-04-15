@@ -71,6 +71,8 @@ type operation =
   | Plus
   | Mult
   | Div
+  | For
+  | Affectation
   | Arithm_expr
   | Var of (string)
   | Number of (float);;
@@ -121,7 +123,9 @@ let print_value v = match v with
   | Mult -> print_endline "Mult"
   | Div -> print_endline "Div"
   | Float -> print_endline "Float"
+  | For->print_endline "For"
   | Arithm_expr ->print_endline "Arithm_expr"
+  | Affectation -> print_endline "Affectation"
   | Var(s) -> print_endline s
   | Number(i) -> print_endline (string_of_float i);;
 
@@ -171,6 +175,7 @@ let rec create_function_map arbre map = match arbre with
 let get_type a = match a with
 	| Point_wrap(p) -> "point"
 	| Line_wrap(l) -> "line"
+	| Float_wrap(f) -> "float"
 	| _ -> "unknow"
 ;;
 
@@ -221,28 +226,46 @@ let declare_new_float n_type val_table =
 let create_new_qc n val_table= 
 	let Node(n_name_wrap) = n.left in
 	let Var(n_name) = n_name_wrap.value in
+	(*print_endline ("Création de "^n_name);*)
 	let Node(n_type) = n.right in
 	match n_type.value with
-		| Point -> let p = declare_new_point n_type val_table in print_endline ("Creation du point : "^n_name^":("^(string_of_float (p#get_x))^","^(string_of_float (p#get_y))^")") ; (n_name,Point_wrap(p))
-		| Line -> let l = declare_new_line n_type val_table in print_endline ("Creation de la ligne : "^n_name^":("^(string_of_float ((l#get_p1)#get_x))^","^(string_of_float ((l#get_p1)#get_y))^") à ("^(string_of_float ((l#get_p2)#get_x))^","^(string_of_float ((l#get_p2)#get_y))^")") ; (n_name,Line_wrap(l))
-		| Float -> let f = declare_new_float n_type val_table in print_endline ("Creation du float : "^n_name^" = "^(string_of_float (f#get_value)));(n_name, Float_wrap(f))
+		| Point -> let p = declare_new_point n_type val_table in (*print_endline ("Creation du point : "^n_name^":("^(string_of_float (p#get_x))^","^(string_of_float (p#get_y))^")") ;*) (n_name,Point_wrap(p))
+		| Line -> let l = declare_new_line n_type val_table in (*print_endline ("Creation de la ligne : "^n_name^":("^(string_of_float ((l#get_p1)#get_x))^","^(string_of_float ((l#get_p1)#get_y))^") à ("^(string_of_float ((l#get_p2)#get_x))^","^(string_of_float ((l#get_p2)#get_y))^")") ;*) (n_name,Line_wrap(l))
+		| Float -> let f = declare_new_float n_type val_table in (*print_endline ("Creation du float : "^n_name^" = "^(string_of_float (f#get_value)));*)(n_name, Float_wrap(f))
 ;;
 
 
-(*Crée les associations variable / valeur via leur déclarations*)
-let rec eval_val arbre val_table = match arbre with
-	| Node(n) when n.value = Declaration -> (let (key,value) = create_new_qc n val_table in 
-						(* Si variable déjà existante, on plante tout : laquelle prendre ? *)
-						if ((find val_table key)="exists") then 
-						(
-						print_endline ("___________ERROR : Variable déjà déclarée : "^key^". Arrêt du programme.");exit 1
-						);
-						Hashtbl.add val_table key value ; 
-						eval_val n.left val_table; 
-						eval_val n.right val_table)
-	| Node(n) -> eval_val n.left val_table; eval_val n.right val_table
+let affect operande val_tbl = (let Node(var_name_node) = operande.left in 
+				let Var(var_name) = var_name_node.value in
+				let Node(a_affecter) = operande.right in 
+				match a_affecter.value with
+					| Arithm_expr -> (if ((find val_tbl var_name)="not_found") then (print_endline ("Variable non déclarée : "^var_name);exit 1);Hashtbl.remove val_tbl var_name;let f = new valFloat in f#set_value (evalue_arithm_expr (operande.right) val_tbl);Hashtbl.add val_tbl var_name (Float_wrap(f))(*;print_endline ("affect "^var_name^" "^(string_of_float (f#get_value)))*))
+					| Var(y) -> (if ((find val_tbl var_name)="not_found") then (print_endline ("Variable non déclarée : "^var_name);exit 1);
+					if ((find val_tbl y)="not_found") then (print_endline ("Variable non déclarée : "^y);exit 1);
+					let var_type = get_type (Hashtbl.find val_tbl var_name) in
+					let y_var = (Hashtbl.find val_tbl y) in
+					let y_type = get_type y_var in
+					Hashtbl.remove val_tbl var_name;
+					if (y_type<>var_type) then (print_endline ("Typage incorrect entre "^var_name^" et "^y));
+					Hashtbl.add val_tbl var_name y_var;
+					(*let Point_wrap(z) = y_var in
+					print_endline (string_of_float (z#get_x));
+					let var_var = (Hashtbl.find val_tbl var_name) in
+					let Point_wrap(z2) = y_var in
+					print_endline (string_of_float (z2#get_x));
+					print_endline (var_name^"<-"^y)*))
+					| _ -> print_endline ("Erreur d'affectation sur "^var_name);exit 1
+				)
+;;
+
+(*Supprime les variables locales*)
+let rec clear_this_code arbre val_tbl = match arbre with
+	| Node(n) when n.value = Declaration -> let Node(var_name_node) = n.left in let Var(var_name) = var_name_node.value in Hashtbl.remove val_tbl var_name;(*print_endline ("Suppression de "^var_name)*)
+	| Node(n) -> clear_this_code n.left val_tbl;clear_this_code n.right val_tbl
 	| Empty -> ()
 ;;
+
+
 
 (*remplace une variable par sa valeur*)
 (*//TODO instructions pour modifier une variable déjà créée*)
@@ -340,7 +363,7 @@ let rec replace_by_right_name funct_code funct_decl param_list_funct = match (fu
 (*Affiche les appels aux fonctions*)
 (*remplace tous les appels aux fonctions par le morceau de code correspondant avec les bonnes variables*)
 (* param_list : constructeurs des fonctions. val_tbl : la liste des variables*)
-let rec print_call arbre param_list val_tbl = match arbre with
+(*let rec print_call arbre param_list val_tbl = match arbre with
 	| Node(n) when n.value = FunctionUse -> let param_list_funct = get_call_constructor n.right in
 						(*param_list_funct : liste des paramètres lors de l'appel de la fonction*)
 						let Node(f_name_node) = n.left in
@@ -356,39 +379,97 @@ let rec print_call arbre param_list val_tbl = match arbre with
   						Node({value = n.value ; left = replace_by_right_name (get_func_code f_name param_list) func_decl param_list_funct;right = Empty})
 	| Node(n) -> Node({value = n.value ; left = print_call n.left param_list val_tbl;right = print_call n.right param_list val_tbl})
 	| Empty -> Empty
+;;*)
+
+(*Crée les associations variable / valeur via leur déclarations*)
+let rec eval_val arbre val_table param_list= match arbre with
+	| Node(n) when n.value = Declaration -> (let (key,value) = create_new_qc n val_table in 
+						(* Si variable déjà existante, on plante tout : laquelle prendre ? *)
+						if ((find val_table key)="exists") then 
+						(
+						print_endline ("___________ERROR : Variable déjà déclarée : "^key^". Arrêt du programme.");exit 1
+						);
+						Hashtbl.add val_table key value ; 
+						let l_val = eval_val n.left val_table param_list in let r_val = eval_val n.right val_table param_list in Node({value = n.value ; left = l_val;right = r_val}))
+	| Node(n) when n.value = Affectation -> (affect n val_table;let l_val = eval_val n.left val_table param_list in let r_val = eval_val n.right val_table param_list in Node({value = n.value ; left = l_val;right = r_val}))
+	(*| Node(n) when n.value = For -> eval_val n.left val_table; eval_val n.right val_table;(*gestion du ctx*) clear_this_code n.right val_table*)
+	| Node(n) when n.value = BlocEmbrace -> (let l_val = eval_val n.left val_table param_list in let r_val = eval_val n.right val_table param_list in let node = Node({value = n.value ; left = l_val;right = r_val}) in (*gestion du ctx*) clear_this_code n.right val_table;clear_this_code n.left val_table;node)
+	| Node(n) -> let l_val = eval_val n.left val_table param_list in let r_val = eval_val n.right val_table param_list in Node({value = n.value ; left = l_val;right = r_val})
+	| Empty -> Empty
 ;;
 
+
+let rec execute_the_code arbre val_tbl= 
+
+(*Déclaration d'une fonction fille : ces deux fonctions doivent pouvoir s'inter appeller*)
 (*TODO rajouter toutes les op de type modification d'une variable, for, etc...=> modif de val_tbl à la volée*)
-let execute_action_before operande val_tbl = match (operande.value) with
-	| Drawing ->(print_endline "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
-			let Node(name_node) = operande.left in
-			let Var(name) = name_node.value in
-			let Node(drawing_size_node) = operande.right in 
-			let Node(comma_node) = drawing_size_node.left in
-			let Node(x_size_node) = comma_node.left in
-			let Number(x_size) = x_size_node.value in
-			let Node(y_size_node) = comma_node.right in
-			let Number(y_size) = y_size_node.value in
-			print_endline ("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\""^(string_of_int (int_of_float x_size))^"\" height=\""^(string_of_int (int_of_float y_size))^"\">"))
-	| Draw ->(let Node(var_name_node) = operande.left in
-		let Var(var_name) = var_name_node.value in
-		if ((find val_tbl var_name)="not_found") then (print_endline ("Variable inconnue : "^var_name);exit 1);
-		let real_var = (Hashtbl.find val_tbl var_name) in
-		match real_var with
-			| Point_wrap(p) -> (*print_endline ("ici sera dessiné un point de coordonées "^(string_of_float (p#get_x))^" et "^(string_of_float (p#get_y)))*) ()
-			| Line_wrap(l) -> (*print_endline ("ici sera dessiné une ligne ("^(string_of_float ((l#get_p1)#get_x))^","^(string_of_float ((l#get_p1)#get_y))^") à ("^(string_of_float ((l#get_p2)#get_x))^","^(string_of_float ((l#get_p2)#get_y))^")")*) print_endline ("<line x1=\""^(string_of_float ((l#get_p1)#get_x))^"\" y1=\""^(string_of_float ((l#get_p1)#get_y))^"\" x2=\""^(string_of_float ((l#get_p2)#get_x))^"\" y2=\""^(string_of_float ((l#get_p2)#get_y))^"\" style=\"stroke:rgb(255,0,0);stroke-width:2\"/>")
-			| _ -> print_endline "Type inconnu !"; exit 1)
-	| _ -> ()
-;;
-
+	let execute_action_before operande val_tbl = match (operande.value) with
+		| Drawing ->(print_endline "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
+				let Node(name_node) = operande.left in
+				let Var(name) = name_node.value in
+				let Node(drawing_size_node) = operande.right in 
+				let Node(comma_node) = drawing_size_node.left in
+				let Node(x_size_node) = comma_node.left in
+				let Number(x_size) = x_size_node.value in
+				let Node(y_size_node) = comma_node.right in
+				let Number(y_size) = y_size_node.value in
+				print_endline ("<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\""^(string_of_int (int_of_float x_size))^"\" height=\""^(string_of_int (int_of_float y_size))^"\">"))
+		| Draw ->(let Node(var_name_node) = operande.left in
+			let Var(var_name) = var_name_node.value in
+			if ((find val_tbl var_name)="not_found") then (print_endline ("Variable inconnue : "^var_name);exit 1);
+			let real_var = (Hashtbl.find val_tbl var_name) in
+			match real_var with
+				| Point_wrap(p) -> (*print_endline ("ici sera dessiné un point de coordonées "^(string_of_float (p#get_x))^" et "^(string_of_float (p#get_y)))*) ()
+				| Line_wrap(l) -> (*print_endline ("ici sera dessiné une ligne ("^(string_of_float ((l#get_p1)#get_x))^","^(string_of_float ((l#get_p1)#get_y))^") à ("^(string_of_float ((l#get_p2)#get_x))^","^(string_of_float ((l#get_p2)#get_y))^")")*) print_endline ("<line x1=\""^(string_of_float ((l#get_p1)#get_x))^"\" y1=\""^(string_of_float ((l#get_p1)#get_y))^"\" x2=\""^(string_of_float ((l#get_p2)#get_x))^"\" y2=\""^(string_of_float ((l#get_p2)#get_y))^"\" style=\"stroke:rgb(255,0,0);stroke-width:2\"/>")
+				| _ -> print_endline "Type inconnu !"; exit 1)
+		| Affectation -> affect operande val_tbl
+		| Declaration -> (let (key,value) = create_new_qc operande val_tbl in 
+						(* Si variable déjà existante, on plante tout : laquelle prendre ? *)
+						if ((find val_tbl key)="exists") then 
+						(
+						print_endline ("___________ERROR : Variable déjà déclarée : "^key^". Arrêt du programme.");exit 1
+						);
+						Hashtbl.add val_tbl key value ; 
+						)
+		| _ -> ()
+		
+		
+(* fin imbrication de la fonction corps*)
+(*deuxième fct fille*)
+	in 
+	
 let execute_action_after operande val_tbl = match operande.value with
 	| Drawing ->print_endline "</svg>"
+	| BlocEmbrace -> (*gestion du ctx*) clear_this_code operande.right val_tbl ; clear_this_code operande.left val_tbl
+	| For -> (let Node(var_node) = operande.left in
+				let Var(var_name) = var_node.value in
+				let start_val = evalue_arithm_expr (var_node.left) val_tbl in
+				let end_val = evalue_arithm_expr (var_node.right) val_tbl in
+				(*print_endline ((string_of_float start_val)^" "^(string_of_float end_val));*)
+				for i = (int_of_float (start_val)) to (int_of_float (end_val)) do 
+					(
+					(*On set le compteur*)
+					(*print_endline (string_of_int i);*)
+					if ((find val_tbl var_name)="exists") then (Hashtbl.remove val_tbl var_name);
+					let f = new valFloat in 
+					f#set_value (float_of_int i);
+					Hashtbl.add val_tbl var_name (Float_wrap(f));
+					
+					(*Suppression des variables qui vont êtres redéclarées*)
+					(*clear_this_code operande.right val_tbl;*)
+					(*déclaration à leurs nouvelles valeurs.*)
+					eval_val operande.right val_tbl;
+					
+					
+					execute_the_code operande.right val_tbl
+					)
+				done;(*Suppression des variables locales*)(*clear_this_code arbre val_tbl;*))
 	| _ -> ()
-;;
-
-
-
-let rec execute_the_code arbre val_tbl= match arbre with
+		
+	(*fin fct fille*)
+in
+	match arbre with
+	| Node(n) when n.value=For (*dans le cas d'un for, on ne réexécute pas le code après (<> do while)*)-> execute_action_after n val_tbl;
 	| Node(n) -> execute_action_before n val_tbl; execute_the_code (n.left) val_tbl; execute_the_code (n.right) val_tbl; execute_action_after n val_tbl;
 	| Empty -> ()
 ;;

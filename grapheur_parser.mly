@@ -25,6 +25,9 @@
 %token DIV
 %token MULT
 
+%token FOR
+%token EQ
+
 %token FLOAT
 
 %token POINT
@@ -46,7 +49,10 @@ main:
 		right=$2
 		}
 }
-| dessin EOF {$1}
+| dessin EOF {Node{value=Root;
+		left=Empty;
+		right=$1
+		}}
 ;
 
 functions:
@@ -56,7 +62,7 @@ functio functions {
 	  right=$2
 	  }
 	}
-| functio{Node{value=Functions;
+| functio {Node{value=Functions;
 				left=$1;
 				right=Empty
 				}
@@ -175,6 +181,30 @@ instruction:
 	  right=Empty
 	  }
   }
+| affectation instruction {
+    Node{value=Instruction;
+	  left=$1;
+	  right=$2
+	  }
+  }
+| affectation {
+    Node{value=Instruction;
+	  left=$1;
+	  right=Empty
+	  }
+  }
+| forr instruction {
+    Node{value=Instruction;
+	  left=$1;
+	  right=$2
+	  }
+  }
+| forr {
+    Node{value=Instruction;
+	  left=$1;
+	  right=Empty
+	  }
+  }
 | funcUse instruction {
     Node{value=Instruction;
 	  left=$1;
@@ -189,8 +219,33 @@ instruction:
   }
 ;
 
+affectation:
+	VAR EQ arithm_expr SEMICOLON {Node{value=Affectation;left=Node{value=Var($1);
+									left=Empty;
+									right=Empty
+									}
+							;right=Node{value=Arithm_expr;
+				      left=$3;
+				      right=Empty
+				      }}}
+	| VAR EQ VAR SEMICOLON {Node{value=Affectation;left=Node{value=Var($1);
+					left=Empty;
+					right=Empty
+					};right=Node{value=Var($3);
+					left=Empty;
+					right=Empty
+					}}}
+;
 
-
+forr:
+	FOR BEGIN_PAR VAR EQ arithm_expr COMMA arithm_expr END_PAR BEGIN_EMBRACE instruction END_EMBRACE SEMICOLON {Node{value = For;left=Node{value=Var($3);left=Node{value=Arithm_expr;
+				      left=$5;
+				      right=Empty
+				      };right=Node{value=Arithm_expr;
+				      left=$7;
+				      right=Empty
+				      }};right=Node{value=BlocEmbrace;left=$10;right=Empty}}}
+;
 funcUse:
 	VAR BEGIN_PAR funcUsePars END_PAR SEMICOLON {
 		Node{value=FunctionUse;

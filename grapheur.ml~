@@ -31,6 +31,6 @@ let _ =
   let modified_f = (print_call f map val_tbl) in 
   print_tree modified_f 0;
   let Node(all_code) = modified_f in 
-  execute_the_code all_code.right; (*left contient les déclarations de fonctions*)
+  execute_the_code all_code.right val_tbl; (*left contient les déclarations de fonctions*)
   
   ;;
