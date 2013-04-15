@@ -30,7 +30,7 @@ drawing monDessin [256 , 256]
     
 
     Point origine(50,50); //commentaire
-    origine.x = 10;
+    origine.x = 15;
     //origine.x.y.z=1;
     
     Point destination(2+origine.x*2,100);
@@ -41,6 +41,8 @@ drawing monDessin [256 , 256]
     //dessineSablier(c,20,20);
     Point p(ligne.p1.x,ligne.p1.x);
     Line l1(p,origine);
+    ligne.p1.x=42;
+    ligne.p1.y=ligne.p2.x;
     
     draw l1;
     
