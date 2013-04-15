@@ -1,8 +1,9 @@
-Grammaire SVGgenerator
+Grammaire SVGgenerator{S,Vt,Vn,R}
 
-Vt = { 'drawing'; '['; ']'; 'x'; '{'; '}'; 'Point'; '('; ','; ')'; ';'; 'Line'; 'draw'; 'var'; 'number'; 'eof'; '+'; '-'; '/'; '*';}
-Vn = {S; Bloc{; Instructions; Instr; Declaration; Draw; Function; Param; Exp_ar; Exp_ar2; Var}
+Vt = { 'drawing'; '['; ']'; 'x'; '{'; '}'; 'Point'; '('; ','; ')'; ';'; 'Line'; 'draw'; 'var'; 'number'; 'eof'; '+'; '-'; '/'; '*'}
+Vn = {S; Bloc{; Instructions; Instr; Declaration; Draw; Function; Param; Exp_ar; Var; T; F}
 
+R{
 S				-> Function.Drawing.'eof'
 S				-> Drawing.'eof'
 Function		-> 'function'.'var'.'('.Param.')'.Bloc{
@@ -24,11 +25,12 @@ Fun 			-> 'var'.'('.Var.')'.';'
 Fun 			-> 'var'.'('.Exp_ar.')'.';'
 Var				-> 'var'.','.Var
 Var				-> 'var'
-Exp_ar			-> Exp_ar2,Exp_ar
-Exp_ar2			-> 'number'.'+'.'number'
-Exp_ar2			-> 'number'.'*'.'number'
-Exp_ar2			-> 'number'.'-'.'number'
-Exp_ar2			-> 'number'.'/'.'number'
-Exp_ar2			-> Exp_ar3
-Exp_ar3			-> 'number'
-Exp_ar3			-> 'var'
+Exp_ar 			-> T.'+'.Exp_ar
+Exp_ar 			-> T.'-'.Exp_ar
+Exp_ar			-> T
+T				-> F.'*'.T
+T				-> F.'/'.T
+T				-> F
+F				-> 'number'
+F				-> '('.Exp_ar.')'
+}

@@ -12,7 +12,6 @@ rule token = parse
   
   | "function" {print_endline "FUNCTION" ; FUNCTION}
   | "draw" {print_endline "DRAW" ; DRAW}
-  | ":=" {print_endline "AFFECT" ; AFFECT}
   | "drawing" {print_endline "DRAWING" ; DRAWING}
   
   
