@@ -269,14 +269,14 @@ let create_new_qc n val_table=
 
 
 
-(*let rec set_var_with_operandes val_tbl var_name operandes value= 
+let rec set_var_with_operandes val_tbl origin_var operandes value= 
 	match operandes with
-		| [] -> (Hashtbl.find val_tbl var_name)
+		| [] -> ()
 		| a::b -> (match a with
-				| "x" -> let Point_wrap(f) = 
-				| "y" -> let Point_wrap(f) = get_var_with_operandes val_tbl var_name b in let fl = new valFloat in fl#set_value (f#get_y);Float_wrap(fl)
+				| "x" -> let Point_wrap(f) = origin_var in f#set_x value
+				| "y" -> let Point_wrap(f) = origin_var in f#set_y value
 				| _ -> print_endline ("Opération incorrecte sur "^var_name^" : "^a);exit 1)
-;;*)
+;;
 
 
 let affect operande val_tbl = (let Node(var_name_node) = operande.left in 

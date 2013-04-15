@@ -262,21 +262,21 @@ let create_new_qc n val_table=
 	let Node(n_type) = n.right in
 	match n_type.value with
 		| Point -> let p = declare_new_point n_type val_table in print_endline ("Creation du point : "^n_name^":("^(string_of_float (p#get_x))^","^(string_of_float (p#get_y))^")") ; (n_name,Point_wrap(p))
-		| Line -> let l = declare_new_parse_dot_op_wrap var_name_nodeline n_type val_table in print_endline ("Creation de la ligne : "^n_name^":("^(string_of_float ((l#get_p1)#get_x))^","^(string_of_float ((l#get_p1)#get_y))^") à ("^(string_of_float ((l#get_p2)#get_x))^","^(string_of_float ((l#get_p2)#get_y))^")") ; (n_name,Line_wrap(l))
+		| Line -> let l = declare_new_line n_type val_table in (*print_endline ("Creation de la ligne : "^n_name^":("^(string_of_float ((l#get_p1)#get_x))^","^(string_of_float ((l#get_p1)#get_y))^") à ("^(string_of_float ((l#get_p2)#get_x))^","^(string_of_float ((l#get_p2)#get_y))^")") ;*) (n_name,Line_wrap(l))
 		| Float -> let f = declare_new_float n_type val_table in print_endline ("Creation du float : "^n_name^" = "^(string_of_float (f#get_value)));(n_name, Float_wrap(f))
 ;;
 
 
 
 
-(*let rec set_var_with_operandes val_tbl var_name operandes value= 
+let rec set_var_with_operandes val_tbl origin_var operandes value= 
 	match operandes with
-		| [] -> (Hashtbl.find val_tbl var_name)
+		| [] -> ()
 		| a::b -> (match a with
-				| "x" -> let Point_wrap(f) = 
+				| "x" -> let Point_wrap(f) = origin_var in f#set_x value
 				| "y" -> let Point_wrap(f) = get_var_with_operandes val_tbl var_name b in let fl = new valFloat in fl#set_value (f#get_y);Float_wrap(fl)
 				| _ -> print_endline ("Opération incorrecte sur "^var_name^" : "^a);exit 1)
-;;*)
+;;
 
 
 let affect operande val_tbl = (let Node(var_name_node) = operande.left in 
