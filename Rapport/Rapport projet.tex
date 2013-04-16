@@ -223,28 +223,28 @@ draw ma_Variable;
 \end{lstlisting}
 \end{minipage}
 
-  \item[Une conditionnelle]: il s'agit d'un test sur une ou plusieurs conditions qui influe sur la suite de l'exécution. Cette instruction est de la forme "if(-conditions-)\{\}else\{\}". Si la condition est vérifiée, alors le bloc correspondant au if est exécuté, celui correspondant au else sinon.
 
-\begin{minipage}{\linewidth}
-\begin{lstlisting}[caption=Conditionnelle, language=C]
-if( -condition- ){
-	- instructions-
-}
-else{
-	-instructions
-}
-\end{lstlisting}
-\end{minipage}
 
-  \item[Une boucle]: il s'agit d'une boucle sur condition. L'instruction est de la forme "while(-conditions-)\{\}". Le bloc entre crochets est répété jusqu'à ce que la condition soit invalidée.
+
+ \item[Une boucle]: il s'agit d'une boucle itérative. L'instruction est de la forme "For(var=start,end)\{\}". Le bloc entre crochets est répété tant que le compteur n'a pas atteint la valeur "end" (il est à noter que ce compteur, bien que pouvant être utilisé dans le corps de la boucle, doit être déclaré avant la boucle, et que toute modification l'affectant n'influera pas sur le nombre d'étapes de la boucle).
 
 \begin{minipage}{\linewidth}
 \begin{lstlisting}[caption=Boucle, language=C]
-while( -condition- ){
-	-instructions-
-}
+Float i(0);
+For(i=start,end) {
+	- instructions-
+};
 \end{lstlisting}
 \end{minipage}
+ % \item[Une boucle]: il s'agit d'une boucle sur condition. L'instruction est de la forme "while(-conditions-)\{\}". Le bloc entre crochets est répété jusqu'à ce que la condition soit invalidée.
+
+%\begin{minipage}{\linewidth}
+%\begin{lstlisting}[caption=Boucle, language=C]
+%while( -condition- ){
+%	-instructions-
+%}
+%\end{lstlisting}
+%\end{minipage}
 
   \item[Les fonctions et procédures]: il s'agit d'un appel a une fonction ou une procédure. L'instruction est de la forme "nomDeLaFonction (-paramètres-)". Pour les fonctions, il est possible de récupérer une valeur de retour.
 
@@ -254,14 +254,39 @@ ma_fonction (-param-);
 \end{lstlisting}
 \end{minipage}
 
-
 \end{description}
 
+Quelques instructions n'ont pas encore été implémentées. Voici comment nous aurions procédé le cas échéant : 
+
+\begin{description}
+  \item[Une conditionnelle]: il s'agit d'un test sur une ou plusieurs conditions qui influe sur la suite de l'exécution. Cette instruction est de la forme "if(-conditions-)\{\}else\{\}". Si la condition est vérifiée, alors le bloc correspondant au if est exécuté, celui correspondant au else sinon.
+
+\begin{minipage}{\linewidth}
+\begin{lstlisting}[caption=Conditionnelle, language=C]
+if( -condition- ){
+	- instructions-
+}
+else{
+	-instructions-
+}
+\end{lstlisting}
+
+Son implémentation nécessite deux choses : 
+\begin{itemize}
+\item L'ajout des booléens, et de leurs opérateurs logiques. Cette étape est des plus bénigne, tant ce modèle est proche de celui des expressions arithmétiques.
+\item L'ajout de la conditionnelle : il eu fallu ajouter les tokens, les règles de parsage, et enfin une action utilisant le if de caml et nos booléens (fonction execute\_action\_before)
+\end{itemize}
+
+
+\end{minipage}
+
+\end{description}
+Seuls le manque flagrant de temps et la proximité des examens nous ont empêchés de les implémenter.
 
 \subsection{Les types}
 Plusieurs types ont été définis à l'origine:
 \begin{description}
-\item[Number]: Il s'agit d'un nombre. Son interprétation interne sera le flottant.
+\item[Float]: Il s'agit d'un nombre. Son interprétation interne sera le flottant.
 \item[Point]: Un Point est défini par deux Number correspondant à l'abscisse et l'ordonnée. Sa représentation en SVG est inexistante.
 \item[Line]: Une Line est définie par deux points correspondant au début et à la fin de la Line. Sa représentation en SVG est une ligne.
 \item[Rectangle]: Un Rectangle est défini par un Point et deux Number, correspondant respectivement à une des extrémité de la forme, à la longueur et la largeur. Sa représentation en SVG est le rectangle.
@@ -326,7 +351,7 @@ De même, nous ignorons tout caractère de type espace, tabulation ou retour cha
 
 Un nom de variable est composé d'une lettre puis éventuellement d'une liste de lettre et nombre, quelle que soit la casse.
 
-Un nombre correspond à un flottant de la forme X ou X.X ou X est un entier.
+Un nombre correspond à un flottant de la forme X ou X.X où X est un entier.
 
 Les tokens étant crées, il faut maintenant analyser leur syntaxe.
 
@@ -369,7 +394,7 @@ type t_arbreB = Empty | Node of node
         and node = { value: operation; left: t_arbreB; right: t_arbreB };;
 \end{lstlisting}
 
-Voici une représentation visuel de l'arbre,  n{\oe}ud par  n{\oe}ud. Un n{\oe}ud de couleur verte signifie qu'il s'agit de la tête de son arbre. Un n{\oe}ud de couleur rouge représente un n{\oe}ud non final, à relier à un n{\oe}ud vert.
+Voici une représentation visuelle de l'arbre,  n{\oe}ud par  n{\oe}ud. Un n{\oe}ud de couleur verte signifie qu'il s'agit de la tête de son arbre. Un n{\oe}ud de couleur rouge représente un n{\oe}ud non final, à relier à un n{\oe}ud vert.
 
 \begin{figure}[h]
     \centering
