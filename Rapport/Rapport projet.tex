@@ -308,8 +308,8 @@ Voici la grammaire associée à SVGgenerator.
 \begin{lstlisting}[caption=Grammaire associée a SVGgenerator, language=C]
 Grammaire SVGgenerator{S,Vt,Vn,R}
 
-Vt = { 'drawing'; '['; ']'; 'x'; '{'; '}'; 'Point'; '('; ','; ')'; ';'; 'Line'; 'draw'; 'var'; 'number'; 'eof'; '+'; '-'; '/'; '*'}
-Vn = {S; Bloc{; Instructions; Instr; Declaration; Draw; Function; Param; Exp_ar; Var; T; F}
+Vt = { 'drawing'; '['; ']'; 'x'; '{'; '}'; 'Point'; '('; ','; ')'; ';'; 'Line'; 'draw'; 'var'; 'number'; 'eof'; '+'; '-'; '/'; '*'; '.';'='; 'Rect'}
+Vn = {S; Bloc{; Instructions; Instr; Declaration; Draw; Function; Param; Exp_ar; Var; T; F; Affectation; Subvar}
 
 R{
 S				-> Function.Drawing.'eof'
@@ -328,7 +328,12 @@ Instr			-> Draw
 Instr			-> Fun
 Declaration		-> 'Point'.'var'.'('.Exp_ar.','.Exp_ar.')'.';'
 Declaration		-> 'Line'.'var'.'('.'var'.','.'var'.')'.';'
+Declaration		-> 'Float'.'var'.'('.'Exp_ar'.')'.';'
+Declaration		-> 'Rect'.'var'.'('.'var'.','.'Exp_ar'.','.Exp_ar.')'.';'
 Draw			-> 'draw'.'var'.';'
+Affectation		-> Subvar.'='.Exp_ar.';'
+Affectation		-> Subvar.'='.Subvar.';'
+For				-> 'for'.'('.'var'.'='.Exp_ar.','.Exp_ar.')'.Bloc{
 Fun 			-> 'var'.'('.Var.')'.';'
 Fun 			-> 'var'.'('.Exp_ar.')'.';'
 Var				-> 'var'.','.Var
@@ -341,6 +346,8 @@ T				-> F.'/'.T
 T				-> F
 F				-> 'number'
 F				-> '('.Exp_ar.')'
+Subvar			-> Subvar.'.'.'var'
+Subvar			-> 'var'
 }
 \end{lstlisting}
 
@@ -377,6 +384,7 @@ type operation =
   | Point
   | Float
   | Line
+  | Rect
   | Instruction
   | Comma
   | Draw
@@ -385,6 +393,7 @@ type operation =
   | Mult
   | Div
   | For
+  | Dot
   | Affectation
   | Arithm_expr
   | Var of (string)
