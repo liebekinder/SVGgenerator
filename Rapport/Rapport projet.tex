@@ -276,9 +276,9 @@ Son implémentation nécessite deux choses :
 \item L'ajout des booléens, et de leurs opérateurs logiques. Cette étape est des plus bénigne, tant ce modèle est proche de celui des expressions arithmétiques.
 \item L'ajout de la conditionnelle : il eu fallu ajouter les tokens, les règles de parsage, et enfin une action utilisant le if de caml et nos booléens (fonction execute\_action\_before)
 \end{itemize}
-
-
 \end{minipage}
+
+\item[Ajout de propriétés aux objets]: %TODO couleur,... pas géré, comment faire
 
 \end{description}
 Seuls le manque flagrant de temps et la proximité des examens nous ont empêchés de les implémenter.
@@ -451,6 +451,30 @@ Voici une représentation visuelle de l'arbre,  n{\oe}ud par  n{\oe}ud. Un n{\oe
 
 
 \chapter{Transformation de l'arbre binaire}
+
+\section{L'appel d'eval\_val}
+Cette fonction vérifie la syntaxe de l'arbre binaire donné en entrée. Par la même occasion, elle recopie le code de chaque procédure partout où elle est appelée.
+
+\section{L'appel d'execute\_the\_code}
+Cette fonction parse l'arbre tout en gérant les variables, leurs affectations, leurs déclarations, et effectue des action sur certains tokens bien particuliers. Ainsi un tolen "Draw" déclenchera un print\_endline. De même pour "Drawing". Quant à "For", il déclenche l'appel d'un for de caml qui exécute n fois le code présent dans le for, en mettant à jour la variable incrémentale.
+
+\section{Gestion des déclarations}
+\subsection{Déclaration de variables}
+\subsection{Déclaration de fonctions}
+
+
+
+\section{Gestion de l'accès aux propriétés des objets}%point.x
+\subsection{Affectaion}
+
+
+\section{Gestion de la recopie de code pour l'exécution des procédures}
+
+\section{Notion de visibilité pour les variables}
+
+
+
+
 
 
 \end{document}
