@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.3.31)  16 APR 2013 11:37
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2013.3.31)  16 APR 2013 11:58
 entering extended mode
 **F:/GitHub/SVGgenerator/Rapport/Rapport*projet.tex
 ("F:/GitHub/SVGgenerator/Rapport/Rapport projet.tex"
@@ -1057,23 +1057,29 @@ File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ("F:\GitHub\SVGgenerator\Rapport\Rapport projet.toc"
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10.95> on input line 2.
-)
-\tf@toc=\write4
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.178 \chapter
-              *{Introduction} [1
+l.32 ...}Principe d'actions}{17}{subsection.A.4.5}
+                                                   [1
 
-]
-<img/SVG_vs_BMP.png, id=117, 371.88937pt x 375.65344pt>
+])
+\tf@toc=\write4
+
+
+Package Fancyhdr Warning: \headheight is too small (12.0pt): 
+ Make it at least 13.59999pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
+
+[2] <img/SVG_vs_BMP.png, id=258, 371.88937pt x 375.65344pt>
 File: img/SVG_vs_BMP.png Graphic file (type png)
 
 <use img/SVG_vs_BMP.png>
 Package pdftex.def Info: img/SVG_vs_BMP.png used on input line 185.
 (pdftex.def)             Requested size: 260.32079pt x 262.9556pt.
- [2
+ [3
 
  <F:/GitHub/SVGgenerator/Rapport/img/SVG_vs_BMP.png>]
 Chapitre 1.
@@ -1114,7 +1120,7 @@ Overfull \hbox (3.0pt too wide) in paragraph at lines 212--217
 []$[]$ 
  []
 
-[3
+[4
 
 ]
 Overfull \hbox (6.0pt too wide) in paragraph at lines 221--221
@@ -1182,13 +1188,7 @@ Overfull \hbox (3.0pt too wide) in paragraph at lines 264--280
 []$[]$ 
  []
 
-
-Package Fancyhdr Warning: \headheight is too small (12.0pt): 
- Make it at least 13.59999pt.
- We now make it that large for the rest of the document.
- This may cause the page layout to be inconsistent, however.
-
-[4]
+[5]
 
 Package Listings Warning: Text dropped after begin of listing on input line 298
 .
@@ -1200,7 +1200,7 @@ File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `OMS/lmr/m/it' in size <9> not available
 (Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 300.
- [5]
+ [6]
 Overfull \hbox (6.0pt too wide) in paragraph at lines 308--308
 [][][][][][][] 
  []
@@ -1212,7 +1212,7 @@ Overfull \hbox (6.0pt too wide) in paragraph at lines 308--308
 
 LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <9> not available
 (Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 311.
-[6] ("F:\Program Files\MiKTeX 2.9\tex\latex\listings\lstlang1.sty"
+[7] ("F:\Program Files\MiKTeX 2.9\tex\latex\listings\lstlang1.sty"
 File: lstlang1.sty 2004/09/05 1.3 listings language file
 )
 ("F:\Program Files\MiKTeX 2.9\tex\latex\listings\lstlang2.sty"
@@ -1227,13 +1227,13 @@ Overfull \hbox (6.0pt too wide) in paragraph at lines 361--361
 [][][][][][][] 
  []
 
-[7] <img/root.jpg, id=258, 214.55156pt x 91.84312pt>
+[8] <img/root.jpg, id=398, 214.55156pt x 91.84312pt>
 File: img/root.jpg Graphic file (type jpg)
  <use img/root.jpg>
 Package pdftex.def Info: img/root.jpg used on input line 401.
 (pdftex.def)             Requested size: 214.55103pt x 91.84288pt.
 
-<img/functions.jpg, id=259, 202.50656pt x 299.61937pt>
+<img/functions.jpg, id=399, 202.50656pt x 299.61937pt>
 File: img/functions.jpg Graphic file (type jpg)
  <use img/functions.jpg>
 Package pdftex.def Info: img/functions.jpg used on input line 406.
@@ -1242,7 +1242,7 @@ Package pdftex.def Info: img/functions.jpg used on input line 406.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<img/drawing.jpg, id=260, 237.88875pt x 218.31563pt>
+<img/drawing.jpg, id=400, 237.88875pt x 218.31563pt>
 File: img/drawing.jpg Graphic file (type jpg)
  <use img/drawing.jpg>
 Package pdftex.def Info: img/drawing.jpg used on input line 411.
@@ -1251,7 +1251,7 @@ Package pdftex.def Info: img/drawing.jpg used on input line 411.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<img/parameters.jpg, id=261, 210.03468pt x 156.585pt>
+<img/parameters.jpg, id=401, 210.03468pt x 156.585pt>
 File: img/parameters.jpg Graphic file (type jpg)
  <use img/parameters.jpg>
 Package pdftex.def Info: img/parameters.jpg used on input line 416.
@@ -1260,7 +1260,7 @@ Package pdftex.def Info: img/parameters.jpg used on input line 416.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<img/instruction.jpg, id=262, 174.6525pt x 134.00063pt>
+<img/instruction.jpg, id=402, 174.6525pt x 134.00063pt>
 File: img/instruction.jpg Graphic file (type jpg)
 
 <use img/instruction.jpg>
@@ -1270,7 +1270,7 @@ Package pdftex.def Info: img/instruction.jpg used on input line 421.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<img/affectation.jpg, id=263, 157.33781pt x 119.69719pt>
+<img/affectation.jpg, id=403, 157.33781pt x 119.69719pt>
 File: img/affectation.jpg Graphic file (type jpg)
 
 <use img/affectation.jpg>
@@ -1280,7 +1280,7 @@ Package pdftex.def Info: img/affectation.jpg used on input line 426.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<img/declaration.jpg, id=264, 160.34906pt x 100.87688pt>
+<img/declaration.jpg, id=404, 160.34906pt x 100.87688pt>
 File: img/declaration.jpg Graphic file (type jpg)
 
 <use img/declaration.jpg>
@@ -1290,7 +1290,7 @@ Package pdftex.def Info: img/declaration.jpg used on input line 431.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<img/draw.jpg, id=265, 70.76437pt x 94.10156pt>
+<img/draw.jpg, id=405, 70.76437pt x 94.10156pt>
 File: img/draw.jpg Graphic file (type jpg)
  <use img/draw.jpg>
 Package pdftex.def Info: img/draw.jpg used on input line 436.
@@ -1299,7 +1299,7 @@ Package pdftex.def Info: img/draw.jpg used on input line 436.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<img/fonctionuse.jpg, id=266, 194.97844pt x 214.55156pt>
+<img/fonctionuse.jpg, id=406, 194.97844pt x 214.55156pt>
 File: img/fonctionuse.jpg Graphic file (type jpg)
 
 <use img/fonctionuse.jpg>
@@ -1309,7 +1309,7 @@ Package pdftex.def Info: img/fonctionuse.jpg used on input line 441.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<img/for.jpg, id=267, 243.15843pt x 150.5625pt>
+<img/for.jpg, id=407, 243.15843pt x 150.5625pt>
 File: img/for.jpg Graphic file (type jpg)
  <use img/for.jpg>
 Package pdftex.def Info: img/for.jpg used on input line 446.
@@ -1318,37 +1318,49 @@ Package pdftex.def Info: img/for.jpg used on input line 446.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[8 <F:/GitHub/SVGgenerator/Rapport/img/root.jpg>] [9 <F:/GitHub/SVGgenerator/Ra
-pport/img/functions.jpg> <F:/GitHub/SVGgenerator/Rapport/img/drawing.jpg>]
-[10 <F:/GitHub/SVGgenerator/Rapport/img/parameters.jpg> <F:/GitHub/SVGgenerator
+[9 <F:/GitHub/SVGgenerator/Rapport/img/root.jpg>] [10 <F:/GitHub/SVGgenerator/R
+apport/img/functions.jpg> <F:/GitHub/SVGgenerator/Rapport/img/drawing.jpg>]
+[11 <F:/GitHub/SVGgenerator/Rapport/img/parameters.jpg> <F:/GitHub/SVGgenerator
 /Rapport/img/instruction.jpg> <F:/GitHub/SVGgenerator/Rapport/img/affectation.j
-pg>] [11 <F:/GitHub/SVGgenerator/Rapport/img/declaration.jpg> <F:/GitHub/SVGgen
+pg>] [12 <F:/GitHub/SVGgenerator/Rapport/img/declaration.jpg> <F:/GitHub/SVGgen
 erator/Rapport/img/draw.jpg> <F:/GitHub/SVGgenerator/Rapport/img/fonctionuse.jp
-g>] [12 <F:/GitHub/SVGgenerator/Rapport/img/for.jpg>]
+g>] [13 <F:/GitHub/SVGgenerator/Rapport/img/for.jpg>]
 Chapitre 2.
-
-AED: lastpage setting LastPage
-[13
+[14
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 480.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 480.
+Chapitre 3.
+[15
+
+]
+Annexe A.
+
+AED: lastpage setting LastPage
+[16
+
+]
+Overfull \vbox (181.20831pt too high) has occurred while \output is active []
+
+
+[17]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 512.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 512.
  ("F:\GitHub\SVGgenerator\Rapport\Rapport projet.aux")
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 480.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 480.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 512.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 512.
 Package rerunfilecheck Info: File `Rapport*projet.out' has not changed.
 (rerunfilecheck)             Checksum: <no file>.
 
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 480.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 512.
  ) 
 Here is how much of TeX's memory you used:
- 12497 strings out of 493921
- 179023 string characters out of 3147276
+ 12555 strings out of 493921
+ 179853 string characters out of 3147276
  499920 words of memory out of 3000000
- 15359 multiletter control sequences out of 15000+200000
+ 15386 multiletter control sequences out of 15000+200000
  98707 words of font info for 82 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  44i,12n,65p,540b,1380s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1362,9 +1374,9 @@ lic/lm/lmr9.pfb><F:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmri9.pfb><F
 :/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmss12.pfb><F:/Program Files/M
 iKTeX 2.9/fonts/type1/public/lm/lmss17.pfb><F:/Program Files/MiKTeX 2.9/fonts/t
 ype1/public/lm/lmsy9.pfb>
-Output written on "Rapport projet.pdf" (14 pages, 572691 bytes).
+Output written on "Rapport projet.pdf" (18 pages, 596797 bytes).
 PDF statistics:
- 374 PDF objects out of 1000 (max. 8388607)
- 146 named destinations out of 1000 (max. 500000)
- 216 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 532 PDF objects out of 1000 (max. 8388607)
+ 177 named destinations out of 1000 (max. 500000)
+ 432 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -176,14 +176,14 @@ escapeinside={\%*}{*)} % if you want to add a comment within your code
 
 \addcontentsline{toc}{chapter}{Introduction}
 \chapter*{Introduction}
-Il nous a été demandé d'écrire un compilateur, en OCAML, d'un langage de notre cru vers du svg (format pour décrire des images vectorielles). Pour mener à bien cette tâche, nous nous reposerons sur les notions que nous avons vu en cours.
+Il nous a été demandé d'écrire un compilateur, en OCAML, d'un langage de notre cru vers du svg (format pour décrire des images vectorielles). Pour mener à bien cette tâche, nous nous reposerons sur les notions que nous avons vues en cours.
 
 Pour rappel, une image vectorielle est une image dont les éléments sont définis individuellement sous forme d'objet géométrique. Elle se différencie d'une image matricielle qui utilise des pixels. Son principal avantage est qu'elle peut être agrandie à l'infini sans perte de qualité contrairement à une image matricielle. Son inconvénient est que pour atteindre une qualité photo-réaliste, il faut beaucoup de ressource, l'image étant calculée à chaque affichage.
 
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.7]{img/SVG_vs_BMP.png}
-    \caption{\label{CG} SVG contre BMP. \href{http://fr.wikipedia.org}{fr.wikipedia.org}}
+    \caption{\label{CG} SVG contre Matriciel. \href{http://fr.wikipedia.org}{fr.wikipedia.org}}
 \end{figure}
 
 \chapter{Analyse lexicale et syntaxique de SVGgenerator}
@@ -472,9 +472,41 @@ Cette fonction parse l'arbre tout en gérant les variables, leurs affectations, 
 
 \section{Notion de visibilité pour les variables}
 
+\chapter{Le langage, spécificités, contraintes} %linkage, appel aux fonctions (pré calcul,...)
 
+\appendix
 
+\chapter{Journal des évolutions}
+\section{Lexer}
+\section{Parser : vers un arbre pour représenter le fichier}
+\section{Interlude : table S-R et inutilité}
 
+\section{De l'exploitation de l'arbre}
+\subsection{Lecture du drawing}%Powa : un fichier svg vide
+\subsection{Déclaration de procédures}
+\subsection{La déclaration de variables} %Caml objects, ....
+\subsection{De l'utilisation des procédures}%recopie,....
+\subsection{Principe d'actions} %exécution du code
+\subsection{Les 0.}
+
+\section{Le boulversement FOR}
+\subsection{L'idée du for}
+\subsection{Ajout des floats}
+\subsection{L'arrivée de la notion de visibilité}
+\subsection{Réunification du préparsage et de l'exécution}
+\subsection{La réalité du FOR}
+
+\section{La visiblité devient générale}
+
+\section{Interlude : liens entre objets}
+\section{Opérations sur les objets}
+\subsection{Récupération de la valeur}
+\subsection{Affectation d'une valeur}
+
+\section{L'ajout d'objets, simplicité}
+\subsection{Déclaration}
+\subsection{Opérations}
+\subsection{Dessin}
 
 
 \end{document}
