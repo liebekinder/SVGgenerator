@@ -208,16 +208,24 @@ Une instruction peut être de différents types:
 \begin{description}
 
   \item[Une déclaration de variable]: on créé une variable en indiquant son type, son nom et enfin les valeurs qui servent à la construire.
+
+\begin{minipage}{\linewidth}
 \begin{lstlisting}[caption=Déclaration de variable, language=C]
 Type ma_Variable( -param- );
 \end{lstlisting}
+\end{minipage}
 
   \item[Le dessin d'une variable]: pour les variables dont le type est adéquat, il s'agit de l'instruction qui déclenche l'affichage de ladite variable. La forme est "draw nomDeLaVariable".
+
+\begin{minipage}{\linewidth}
 \begin{lstlisting}[caption=Dessin d'une variable, language=C]
 draw ma_Variable;
 \end{lstlisting}
+\end{minipage}
 
   \item[Une conditionnelle]: il s'agit d'un test sur une ou plusieurs conditions qui influe sur la suite de l'exécution. Cette instruction est de la forme "if(-conditions-)\{\}else\{\}". Si la condition est vérifiée, alors le bloc correspondant au if est exécuté, celui correspondant au else sinon.
+
+\begin{minipage}{\linewidth}
 \begin{lstlisting}[caption=Conditionnelle, language=C]
 if( -condition- ){
 	- instructions-
@@ -226,18 +234,25 @@ else{
 	-instructions
 }
 \end{lstlisting}
+\end{minipage}
 
   \item[Une boucle]: il s'agit d'une boucle sur condition. L'instruction est de la forme "while(-conditions-)\{\}". Le bloc entre crochets est répété jusqu'à ce que la condition soit invalidée.
+
+\begin{minipage}{\linewidth}
 \begin{lstlisting}[caption=Boucle, language=C]
 while( -condition- ){
 	-instructions-
 }
 \end{lstlisting}
+\end{minipage}
 
   \item[Les fonctions et procédures]: il s'agit d'un appel a une fonction ou une procédure. L'instruction est de la forme "nomDeLaFonction (-paramètres-)". Pour les fonctions, il est possible de récupérer une valeur de retour.
+
+\begin{minipage}{\linewidth}
 \begin{lstlisting}[caption=Fonctions et procédures, language=C]
 ma_fonction (-param-);
 \end{lstlisting}
+\end{minipage}
 
 
 \end{description}
