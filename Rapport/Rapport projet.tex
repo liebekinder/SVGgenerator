@@ -462,6 +462,64 @@ Voici une représentation visuelle de l'arbre,  n{\oe}ud par  n{\oe}ud. Un n{\oe
 
 \chapter{Génération du code SVG}
 
+\section{Les types}
+
+Voici les définitions des différents types définis.
+
+\begin{lstlisting}[caption=type Float, language=caml]
+class valFloat =
+    object
+      val mutable value = 0.
+      method get_value = value
+      method set_value valp = value <- valp
+    end;;
+\end{lstlisting}
+
+\begin{lstlisting}[caption=type Point, language=caml]
+class point =
+    object
+      val mutable x = 0.
+      val mutable y = 0.
+      method get_y = y
+      method set_y yp = y <- yp
+      method get_x = x
+      method set_x xp = x <- xp
+    end;;;
+\end{lstlisting}
+
+\begin{lstlisting}[caption=type Line, language=caml]
+class line =
+    object
+      val mutable p1 = new point
+      val mutable p2 = new point
+      method get_p1 = p1
+      method set_p1 p1p = p1 <- p1p
+      method get_p2 = p2
+      method set_p2 p2p = p2 <- p2p
+    end;;
+\end{lstlisting}
+
+\begin{lstlisting}[caption=type Rect, language=caml]
+class rect =
+    object
+      val mutable o = new point
+      val mutable w = 0.
+      val mutable h = 0.
+      method get_o = o
+      method set_o p1p = o <- p1p
+      method get_w = w
+      method set_w p2p = w <- p2p
+      method get_h = h
+      method set_h p2p = h <- p2p
+    end;;
+\end{lstlisting}
+
+Chaque type est associé avec un wrapper pour plus de commodité:
+
+\begin{lstlisting}[caption=Wrapper, language=caml]
+type all_types = Point_wrap of point | Line_wrap of line | Float_wrap of valFloat | Rect_wrap of rect;;
+\end{lstlisting}
+
 \section{Les variables}
 
 \subsection{affectation}
