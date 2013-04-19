@@ -256,7 +256,8 @@ ma_fonction (-param-);
 
 \end{description}
 
-Quelques instructions n'ont pas encore été implémentées. Voici comment nous aurions procédé le cas échéant : 
+\subsubsection{Quelques instructions n'ont pas encore été implémentées}
+Voici comment nous aurions procédé le cas échéant : 
 
 \begin{description}
   \item[Une conditionnelle]: il s'agit d'un test sur une ou plusieurs conditions qui influe sur la suite de l'exécution. Cette instruction est de la forme "if(-conditions-)\{\}else\{\}". Si la condition est vérifiée, alors le bloc correspondant au if est exécuté, celui correspondant au else sinon.
@@ -278,7 +279,7 @@ Son implémentation nécessite deux choses :
 \end{itemize}
 \end{minipage}
 
-\item[Ajout de propriétés aux objets]: %TODO couleur,... pas géré, comment faire
+\item[Ajout de propriétés aux objets]: On pourrait ajouter de la couleur à l'objet, ou encore la taille du trait... pour ce faire, il suffit d'ajouter un attribut à l'objet Caml, définir ses getters et setters comme pour les attributs classique et ajouter le traitement de ces attributs dans la fonction de génération du code SVG.
 
 \end{description}
 Seuls le manque flagrant de temps et la proximité des examens nous ont empêchés de les implémenter.
