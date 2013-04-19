@@ -18,12 +18,12 @@
 \contentsline {section}{\numberline {2.3}les fonctions}{15}{section.2.3}
 \contentsline {chapter}{\numberline {3}Le langage, sp\IeC {\'e}cificit\IeC {\'e}s, contraintes}{16}{chapter.3}
 \contentsline {chapter}{\numberline {A}Journal des \IeC {\'e}volutions}{17}{appendix.A}
-\contentsline {section}{\numberline {A.1}Lexer}{18}{section.A.1}
-\contentsline {section}{\numberline {A.2}Parser : vers un arbre pour repr\IeC {\'e}senter le fichier}{18}{section.A.2}
-\contentsline {section}{\numberline {A.3}Interlude : table S-R et inutilit\IeC {\'e}}{18}{section.A.3}
-\contentsline {section}{\numberline {A.4}De l'exploitation de l'arbre}{18}{section.A.4}
-\contentsline {subsection}{\numberline {A.4.1}Lecture du drawing}{18}{subsection.A.4.1}
-\contentsline {subsection}{\numberline {A.4.2}D\IeC {\'e}claration de proc\IeC {\'e}dures}{18}{subsection.A.4.2}
+\contentsline {section}{\numberline {A.1}Lexer}{17}{section.A.1}
+\contentsline {section}{\numberline {A.2}Parser : vers un arbre pour repr\IeC {\'e}senter le fichier}{17}{section.A.2}
+\contentsline {section}{\numberline {A.3}Interlude : table S-R et inutilit\IeC {\'e}}{17}{section.A.3}
+\contentsline {section}{\numberline {A.4}De l'exploitation de l'arbre}{17}{section.A.4}
+\contentsline {subsection}{\numberline {A.4.1}Lecture du drawing}{17}{subsection.A.4.1}
+\contentsline {subsection}{\numberline {A.4.2}D\IeC {\'e}claration de proc\IeC {\'e}dures}{17}{subsection.A.4.2}
 \contentsline {subsection}{\numberline {A.4.3}La d\IeC {\'e}claration de variables}{18}{subsection.A.4.3}
 \contentsline {subsection}{\numberline {A.4.4}De l'utilisation des proc\IeC {\'e}dures}{18}{subsection.A.4.4}
 \contentsline {subsection}{\numberline {A.4.5}Principe d'actions}{18}{subsection.A.4.5}
@@ -32,14 +32,13 @@
 \contentsline {subsection}{\numberline {A.5.1}L'id\IeC {\'e}e du for}{18}{subsection.A.5.1}
 \contentsline {subsection}{\numberline {A.5.2}Ajout des floats}{18}{subsection.A.5.2}
 \contentsline {subsection}{\numberline {A.5.3}L'arriv\IeC {\'e}e de la notion de visibilit\IeC {\'e}}{18}{subsection.A.5.3}
-\contentsline {subsection}{\numberline {A.5.4}R\IeC {\'e}unification du pr\IeC {\'e}parsage et de l'ex\IeC {\'e}cution}{18}{subsection.A.5.4}
-\contentsline {subsection}{\numberline {A.5.5}La r\IeC {\'e}alit\IeC {\'e} du FOR}{18}{subsection.A.5.5}
-\contentsline {section}{\numberline {A.6}La visiblit\IeC {\'e} devient g\IeC {\'e}n\IeC {\'e}rale}{18}{section.A.6}
-\contentsline {section}{\numberline {A.7}Interlude : liens entre objets}{18}{section.A.7}
-\contentsline {section}{\numberline {A.8}Op\IeC {\'e}rations sur les objets}{18}{section.A.8}
-\contentsline {subsection}{\numberline {A.8.1}R\IeC {\'e}cup\IeC {\'e}ration de la valeur}{18}{subsection.A.8.1}
-\contentsline {subsection}{\numberline {A.8.2}Affectation d'une valeur}{18}{subsection.A.8.2}
-\contentsline {section}{\numberline {A.9}L'ajout d'objets, simplicit\IeC {\'e}}{18}{section.A.9}
-\contentsline {subsection}{\numberline {A.9.1}D\IeC {\'e}claration}{18}{subsection.A.9.1}
-\contentsline {subsection}{\numberline {A.9.2}Op\IeC {\'e}rations}{18}{subsection.A.9.2}
-\contentsline {subsection}{\numberline {A.9.3}Dessin}{18}{subsection.A.9.3}
+\contentsline {subsection}{\numberline {A.5.4}R\IeC {\'e}unification du pr\IeC {\'e}parsage et de l'ex\IeC {\'e}cution}{19}{subsection.A.5.4}
+\contentsline {subsection}{\numberline {A.5.5}La r\IeC {\'e}alit\IeC {\'e} du FOR}{19}{subsection.A.5.5}
+\contentsline {section}{\numberline {A.6}Interlude : liens entre objets}{19}{section.A.6}
+\contentsline {section}{\numberline {A.7}Op\IeC {\'e}rations sur les objets}{19}{section.A.7}
+\contentsline {subsection}{\numberline {A.7.1}R\IeC {\'e}cup\IeC {\'e}ration de la valeur}{19}{subsection.A.7.1}
+\contentsline {subsection}{\numberline {A.7.2}Affectation d'une valeur}{19}{subsection.A.7.2}
+\contentsline {section}{\numberline {A.8}L'ajout d'objets, simplicit\IeC {\'e}}{19}{section.A.8}
+\contentsline {subsection}{\numberline {A.8.1}D\IeC {\'e}claration}{19}{subsection.A.8.1}
+\contentsline {subsection}{\numberline {A.8.2}Op\IeC {\'e}rations}{19}{subsection.A.8.2}
+\contentsline {subsection}{\numberline {A.8.3}Dessin}{20}{subsection.A.8.3}
