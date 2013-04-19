@@ -459,27 +459,42 @@ Voici une représentation visuelle de l'arbre,  n{\oe}ud par  n{\oe}ud. Un n{\oe
 
 
 
-\chapter{Transformation de l'arbre binaire}
+\chapter{Génération du code SVG}
 
-\section{L'appel d'eval\_val}
-Cette fonction vérifie la syntaxe de l'arbre binaire donné en entrée. Par la même occasion, elle recopie le code de chaque procédure partout où elle est appelée.
+\section{Les variables}
 
-\section{L'appel d'execute\_the\_code}
-Cette fonction parse l'arbre tout en gérant les variables, leurs affectations, leurs déclarations, et effectue des action sur certains tokens bien particuliers. Ainsi un tolen "Draw" déclenchera un print\_endline. De même pour "Drawing". Quant à "For", il déclenche l'appel d'un for de caml qui exécute n fois le code présent dans le for, en mettant à jour la variable incrémentale.
+\subsection{affectation}
 
-\section{Gestion des déclarations}
-\subsection{Déclaration de variables}
-\subsection{Déclaration de fonctions}
+Pour être utilisée dans la suite du programme, une variable doit être déclarée. Dans notre cas, la déclaration s'accompagne aussi d'une affectation. Il est par conséquent impossible de crée une variable nulle. Les variables sont stockées au fur et à mesure de leur apparition dans une hash table, d'une taille arbitraire de 1000. La clé est donc le nom ce qui peut poser problème lors de l'utilisation des fonctions. Pour y remédier, lorsqu'on sort d'un domaine de visibilité (représentés par un bloc de  \{\}), les variables déclarées dans ce bloc sont supprimées. Ainsi, les variables déclarée dans le bloc général (drawing) sont globales par rapport aux fonctions. Si une fonction possède une variable du même nom, la variable de la fonction sera utilisée. La valeur associée à la clé est le type de la variable.
+Si une même variable est déclarée deux fois, le compilateur génère une erreur. 
+
+\subsection{réutilisation}
+
+Lors de l'appel à une variable, sa valeur est recherchée dans la table. Si la valeur est présente et le type adéquat à la situation, l'exécution se poursuit. Sinon, le compilateur génère une erreur. Pour les types primitifs, ici Float, la variable est remplacé par sa valeur.
+
+\subsection{les objets}
+
+En dehors du Float, chaque type de variable correspond à un objet (Rect, Point,...). Ces objets ont des attributs de type primitif ou objet. Il est possible d'atteindre ces attributs à l'aide du '.' (point). Voici ces attributs:
+\begin{description}
+\item[Point]: x et y de type Float.
+\item[Line]: p1 et p2 de type Point.
+\item[Rectangle]: o de type Point et w,h de type Float.
+\end{description}
+
+Ex :
+monPoint.x;
+
+L'affectation et la réutilisation des attributs est possible.
+
+\section{Les opérations arithmétiques}
+
+Cette section va être succincte, les opérations arithmétiques étant un cas d'étude fréquent. 
+
+Elles sont faisable partout excepté lors de l'appel à une fonction. En effet, la fonction effectue une vérification de type avant de s'exécuter, et le type d'une opération arithmétique n'est pas Float tant qu'on ne la pas résolue. C'est un problème à régler.
+
+\section{les fonctions}
 
 
-
-\section{Gestion de l'accès aux propriétés des objets}%point.x
-\subsection{Affectaion}
-
-
-\section{Gestion de la recopie de code pour l'exécution des procédures}
-
-\section{Notion de visibilité pour les variables}
 
 \chapter{Le langage, spécificités, contraintes} %linkage, appel aux fonctions (pré calcul,...)
 
