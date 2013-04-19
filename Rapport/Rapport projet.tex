@@ -503,35 +503,57 @@ Les fonctions sont définies avant le bloc drawing, afin que les noms soient dé
 
 \chapter{Journal des évolutions}
 \section{Lexer}
+La seconde étape, après avoir déterminé le langage, fut d'écrire le lexer. Rien de bien difficile. De base nous n'avons intégré que les tokens primordiaux.
 \section{Parser : vers un arbre pour représenter le fichier}
+Cette étape, bien qu'un peu plus complexe fut rapidement menée à bien. Il est à noter que lexer et parser continuèrent d'évoluer à chaque ajout de vocabulaire visant à enrichir le langage.
 \section{Interlude : table S-R et inutilité}
+A ce stade nous avons commencé à écrire la table shift-reduce correspondant à notre grammaire, avant de nous rendre compte de son inutilité à ce stade...
 
 \section{De l'exploitation de l'arbre}
 \subsection{Lecture du drawing}%Powa : un fichier svg vide
+Très tôt, un système "d'exécution de l'abre" fut écrit, ceci afin de pouvoir voir les résultats de notre dur labeur. La toute première action implémentée fut le "drawing", pour créer un fichier svg.
 \subsection{Déclaration de procédures}
+Vint ensuite la déclaration de procédures, avec un nombre non fixé de paramètres bien entendu. Très utile... enfin pas à ce moment,car déclarer une procédure ne la rend pas utilisable.
 \subsection{La déclaration de variables} %Caml objects, ....
+Dans la volée nous avons enchainé avec la déclaration des variables : à ce stade elles étaient toutes stockées dans une table globale, qui contenait leur valeur (Hashtbl (string,all\_types)).
 \subsection{De l'utilisation des procédures}%recopie,....
+Pour utiliser une procédure, deux étapes sont nécessaires :
+\begin{itemize}
+\item La première est de reconnaitre l'appel à une procédure. Il fallu donc identifier les tronçons d'arbres s'en occupant.
+\item La seconde est de recopier le code de la procédure aux endroits de ses appels, tout en renommant les variables correctement.
+\end{itemize}
 \subsection{Principe d'actions} %exécution du code
+Quelques actions firent leur apparition lors des étapes précédentes. La déclaration d'une variable et le draw en font partie. Nous pouvions alors utiliser des procédures basques pour dessiner les formes implémentées (lignes et points).
 \subsection{Les 0.}
+Un petit ennui du côté de la génération du svg nous apparut : tous les navigateurs internet, mis à part firefox, n'arrivaient pas à afficher les svg contenant des floats se terminant pas un '.'. Nous résolûmes donc ce problème.
 
 \section{Le boulversement FOR}
 \subsection{L'idée du for}
+En substance, le for, lors de l'exécution du code, consiste à répéter ce code un certain nombre de fois.
 \subsection{Ajout des floats}
+Pour pouvoir incrémenter le compteur du for, nous introduisîmes les floats. Sans, le for fonctionnait, mais on ne pouvait pas utiliser le compteur de boucle... pas très utile de recopier n fois là même forme.
 \subsection{L'arrivée de la notion de visibilité}
+A ce moment, nous avons décidé d'implémenter la notion de visibilité pour les blocs entre '\{' et '\}'. l'utilité ? Pouvoir déclarer en dehors d'un for une variable déjà déclarée dans le for. (à noter que celà ne fonctionne pas pour les procédure, enfin pas quand la déclaration se fait avant son appel : en effet, chaque procédure hérite des variables de drawing).
 \subsection{Réunification du préparsage et de l'exécution}
+Pour pouvoir mettre en place la notion de visibilité, les variables ne devaient plus êtres ajoutées lors d'une étape préliminaire à la table des variables, mais cette table devait se mettre à jour dynamiquement. Ainsi, le préparsage perdit son utilité.
 \subsection{La réalité du FOR}
-
-\section{La visiblité devient générale}
+Tout ceci mis en place, le for pu enfin être implémenté.
 
 \section{Interlude : liens entre objets}
+Quelques couacs subsistent sur les liens entres objets. En effet, une ligne utilisant un point ne se verra pas toujours changer quand ce point change.
 \section{Opérations sur les objets}
+Cette étape, assez prise de tête, consista en la mise ne place (parsing + interprétation) des "variables.opération". Ceux-ci étant récursifs (comme dans "ligne.p1.y").
 \subsection{Récupération de la valeur}
+La première étape fut de pouvoir récupérer les valeurs des sous-composants des objets, par exemple pour les réaffecter.
 \subsection{Affectation d'une valeur}
+En second vint la modification des sous-composants des objets (par exemple du premier point d'une ligne).
 
 \section{L'ajout d'objets, simplicité}
 \subsection{Déclaration}
+Il faut d'apport modifier lexer et parser pour pouvoir les lires. Ensuite, il est nécessaire d'ajouter notre objet à la fonction qui gère les déclarations et les ajouts à la table de variables.
 \subsection{Opérations}
+On peut si necessaire, ajouter des opérations sur nos objets. Il suffit de modifier les méthodes permettant de get et de set ces valeurs (prendre exemple sur les autres).
 \subsection{Dessin}
-
+Là, rien de plus simple : modifier l'action placée sur le draw pour écrire une ligne de svg utilisant notre objet.
 
 \end{document}
